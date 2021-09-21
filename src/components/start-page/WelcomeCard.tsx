@@ -7,10 +7,11 @@ import {
   makeStyles,
   createStyles,
 } from "@material-ui/core";
+import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import { DesktopModeSwitch } from "../common/ModeSwitchers/DesktopModeSwitch";
 import { MobileModeSwitch } from "../common/ModeSwitchers/MobileModeSwitch";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     rootCard: {
       textAlign: "center",
@@ -27,6 +28,10 @@ const useStyles = makeStyles(() =>
       left: "15px",
       top: "15px",
       fontWeight: 600,
+
+      [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+        top: "10px",
+      },
     },
     switchContainer: {
       position: "absolute",
