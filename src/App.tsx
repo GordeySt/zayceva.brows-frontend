@@ -1,26 +1,42 @@
 import { Box } from "@material-ui/core";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
+import {
+  createStyles,
+  createTheme,
+  makeStyles,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import { observer } from "mobx-react-lite";
 import { useStore } from "./common/stores/Store";
 import { StartPage } from "./pages/start-page/StartPage";
 import { useEffect } from "react";
 import { IUserThemeSettings } from "./common/stores/CommonStore";
 import { USER_THEME_SETTINGS } from "./common/constants/localStorageConstants";
+import { grey } from "@material-ui/core/colors";
+import React from "react";
+
+interface IStyleProps {
+  isDarkMode: boolean;
+}
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    boxContainer: ({ isDarkMode }: IStyleProps) => ({
+      backgroundColor: isDarkMode ? "#0e0e0e" : grey["100"],
+    }),
+  })
+);
 
 const App = observer(() => {
   const {
-    commonStore: { userThemeSettings, setUserThemeSettings },
+    commonStore: {
+      userThemeSettings: { isDarkMode },
+      setUserThemeSettings,
+      storeTheme,
+    },
   } = useStore();
 
-  const muiTheme = createTheme({
-    palette: {
-      type: userThemeSettings.isDarkMode ? "dark" : "light",
-      primary: {
-        main: userThemeSettings.isDarkMode ? blue["A100"] : blue["A400"],
-      },
-    },
-  });
+  const classes = useStyles({ isDarkMode });
+  const muiTheme = createTheme(storeTheme);
 
   useEffect(() => {
     const userThemeSettings: IUserThemeSettings = JSON.parse(
@@ -34,11 +50,7 @@ const App = observer(() => {
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Box
-        style={{
-          backgroundColor: userThemeSettings.isDarkMode ? "#0e0e0e" : "#f5f5f5",
-        }}
-      >
+      <Box className={classes.boxContainer}>
         <StartPage />
       </Box>
     </ThemeProvider>

@@ -1,3 +1,5 @@
+import { ThemeOptions } from "@material-ui/core";
+import { blue } from "@material-ui/core/colors";
 import { makeAutoObservable } from "mobx";
 import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
 
@@ -12,6 +14,17 @@ export default class CommonStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get storeTheme(): ThemeOptions {
+    return {
+      palette: {
+        type: this.userThemeSettings.isDarkMode ? "dark" : "light",
+        primary: {
+          main: this.userThemeSettings.isDarkMode ? blue["A100"] : blue["A400"],
+        },
+      },
+    };
   }
 
   setUserThemeSettings = (userThemeSettings: IUserThemeSettings) => {
