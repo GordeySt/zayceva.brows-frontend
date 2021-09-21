@@ -6,6 +6,7 @@ import { useStore } from "./common/stores/Store";
 import { StartPage } from "./pages/start-page/StartPage";
 import { useEffect } from "react";
 import { IUserThemeSettings } from "./common/stores/CommonStore";
+import { USER_THEME_SETTINGS } from "./common/constants/localStorageConstants";
 
 const App = observer(() => {
   const {
@@ -23,7 +24,7 @@ const App = observer(() => {
 
   useEffect(() => {
     const userThemeSettings: IUserThemeSettings = JSON.parse(
-      localStorage.getItem("userThemeSettings")!
+      localStorage.getItem(USER_THEME_SETTINGS)!
     );
 
     setUserThemeSettings(userThemeSettings);

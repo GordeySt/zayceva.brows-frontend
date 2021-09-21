@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
 
 export interface IUserThemeSettings {
   isDarkMode: boolean;
@@ -20,7 +21,7 @@ export default class CommonStore {
   handleSetIsDarkMode = () => {
     this.userThemeSettings.isDarkMode = !this.userThemeSettings.isDarkMode;
     localStorage.setItem(
-      "userThemeSettings",
+      USER_THEME_SETTINGS,
       JSON.stringify(this.userThemeSettings)
     );
   };
