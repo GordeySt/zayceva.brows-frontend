@@ -22,6 +22,16 @@ export const WelcomeCard = () => {
       }}
     >
       <CardContent>
+        <div
+          style={{
+            position: "absolute",
+            left: "15px",
+            top: "15px",
+            fontWeight: 600,
+          }}
+        >
+          zayceva.brows
+        </div>
         <ThemeModeSwitch />
         <Typography variant="h5" component="div">
           Лиза для своих
@@ -29,10 +39,10 @@ export const WelcomeCard = () => {
         <Typography>Выберите свою роль</Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" color="primary">
+        <Button style={{ width: "121px" }} variant="contained" color="primary">
           Клиент
         </Button>
-        <Button variant="contained" color="primary">
+        <Button style={{ width: "121px" }} variant="contained" color="primary">
           Модератор
         </Button>
       </CardActions>
