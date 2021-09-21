@@ -1,1 +1,1 @@
-﻿export const USER_THEME_SETTINGS = "userThemeSettings";
+export const USER_THEME_SETTINGS = "userThemeSettings";
