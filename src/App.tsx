@@ -27,7 +27,9 @@ const App = observer(() => {
       localStorage.getItem(USER_THEME_SETTINGS)!
     );
 
-    setUserThemeSettings(userThemeSettings);
+    if (userThemeSettings) {
+      setUserThemeSettings(userThemeSettings);
+    }
   }, [setUserThemeSettings]);
 
   return (
