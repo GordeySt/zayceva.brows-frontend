@@ -7,7 +7,8 @@ import {
   makeStyles,
   createStyles,
 } from "@material-ui/core";
-import { ThemeModeSwitch } from "../common/ThemeModeSwitch";
+import { DesktopModeSwitch } from "../common/ModeSwitchers/DesktopModeSwitch";
+import { MobileModeSwitch } from "../common/ModeSwitchers/MobileModeSwitch";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,6 +27,11 @@ const useStyles = makeStyles(() =>
       left: "15px",
       top: "15px",
       fontWeight: 600,
+    },
+    switchContainer: {
+      position: "absolute",
+      right: "5px",
+      top: "5px",
     },
     moto: {
       marginTop: "5px",
@@ -49,7 +55,10 @@ export const WelcomeCard = () => {
     <Card className={classes.rootCard}>
       <CardContent>
         <div className={classes.logo}>zayceva.brows</div>
-        <ThemeModeSwitch />
+        <Typography className={classes.switchContainer} component="div">
+          <DesktopModeSwitch />
+          <MobileModeSwitch />
+        </Typography>
         <Typography className={classes.moto} variant="h5" component="div">
           Лиза для своих
         </Typography>
