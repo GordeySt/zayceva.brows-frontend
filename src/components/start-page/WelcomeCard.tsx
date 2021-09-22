@@ -8,8 +8,8 @@ import {
   createStyles,
 } from "@material-ui/core";
 import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
-import { DesktopModeSwitch } from "../common/ModeSwitchers/DesktopModeSwitch";
-import { MobileModeSwitch } from "../common/ModeSwitchers/MobileModeSwitch";
+import { DesktopModeSwitch } from "../common/modeSwitchers/DesktopModeSwitch";
+import { MobileModeSwitch } from "../common/modeSwitchers/MobileModeSwitch";
 
 const useStyles = makeStyles((theme) =>
   createStyles({

@@ -1,1 +1,1 @@
-﻿export const MAX_TABLET_WIDTH = 1025;
+export const MAX_TABLET_WIDTH = 1025;
