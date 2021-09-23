@@ -7,14 +7,14 @@ import {
 } from "@material-ui/core/styles";
 import { observer } from "mobx-react-lite";
 import { useStore } from "./common/stores/Store";
-import { StartPage } from "./pages/start-page/StartPage";
 import { useEffect } from "react";
 import { IUserThemeSettings } from "./common/stores/CommonStore";
 import { USER_THEME_SETTINGS } from "./common/constants/localStorageConstants";
 import { grey } from "@material-ui/core/colors";
 import React from "react";
+import { LoginPage } from "./pages/login-page/LoginPage";
 
-interface IStyleProps {
+export interface IStyleProps {
   isDarkMode: boolean;
 }
 
@@ -51,7 +51,7 @@ const App = observer(() => {
   return (
     <ThemeProvider theme={muiTheme}>
       <Box className={classes.boxContainer}>
-        <StartPage />
+        <LoginPage />
       </Box>
     </ThemeProvider>
   );
