@@ -1,42 +1,34 @@
 import { Button, Card, Grid, TextField, Typography } from "@material-ui/core";
-import { createStyles, makeStyles } from "@material-ui/styles";
+import { alpha, Theme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
-import { IStyleProps } from "../../App";
-import { useStore } from "../../common/stores/Store";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    rootCard: {
-      width: "460px",
-      padding: "20px",
-    },
-    cardTitle: {
-      fontSize: "28px",
-      fontWeight: 500,
-      fontFamily: "Roboto",
-    },
-    gridItem: {
-      paddingTop: "13px",
-    },
-    inputLabel: ({ isDarkMode }: IStyleProps) => ({
-      color: isDarkMode ? "rgba(233, 233, 233, 0.54)" : "rgb(0, 0, 0, 0.54)",
-      fontSize: "16px",
-      marginBottom: "8px",
-    }),
-    submitButton: {
-      padding: "8px 0 8px 0",
-      fontWeight: 500,
-    },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  rootCard: {
+    width: "460px",
+    padding: "20px",
+  },
+  cardTitle: {
+    fontSize: "28px",
+    fontWeight: 500,
+    fontFamily: "Roboto",
+  },
+  gridItem: {
+    paddingTop: "13px",
+  },
+  inputLabel: {
+    color: alpha(theme.palette.text.primary, 0.54),
+    fontSize: "16px",
+    marginBottom: "8px",
+  },
+  submitButton: {
+    padding: "8px 0 8px 0",
+    fontWeight: 500,
+  },
+}));
 
 export const UserLoginForm = observer(() => {
-  const {
-    commonStore: {
-      userThemeSettings: { isDarkMode },
-    },
-  } = useStore();
-  const classes = useStyles({ isDarkMode });
+  const classes = useStyles();
 
   const handleLoginSubmit = (e: any) => {
     e.preventDefault();

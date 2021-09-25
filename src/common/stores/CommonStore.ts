@@ -1,4 +1,5 @@
-import { ThemeOptions } from "@material-ui/core";
+import { ThemeOptions } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { makeAutoObservable } from "mobx";
 import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
 
@@ -19,6 +20,12 @@ export default class CommonStore {
     return {
       palette: {
         mode: this.userThemeSettings.isDarkMode ? "dark" : "light",
+        text: {
+          primary: this.userThemeSettings.isDarkMode ? "#fff" : "#000",
+        },
+        background: {
+          default: this.userThemeSettings.isDarkMode ? "#0e0e0e" : grey["100"],
+        },
       },
     };
   }

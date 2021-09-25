@@ -10,8 +10,10 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
+import { alpha } from "@mui/material";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 
 const drawerWidth = 240;
 
@@ -63,70 +65,74 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 interface IStyleProps {
-  isDarkMode: boolean;
   open: boolean;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
+  drawer: {
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      display: "none",
+    },
+  },
   drawerHeader: {
     position: "absolute",
     left: 20,
   },
   menuList: {
-    color: "rgba(233,233,233,0.54)",
+    color: alpha(theme.palette.text.primary, 0.54),
   },
-  menuListItem: ({ open, isDarkMode }: IStyleProps) => ({
-    color: isDarkMode ? "rgba(233, 233, 233, 0.54)" : "rgba(0, 0, 0, 0.54)",
+  menuListItem: ({ open }: IStyleProps) => ({
+    color: alpha(theme.palette.text.primary, 0.54),
     marginLeft: "5px",
     width: open ? "96%" : "85%",
     paddingLeft: "13px",
     borderRadius: "5px",
     "&:nth-child(1)": {
-      background: isDarkMode
-        ? "rgba(233, 233, 233, 0.1)"
-        : "rgba(233, 233, 233, 0.8)",
+      background: alpha(theme.palette.text.primary, 0.1),
       marginBottom: "20px",
       marginTop: "5px",
-      color: isDarkMode ? "white" : "black",
+      color: theme.palette.text.primary,
       "&:hover": {
-        background: isDarkMode ? "rgba(233, 233, 233, 0.2)" : "rgba(0,0,0,0.1)",
+        background: alpha(theme.palette.text.primary, 0.2),
       },
     },
     "&:nth-child(n+2)": {
       "&:hover": {
         background: "transparent",
-        color: isDarkMode ? "white" : "black",
+        color: theme.palette.text.primary,
       },
     },
   }),
   menuListItemIcon: {
     marginRight: "-13px",
   },
+  helpItem: {
+    color: alpha(theme.palette.text.primary, 0.54),
+    cursor: "pointer",
+  },
+  helpIcon: {
+    color: alpha(theme.palette.text.primary, 0.54),
+  },
   divider: {
     width: "90%",
     margin: "0 auto",
   },
-});
+}));
 
 interface IProps {
   open: boolean;
-  isDarkMode: boolean;
   handleDrawerClose: () => void;
 }
 
-export const SidebarDrawer = ({
-  open,
-  isDarkMode,
-  handleDrawerClose,
-}: IProps) => {
-  const classes = useStyles({ isDarkMode, open });
+export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
+  const classes = useStyles({ open });
 
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer className={classes.drawer} variant="permanent" open={open}>
       <DrawerHeader style={{ minHeight: "55px" }}>
         <Typography className={classes.drawerHeader}>zayceva.brows</Typography>
         <IconButton onClick={handleDrawerClose}>
-          <KeyboardArrowLeft htmlColor={isDarkMode ? "white" : "black"} />
+          <KeyboardArrowLeft />
         </IconButton>
       </DrawerHeader>
       <Divider />
@@ -147,19 +153,9 @@ export const SidebarDrawer = ({
       <Divider className={classes.divider} />
       <List style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <Divider className={classes.divider} />
-        <ListItem
-          style={{
-            color: isDarkMode ? "rgba(233,233,233,0.54)" : "rgba(0,0,0,0.54)",
-            cursor: "pointer",
-          }}
-        >
+        <ListItem className={classes.helpItem}>
           <ListItemIcon className={classes.menuListItemIcon}>
-            <HelpOutline
-              fontSize="medium"
-              htmlColor={
-                isDarkMode ? "rgba(233,233,233,0.54)" : "rgba(0,0,0,0.54)"
-              }
-            />
+            <HelpOutline fontSize="medium" className={classes.helpIcon} />
           </ListItemIcon>
           <ListItemText primary="Обо мне" />
         </ListItem>

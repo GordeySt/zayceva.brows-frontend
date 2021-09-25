@@ -6,10 +6,9 @@ import {
   IconButton,
   AppBarProps as MuiAppBarProps,
 } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/styles";
-import { IStyleProps } from "../../../App";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Theme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const drawerWidth = 240;
 
@@ -35,14 +34,14 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const useStyles = makeStyles(() => ({
-  appBar: ({ isDarkMode }: IStyleProps) => ({
+const useStyles = makeStyles((theme: Theme) => ({
+  appBar: {
     height: "55px",
     display: "flex",
     justifyContent: "center",
-    backgroundColor: isDarkMode ? "#050505" : grey["100"],
-    color: isDarkMode ? "white" : "#0e0e0e",
-  }),
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary,
+  },
   toolbar: {
     paddingLeft: "18px",
   },
@@ -52,13 +51,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface IProps {
-  isDarkMode: boolean;
   open: boolean;
   handleDrawerOpen: () => void;
 }
 
-export const AppTopBar = ({ isDarkMode, open, handleDrawerOpen }: IProps) => {
-  const classes = useStyles({ isDarkMode });
+export const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
+  const classes = useStyles();
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
