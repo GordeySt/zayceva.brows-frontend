@@ -19,12 +19,6 @@ export default class CommonStore {
     return {
       palette: {
         mode: this.userThemeSettings.isDarkMode ? "dark" : "light",
-        // primary: {
-        //   main: this.userThemeSettings.isDarkMode ? blue["A100"] : blue["A400"],
-        // },
-        // background: {
-        //   paper: this.userThemeSettings.isDarkMode ? grey["900"] : grey["50"],
-        // },
       },
     };
   }
