@@ -105,7 +105,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: "-13px",
   },
   menuIcon: ({ open }: IStyleProps) => ({
-    color: open ? theme.palette.primary.main : "",
+    color: open
+      ? theme.palette.primary.main
+      : alpha(theme.palette.text.primary, 0.7),
   }),
   helpItem: {
     color: alpha(theme.palette.text.primary, 0.54),
