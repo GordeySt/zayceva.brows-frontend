@@ -5,6 +5,7 @@ import { DrawerHeader, SidebarDrawer } from "./navigation/SidebarDrawer";
 import { LoginPage } from "../../pages/login-page/LoginPage";
 import { DesktopModeSwitch } from "./modeSwitchers/DesktopModeSwitch";
 import { useState } from "react";
+import { AppBottomBar } from "./navigation/AppBottomBar";
 
 export default function AppLayout() {
   const [open, setOpen] = useState(true);
@@ -22,10 +23,11 @@ export default function AppLayout() {
       <CssBaseline />
       <AppTopBar open={open} handleDrawerOpen={handleDrawerOpen} />
       <SidebarDrawer open={open} handleDrawerClose={handleDrawerClose} />
+      <AppBottomBar />
       <Box component="div" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <LoginPage />
         <DesktopModeSwitch />
+        <LoginPage />
       </Box>
     </Box>
   );
