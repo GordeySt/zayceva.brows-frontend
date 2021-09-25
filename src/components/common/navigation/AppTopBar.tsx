@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@mui/styles";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 
 const drawerWidth = 240;
 
@@ -41,9 +42,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     backgroundColor: theme.palette.background.default,
     color: theme.palette.text.primary,
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      width: "100%",
+    },
   },
   toolbar: {
     paddingLeft: "18px",
+  },
+  menuIcon: {
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      display: "none",
+    },
   },
   appBarTitle: {
     fontFamily: "serif",
@@ -62,6 +71,7 @@ export const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
     <AppBar className={classes.appBar} position="fixed" open={open}>
       <Toolbar className={classes.toolbar}>
         <IconButton
+          className={classes.menuIcon}
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}

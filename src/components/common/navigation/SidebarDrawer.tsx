@@ -62,6 +62,9 @@ const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
+  [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+    display: "none",
+  },
 }));
 
 interface IStyleProps {
@@ -69,11 +72,6 @@ interface IStyleProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  drawer: {
-    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
-      display: "none",
-    },
-  },
   drawerHeader: {
     position: "absolute",
     left: 20,
@@ -131,7 +129,7 @@ export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const classes = useStyles({ open });
 
   return (
-    <Drawer className={classes.drawer} variant="permanent" open={open}>
+    <Drawer variant="permanent" open={open}>
       <DrawerHeader style={{ minHeight: "55px" }}>
         <Typography className={classes.drawerHeader}>zayceva.brows</Typography>
         <IconButton onClick={handleDrawerClose}>
