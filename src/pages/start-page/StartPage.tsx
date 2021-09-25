@@ -1,5 +1,5 @@
-import { Container } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import { Container } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { WelcomeCard } from "../../components/start-page/WelcomeCard";
 
 const useStyles = makeStyles({

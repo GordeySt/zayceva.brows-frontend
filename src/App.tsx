@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStore } from "./common/stores/Store";
 import { useEffect } from "react";

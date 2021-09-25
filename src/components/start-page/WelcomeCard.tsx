@@ -5,8 +5,8 @@ import {
   CardActions,
   Button,
   Theme,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import { DesktopModeSwitch } from "../common/modeSwitchers/DesktopModeSwitch";
 

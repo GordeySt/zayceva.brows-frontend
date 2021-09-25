@@ -1,13 +1,13 @@
-import { styled } from "@material-ui/core/styles";
-import MuiAppBar from "@material-ui/core/AppBar";
+import { styled } from "@mui/material/styles";
+import MuiAppBar from "@mui/material/AppBar";
 import {
   Toolbar,
   Typography,
   IconButton,
+  Theme,
   AppBarProps as MuiAppBarProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const drawerWidth = 240;

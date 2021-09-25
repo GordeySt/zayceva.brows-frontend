@@ -1,5 +1,5 @@
-import { styled, Theme, CSSObject } from "@material-ui/core/styles";
-import MuiDrawer from "@material-ui/core/Drawer";
+import { styled, Theme, CSSObject } from "@mui/material/styles";
+import MuiDrawer from "@mui/material/Drawer";
 import {
   List,
   Divider,
@@ -8,7 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-} from "@material-ui/core";
+} from "@mui/material";
 import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
 import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";

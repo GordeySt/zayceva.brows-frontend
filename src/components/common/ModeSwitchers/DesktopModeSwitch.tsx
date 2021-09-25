@@ -1,7 +1,7 @@
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import makeStyles from "@material-ui/styles/makeStyles";
+import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";
 

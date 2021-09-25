@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container } from "@mui/material";
 import { UserLoginForm } from "../../components/login-page/UserLoginForm";
 
 export const LoginPage = () => {

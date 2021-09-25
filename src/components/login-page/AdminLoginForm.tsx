@@ -6,7 +6,7 @@ import {
   InputAdornment,
   OutlinedInput,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { observer } from "mobx-react-lite";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
