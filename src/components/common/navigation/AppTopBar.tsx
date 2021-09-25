@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import {
   Toolbar,
@@ -6,10 +6,12 @@ import {
   IconButton,
   Theme,
   AppBarProps as MuiAppBarProps,
+  Box,
 } from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
+import { PermIdentity } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -47,7 +49,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   toolbar: {
-    paddingLeft: "18px",
+    display: "flex",
+    justifyContent: "space-between",
   },
   menuIcon: {
     [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
@@ -56,6 +59,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   appBarTitle: {
     fontFamily: "serif",
+  },
+  appBarMenuItems: {
+    display: "flex",
+    [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {
+      display: "none",
+    },
+  },
+  accountIcon: {
+    color: alpha(theme.palette.text.primary, 0.7),
   },
 }));
 
@@ -70,28 +82,34 @@ export const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
       <Toolbar className={classes.toolbar}>
-        <IconButton
-          className={classes.menuIcon}
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          style={{
-            marginRight: "36px",
-            ...(open && { display: "none" }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        <Typography
-          className={classes.appBarTitle}
-          variant="h6"
-          noWrap
-          component="div"
-        >
-          Авторизация
-        </Typography>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            className={classes.menuIcon}
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            style={{
+              marginRight: "36px",
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            className={classes.appBarTitle}
+            variant="h6"
+            noWrap
+            component="div"
+          >
+            Авторизация
+          </Typography>
+        </div>
+        <Box className={classes.appBarMenuItems}>
+          <IconButton size="large" aria-label="show 17 new notifications">
+            <PermIdentity className={classes.accountIcon} />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
