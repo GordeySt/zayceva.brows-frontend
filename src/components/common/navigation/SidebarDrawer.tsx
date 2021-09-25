@@ -106,6 +106,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   menuListItemIcon: {
     marginRight: "-13px",
   },
+  menuIcon: ({ open }: IStyleProps) => ({
+    color: open ? theme.palette.primary.main : "",
+  }),
   helpItem: {
     color: alpha(theme.palette.text.primary, 0.54),
     cursor: "pointer",
@@ -143,7 +146,7 @@ export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
           return (
             <ListItem button className={classes.menuListItem}>
               <ListItemIcon className={classes.menuListItemIcon}>
-                <Icon fontSize="medium" color={open ? "primary" : "inherit"} />
+                <Icon className={classes.menuIcon} fontSize="medium" />
               </ListItemIcon>
               <ListItemText primary={label} />
             </ListItem>

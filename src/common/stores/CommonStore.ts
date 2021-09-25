@@ -1,5 +1,5 @@
 import { ThemeOptions } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { grey, blue } from "@mui/material/colors";
 import { makeAutoObservable } from "mobx";
 import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
 
@@ -25,6 +25,9 @@ export default class CommonStore {
         },
         background: {
           default: this.userThemeSettings.isDarkMode ? "#0e0e0e" : grey["100"],
+        },
+        primary: {
+          main: this.userThemeSettings.isDarkMode ? blue["A100"] : blue["A400"],
         },
       },
     };
