@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { IUserThemeSettings } from "./common/stores/CommonStore";
 import { USER_THEME_SETTINGS } from "./common/constants/localStorageConstants";
 import React from "react";
-import MiniDrawer from "./components/MiniDrawer";
+import AppLayout from "./components/common/AppLayout";
 
 export interface IStyleProps {
   isDarkMode: boolean;
@@ -30,7 +30,7 @@ const App = observer(() => {
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <MiniDrawer />
+      <AppLayout />
     </ThemeProvider>
   );
 });
