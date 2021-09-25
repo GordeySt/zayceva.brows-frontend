@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
     height: "55px",
     display: "flex",
     justifyContent: "center",
-    backgroundColor: isDarkMode ? "#2b2a2a" : grey["100"],
+    backgroundColor: isDarkMode ? "#050505" : grey["100"],
     color: isDarkMode ? "white" : "#0e0e0e",
   }),
   toolbar: {
