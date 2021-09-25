@@ -1,18 +1,17 @@
 import { styled, Theme, CSSObject } from "@mui/material/styles";
 import MuiDrawer from "@material-ui/core/Drawer";
 import IconButton from "@mui/material/IconButton";
-import { List, Divider, Typography } from "@material-ui/core";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import BookIcon from "@material-ui/icons/Book";
-import SettingsIcon from "@material-ui/icons/Settings";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import {
+  List,
+  Divider,
+  Typography,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
+import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { icons, menuItems } from "./utils/menuItems";
 
 const drawerWidth = 240;
 
@@ -127,53 +126,23 @@ export const SidebarDrawer = ({
       <DrawerHeader style={{ minHeight: "55px" }}>
         <Typography className={classes.drawerHeader}>zayceva.brows</Typography>
         <IconButton onClick={handleDrawerClose}>
-          <KeyboardArrowLeftIcon htmlColor={isDarkMode ? "white" : "black"} />
+          <KeyboardArrowLeft htmlColor={isDarkMode ? "white" : "black"} />
         </IconButton>
       </DrawerHeader>
       <Divider />
       <List className={classes.menuList}>
-        <ListItem button className={classes.menuListItem}>
-          <ListItemIcon className={classes.menuListItemIcon}>
-            <ExitToAppIcon
-              fontSize="medium"
-              color={open ? "primary" : "inherit"}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Войти" />
-        </ListItem>
-        <ListItem button className={classes.menuListItem}>
-          <ListItemIcon className={classes.menuListItemIcon}>
-            <PermIdentityIcon
-              fontSize="medium"
-              color={open ? "primary" : "inherit"}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Профиль" />
-        </ListItem>
-        <ListItem button className={classes.menuListItem}>
-          <ListItemIcon className={classes.menuListItemIcon}>
-            <ListAltIcon
-              fontSize="medium"
-              color={open ? "primary" : "inherit"}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Услуги" />
-        </ListItem>
-        <ListItem button className={classes.menuListItem}>
-          <ListItemIcon className={classes.menuListItemIcon}>
-            <BookIcon fontSize="medium" color={open ? "primary" : "inherit"} />
-          </ListItemIcon>
-          <ListItemText primary="Советы" />
-        </ListItem>
-        <ListItem button className={classes.menuListItem}>
-          <ListItemIcon className={classes.menuListItemIcon}>
-            <SettingsIcon
-              fontSize="medium"
-              color={open ? "primary" : "inherit"}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Настройки" />
-        </ListItem>
+        {menuItems.map(({ label, icon }) => {
+          const Icon = icons[icon];
+
+          return (
+            <ListItem button className={classes.menuListItem}>
+              <ListItemIcon className={classes.menuListItemIcon}>
+                <Icon fontSize="medium" color={open ? "primary" : "inherit"} />
+              </ListItemIcon>
+              <ListItemText primary={label} />
+            </ListItem>
+          );
+        })}
       </List>
       <Divider className={classes.divider} />
       <List style={{ position: "absolute", bottom: 0, width: "100%" }}>
@@ -185,7 +154,7 @@ export const SidebarDrawer = ({
           }}
         >
           <ListItemIcon className={classes.menuListItemIcon}>
-            <HelpOutlineIcon
+            <HelpOutline
               fontSize="medium"
               htmlColor={
                 isDarkMode ? "rgba(233,233,233,0.54)" : "rgba(0,0,0,0.54)"
