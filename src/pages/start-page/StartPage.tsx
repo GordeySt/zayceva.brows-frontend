@@ -1,16 +1,15 @@
-import { Container, createStyles, makeStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { WelcomeCard } from "../../components/start-page/WelcomeCard";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-    },
-  })
-);
+const useStyles = makeStyles({
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "100vh",
+  },
+});
 
 export const StartPage = () => {
   const classes = useStyles();

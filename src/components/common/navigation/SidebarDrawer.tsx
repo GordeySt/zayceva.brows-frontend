@@ -1,6 +1,5 @@
-import { styled, Theme, CSSObject } from "@mui/material/styles";
+import { styled, Theme, CSSObject } from "@material-ui/core/styles";
 import MuiDrawer from "@material-ui/core/Drawer";
-import IconButton from "@mui/material/IconButton";
 import {
   List,
   Divider,
@@ -8,9 +7,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  IconButton,
 } from "@material-ui/core";
 import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 
 const drawerWidth = 240;

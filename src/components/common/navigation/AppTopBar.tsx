@@ -1,13 +1,13 @@
-import { styled } from "@mui/material/styles";
+import { styled } from "@material-ui/core/styles";
 import MuiAppBar from "@material-ui/core/AppBar";
 import {
   Toolbar,
   Typography,
+  IconButton,
   AppBarProps as MuiAppBarProps,
 } from "@material-ui/core";
-import IconButton from "@mui/material/IconButton";
 import { grey } from "@material-ui/core/colors";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { IStyleProps } from "../../../App";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -35,7 +35,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   appBar: ({ isDarkMode }: IStyleProps) => ({
     height: "55px",
     display: "flex",
@@ -43,10 +43,13 @@ const useStyles = makeStyles({
     backgroundColor: isDarkMode ? "#2b2a2a" : grey["100"],
     color: isDarkMode ? "white" : "#0e0e0e",
   }),
+  toolbar: {
+    paddingLeft: "18px",
+  },
   appBarTitle: {
     fontFamily: "serif",
   },
-});
+}));
 
 interface IProps {
   isDarkMode: boolean;
@@ -59,19 +62,20 @@ export const AppTopBar = ({ isDarkMode, open, handleDrawerOpen }: IProps) => {
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
           edge="start"
-          sx={{
+          style={{
             marginRight: "36px",
             ...(open && { display: "none" }),
           }}
         >
           <MenuIcon />
         </IconButton>
+
         <Typography
           className={classes.appBarTitle}
           variant="h6"

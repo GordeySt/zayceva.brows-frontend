@@ -1,12 +1,5 @@
-import {
-  Button,
-  Card,
-  createStyles,
-  Grid,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Card, Grid, TextField, Typography } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/styles";
 import { observer } from "mobx-react-lite";
 import { IStyleProps } from "../../App";
 import { useStore } from "../../common/stores/Store";

@@ -1,11 +1,9 @@
 import {
   Button,
   Card,
-  createStyles,
   Grid,
   IconButton,
   InputAdornment,
-  makeStyles,
   OutlinedInput,
   Typography,
 } from "@material-ui/core";
@@ -15,6 +13,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useState } from "react";
 import { IStyleProps } from "../../App";
+import { createStyles, makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(() =>
   createStyles({
