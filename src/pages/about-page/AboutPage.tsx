@@ -1,7 +1,7 @@
 import { alpha, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
-import { Card } from "../../components/about-page/Card";
+import { ContactCard } from "../../components/about-page/ContactCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -38,6 +38,33 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
   },
 }));
+
+const contactInformation = [
+  {
+    iconSrc: "https://img.icons8.com/doodle/48/000000/vk-messenger.png",
+    title: "VKontakte",
+    to: "https://vk.com/prostoprilegla",
+    subtitle: "Если у вас в душе детище Дурова",
+  },
+  {
+    iconSrc: "https://img.icons8.com/color/48/000000/instagram-new--v1.png",
+    title: "Instagram",
+    to: "https://www.instagram.com/zayceva.brows/",
+    subtitle: "Великая И Могучая Соцсеть Фотографий",
+  },
+  {
+    iconSrc: "https://img.icons8.com/color/48/000000/telegram-app--v1.png",
+    title: "Telegram",
+    to: "https://telegram.me/sadelizaabeth",
+    subtitle: "Для любителей Дурова;) и безопасности",
+  },
+  {
+    iconSrc: "https://img.icons8.com/material-outlined/24/000000/github.png",
+    title: "Github",
+    to: "https://github.com/GordeySt/zayceva.brows",
+    subtitle: "Если интересен ход разработки, вам сюда",
+  },
+];
 
 export const AboutPage = () => {
   const classes = useStyles();
@@ -77,30 +104,14 @@ export const AboutPage = () => {
         помощью открытых библиотек.
       </Typography>
       <Grid container spacing={2} className={classes.grid}>
-        <Card
-          iconSrc="https://img.icons8.com/doodle/48/000000/vk-messenger.png"
-          title="VKontakte"
-          to="https://vk.com/prostoprilegla"
-          subtitle="Если у вас в душе детище Дурова"
-        />
-        <Card
-          iconSrc="https://img.icons8.com/color/48/000000/instagram-new--v1.png"
-          title="Instagram"
-          to="https://www.instagram.com/zayceva.brows/"
-          subtitle="Великая И Могучая Соцсеть Фотографий"
-        />
-        <Card
-          iconSrc="https://img.icons8.com/color/48/000000/telegram-app--v1.png"
-          title="Telegram"
-          to="https://telegram.me/sadelizaabeth"
-          subtitle="Для любителей Дурова;) и безопасности"
-        />
-        <Card
-          iconSrc="https://img.icons8.com/material-outlined/24/000000/github.png"
-          title="Github"
-          to="https://github.com/GordeySt/zayceva.brows"
-          subtitle="Если интересен ход разработки, вам сюда"
-        />
+        {contactInformation.map((info) => (
+          <ContactCard
+            iconSrc={info.iconSrc}
+            title={info.title}
+            to={info.to}
+            subtitle={info.subtitle}
+          />
+        ))}
       </Grid>
       <Typography
         className={classes.text}
