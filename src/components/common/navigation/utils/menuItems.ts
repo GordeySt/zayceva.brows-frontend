@@ -25,22 +25,22 @@ export const menuItems: IMenuItem[] = [
   {
     label: "Войти",
     icon: "ExitToApp",
-    to: "/",
+    to: "",
   },
   {
     label: "Профиль",
     icon: "PermIdentity",
-    to: "/",
+    to: "",
   },
   {
     label: "Услуги",
     icon: "ListAlt",
-    to: "/",
+    to: "",
   },
   {
     label: "Советы",
     icon: "Book",
-    to: "/",
+    to: "",
   },
   {
     label: "Настройки",
