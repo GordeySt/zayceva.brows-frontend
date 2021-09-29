@@ -1,19 +1,19 @@
 import { PaletteMode, ThemeOptions } from "@mui/material";
 import { makeAutoObservable } from "mobx";
-import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
 import {
   BACKGROUND_COLORS_DEFAULT,
   BACKGROUND_COLORS_PAPER,
   PaletteType,
   THEME_PRIMARY_COLORS,
   THEME_TEXT_COLORS,
-} from "../constants/themeConstants";
-import { UserThemeSettings } from "../types/UserSettings";
+} from "../constants/ThemeConstants";
+import { UserSettings } from "../types/UserSettings";
+import { setUserSettingsToLocalStorage } from "../utils/localStorageUtils";
 
 export default class CommonStore {
-  userThemeSettings = {
+  userSettings = {
     themeType: "light",
-  } as UserThemeSettings;
+  } as UserSettings;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,35 +22,32 @@ export default class CommonStore {
   get storeTheme(): ThemeOptions {
     return {
       palette: {
-        mode: this.userThemeSettings.themeType as PaletteMode,
+        mode: this.userSettings.themeType as PaletteMode,
         text: THEME_TEXT_COLORS[
-          this.userThemeSettings.themeType as PaletteType
+          this.userSettings.themeType as PaletteType
         ],
         background: {
           default:
             BACKGROUND_COLORS_DEFAULT[
-              this.userThemeSettings.themeType as PaletteType
+              this.userSettings.themeType as PaletteType
             ],
           paper:
             BACKGROUND_COLORS_PAPER[
-              this.userThemeSettings.themeType as PaletteType
+              this.userSettings.themeType as PaletteType
             ],
         },
         primary:
-          THEME_PRIMARY_COLORS[this.userThemeSettings.themeType as PaletteType],
+          THEME_PRIMARY_COLORS[this.userSettings.themeType as PaletteType],
       },
     };
   }
 
-  setUserThemeSettings = (userThemeSettings: UserThemeSettings) => {
-    this.userThemeSettings = userThemeSettings;
+  setUserSettings = (userThemeSettings: UserSettings) => {
+    this.userSettings = userThemeSettings;
   };
 
-  setUserThemeType = (themeType: string) => {
-    this.userThemeSettings.themeType = themeType;
-    localStorage.setItem(
-      USER_THEME_SETTINGS,
-      JSON.stringify(this.userThemeSettings)
-    );
+  setUserSettingsToLocalStorage = (userSettings: UserSettings) => {
+    this.userSettings = userSettings;
+    setUserSettingsToLocalStorage(userSettings);
   };
 }

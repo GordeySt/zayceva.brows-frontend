@@ -6,7 +6,7 @@ import {
   THEME_PRIMARY_COLORS,
   THEME_TEXT_COLORS,
   THEME_TYPES,
-} from "../../../common/constants/themeConstants";
+} from "../../../common/constants/ThemeConstants";
 import { CustomTheme } from "../../../common/types/UserSettings";
 
 export const makeCustomThemeFromThemeType = (

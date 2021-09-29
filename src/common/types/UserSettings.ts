@@ -19,6 +19,6 @@
   };
 };
 
-export type UserThemeSettings = {
+export type UserSettings = {
   themeType: string;
 };
