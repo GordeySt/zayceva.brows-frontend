@@ -1,6 +1,8 @@
 import { alpha, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useEffect } from "react";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { useStore } from "../../common/stores/Store";
 import ContactCard from "../../components/about-page/ContactCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -68,6 +70,11 @@ const contactInformation = [
 
 const AboutPage = () => {
   const classes = useStyles();
+  const {
+    commonStore: { setAppBarTitle },
+  } = useStore();
+
+  useEffect(() => setAppBarTitle("Обо мне"), [setAppBarTitle]);
 
   return (
     <Container className={classes.container}>

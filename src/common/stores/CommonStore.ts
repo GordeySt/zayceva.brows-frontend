@@ -14,6 +14,7 @@ export default class CommonStore {
   userSettings = {
     themeType: "light",
   } as UserSettings;
+  appBarTitle = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -23,24 +24,24 @@ export default class CommonStore {
     return {
       palette: {
         mode: this.userSettings.themeType as PaletteMode,
-        text: THEME_TEXT_COLORS[
-          this.userSettings.themeType as PaletteType
-        ],
+        text: THEME_TEXT_COLORS[this.userSettings.themeType as PaletteType],
         background: {
           default:
             BACKGROUND_COLORS_DEFAULT[
               this.userSettings.themeType as PaletteType
             ],
           paper:
-            BACKGROUND_COLORS_PAPER[
-              this.userSettings.themeType as PaletteType
-            ],
+            BACKGROUND_COLORS_PAPER[this.userSettings.themeType as PaletteType],
         },
         primary:
           THEME_PRIMARY_COLORS[this.userSettings.themeType as PaletteType],
       },
     };
   }
+
+  setAppBarTitle = (appBarTitle: string) => {
+    this.appBarTitle = appBarTitle;
+  };
 
   setUserSettings = (userThemeSettings: UserSettings) => {
     this.userSettings = userThemeSettings;

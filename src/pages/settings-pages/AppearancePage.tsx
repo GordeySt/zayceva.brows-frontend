@@ -7,8 +7,10 @@ import {
   Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useEffect } from "react";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { THEMES } from "../../common/constants/ThemeConstants";
+import { useStore } from "../../common/stores/Store";
 import OneByTwoGrid from "../../components/settings-pages/OneByTwoGrid";
 import SingleRowGrid from "../../components/settings-pages/SingleRowGrid";
 import ThemeCard from "../../components/settings-pages/ThemeCard";
@@ -79,6 +81,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AppearancePage = () => {
   const classes = useStyles();
+
+  const {
+    commonStore: { setAppBarTitle },
+  } = useStore();
+
+  useEffect(() => setAppBarTitle("Внешний вид"), [setAppBarTitle]);
 
   return (
     <div className={classes.root}>

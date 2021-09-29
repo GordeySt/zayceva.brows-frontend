@@ -9,6 +9,8 @@ import {
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { Link } from "react-router-dom";
 import { APPEARANCE_SETTINGS_ROUTE } from "../../common/constants/RoutesConstants";
+import { useStore } from "../../common/stores/Store";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -86,6 +88,12 @@ const settingsMenuItems: IMenuItem[] = [
 
 const SettingsMenuPage = () => {
   const classes = useStyles();
+
+  const {
+    commonStore: { setAppBarTitle },
+  } = useStore();
+
+  useEffect(() => setAppBarTitle("Настройки"), [setAppBarTitle]);
 
   return (
     <div className={classes.root}>

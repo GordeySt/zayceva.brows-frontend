@@ -12,6 +12,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { PermIdentity } from "@material-ui/icons";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../../common/stores/Store";
 
 const drawerWidth = 240;
 
@@ -76,8 +78,11 @@ interface IProps {
   handleDrawerOpen: () => void;
 }
 
-const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
+const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
   const classes = useStyles();
+  const {
+    commonStore: { appBarTitle },
+  } = useStore();
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
@@ -102,7 +107,7 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
             noWrap
             component="div"
           >
-            Авторизация
+            {appBarTitle}
           </Typography>
         </div>
         <Box className={classes.appBarMenuItems}>
@@ -113,6 +118,6 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
       </Toolbar>
     </AppBar>
   );
-};
+});
 
 export default AppTopBar;
