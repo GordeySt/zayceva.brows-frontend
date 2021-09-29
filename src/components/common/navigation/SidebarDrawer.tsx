@@ -171,6 +171,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       <List style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <Divider className={classes.divider} />
         <ListItem
+          disableRipple
           button
           onClick={() => history.push(ABOUT_ROUTE)}
           className={classes.helpItem}
