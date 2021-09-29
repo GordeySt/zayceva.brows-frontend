@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import { routes } from "../../common/config/routes";
 
-export const Router = () => {
+const Router = () => {
   return (
     <Switch>
       {routes.map((route) => (
@@ -14,3 +14,5 @@ export const Router = () => {
     </Switch>
   );
 };
+
+export default Router;

@@ -84,7 +84,7 @@ const settingsMenuItems: IMenuItem[] = [
   },
 ];
 
-export const SettingsMenuPage = () => {
+const SettingsMenuPage = () => {
   const classes = useStyles();
 
   return (
@@ -103,3 +103,5 @@ export const SettingsMenuPage = () => {
     </div>
   );
 };
+
+export default SettingsMenuPage;

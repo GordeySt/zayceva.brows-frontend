@@ -1,7 +1,7 @@
 import { alpha, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
-import { ContactCard } from "../../components/about-page/ContactCard";
+import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import ContactCard from "../../components/about-page/ContactCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -66,7 +66,7 @@ const contactInformation = [
   },
 ];
 
-export const AboutPage = () => {
+const AboutPage = () => {
   const classes = useStyles();
 
   return (
@@ -146,3 +146,5 @@ export const AboutPage = () => {
     </Container>
   );
 };
+
+export default AboutPage;

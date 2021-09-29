@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { PermIdentity } from "@material-ui/icons";
 
 const drawerWidth = 240;
@@ -76,7 +76,7 @@ interface IProps {
   handleDrawerOpen: () => void;
 }
 
-export const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
+const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
   const classes = useStyles();
 
   return (
@@ -114,3 +114,5 @@ export const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
     </AppBar>
   );
 };
+
+export default AppTopBar;

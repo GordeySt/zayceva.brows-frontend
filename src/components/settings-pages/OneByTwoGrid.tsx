@@ -1,6 +1,6 @@
 import { Grid, Theme, useTheme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { PaletteItem } from "./PaletteItem";
+import PaletteItem from "./PaletteItem";
 
 const useStyles = makeStyles((theme: Theme) => ({
   oneByTwoGrid: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const OneByTwoGrid = ({ component: Item = PaletteItem }) => {
+const OneByTwoGrid = ({ component: Item = PaletteItem }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -70,3 +70,5 @@ export const OneByTwoGrid = ({ component: Item = PaletteItem }) => {
     </div>
   );
 };
+
+export default OneByTwoGrid;

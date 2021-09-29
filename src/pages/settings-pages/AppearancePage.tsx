@@ -7,11 +7,11 @@ import {
   Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
-import { THEMES } from "../../common/constants/themeConstants";
-import { OneByTwoGrid } from "../../components/settings-pages/OneByTwoGrid";
-import { SingleRowGrid } from "../../components/settings-pages/SingleRowGrid";
-import { ThemeCard } from "../../components/settings-pages/ThemeCard";
+import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { THEMES } from "../../common/constants/ThemeConstants";
+import OneByTwoGrid from "../../components/settings-pages/OneByTwoGrid";
+import SingleRowGrid from "../../components/settings-pages/SingleRowGrid";
+import ThemeCard from "../../components/settings-pages/ThemeCard";
 import { makeCustomThemeFromThemeType } from "./utils/functions";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const AppearancePage = () => {
+const AppearancePage = () => {
   const classes = useStyles();
 
   return (
@@ -108,3 +108,5 @@ export const AppearancePage = () => {
     </div>
   );
 };
+
+export default AppearancePage;

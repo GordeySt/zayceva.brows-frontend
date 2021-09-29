@@ -1,11 +1,11 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
-import { AppTopBar } from "./navigation/AppTopBar";
-import { DrawerHeader, SidebarDrawer } from "./navigation/SidebarDrawer";
+import AppTopBar from "./navigation/AppTopBar";
+import SidebarDrawer, { DrawerHeader } from "./navigation/SidebarDrawer";
 import { Children, useState } from "react";
-import { AppBottomBar } from "./navigation/AppBottomBar";
+import AppBottomBar from "./navigation/AppBottomBar";
 
-export const AppLayout: React.FC = ({ children }) => {
+const AppLayout: React.FC = ({ children }) => {
   const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
@@ -29,3 +29,5 @@ export const AppLayout: React.FC = ({ children }) => {
     </Box>
   );
 };
+
+export default AppLayout;

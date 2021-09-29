@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const AppBottomBar = () => {
+const AppBottomBar = () => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -56,3 +56,5 @@ export const AppBottomBar = () => {
     </Box>
   );
 };
+
+export default AppBottomBar;

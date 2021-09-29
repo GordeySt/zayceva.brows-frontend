@@ -1,6 +1,6 @@
-import { AboutPage } from "../../pages/about-page/AboutPage";
-import { AppearancePage } from "../../pages/settings-pages/AppearancePage";
-import { SettingsMenuPage } from "../../pages/settings-pages/SettingsMenuPage";
+import AboutPage from "../../pages/about-page/AboutPage";
+import AppearancePage from "../../pages/settings-pages/AppearancePage";
+import SettingsMenuPage from "../../pages/settings-pages/SettingsMenuPage";
 import {
   ABOUT_ROUTE,
   APPEARANCE_SETTINGS_ROUTE,

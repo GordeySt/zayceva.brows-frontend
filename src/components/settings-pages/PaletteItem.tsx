@@ -61,7 +61,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const PaletteItem = ({
+const PaletteItem = ({
   width,
   color,
   text,
@@ -96,3 +96,5 @@ export const PaletteItem = ({
     </Grid>
   );
 };
+
+export default PaletteItem;

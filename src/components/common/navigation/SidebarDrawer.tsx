@@ -136,7 +136,7 @@ interface IProps {
   handleDrawerClose: () => void;
 }
 
-export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
+const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const history = useHistory();
   const classes = useStyles({ open });
 
@@ -184,3 +184,5 @@ export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
     </Drawer>
   );
 };
+
+export default SidebarDrawer;

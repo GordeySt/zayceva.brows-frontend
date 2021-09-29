@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
-import { UserLoginForm } from "../../components/login-page/UserLoginForm";
+import UserLoginForm from "../../components/login-page/UserLoginForm";
 
-export const LoginPage = () => {
+const LoginPage = () => {
   return (
     <Container
       style={{
@@ -14,3 +14,5 @@ export const LoginPage = () => {
     </Container>
   );
 };
+
+export default LoginPage;

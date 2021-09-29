@@ -51,7 +51,7 @@ const useThemeCardStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
+const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
   const defaultColor = theme.palette.background.default;
   const primaryColor = theme.palette.primary.main;
   const textColor = theme.palette.text.primary;
@@ -104,3 +104,5 @@ export const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
     </div>
   );
 });
+
+export default ThemeCard;

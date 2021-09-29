@@ -35,7 +35,7 @@ const useCardStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const ContactCard: React.FC<{
+const ContactCard: React.FC<{
   to: string;
   title: string;
   iconSrc: string;
@@ -63,3 +63,5 @@ export const ContactCard: React.FC<{
     </Grid>
   );
 };
+
+export default ContactCard;

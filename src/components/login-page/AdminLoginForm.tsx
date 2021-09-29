@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const AdminLoginForm = observer(() => {
+const AdminLoginForm = observer(() => {
   const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
 
@@ -87,3 +87,5 @@ export const AdminLoginForm = observer(() => {
     </Card>
   );
 });
+
+export default AdminLoginForm;

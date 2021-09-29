@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const UserLoginForm = observer(() => {
+const UserLoginForm = observer(() => {
   const classes = useStyles();
 
   const handleLoginSubmit = (e: any) => {
@@ -71,3 +71,5 @@ export const UserLoginForm = observer(() => {
     </Card>
   );
 });
+
+export default UserLoginForm;

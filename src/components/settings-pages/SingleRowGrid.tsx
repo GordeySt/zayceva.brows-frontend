@@ -1,7 +1,7 @@
 import { Grid, useTheme, Theme } from "@mui/material";
-import { PaletteItem } from "./PaletteItem";
+import PaletteItem from "./PaletteItem";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   singleRowGrid: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const SingleRowGrid = ({ component: Item = PaletteItem }) => {
+const SingleRowGrid = ({ component: Item = PaletteItem }) => {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -77,3 +77,5 @@ export const SingleRowGrid = ({ component: Item = PaletteItem }) => {
     </Grid>
   );
 };
+
+export default SingleRowGrid;

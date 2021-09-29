@@ -4,9 +4,9 @@ import { useStore } from "../../common/stores/Store";
 import { useEffect } from "react";
 import { USER_THEME_SETTINGS } from "../../common/constants/LocalStorageConstants";
 import React from "react";
-import { AppLayout } from "./AppLayout";
+import AppLayout from "./AppLayout";
 import { UserThemeSettings } from "../../common/types/UserSettings";
-import { Router } from "./Router";
+import Router from "./Router";
 
 const App = observer(() => {
   const {
