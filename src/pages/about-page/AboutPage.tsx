@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginTop: theme.spacing(4),
     [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
-      height: "97%",
+      height: "100%",
     },
   },
   text: {
