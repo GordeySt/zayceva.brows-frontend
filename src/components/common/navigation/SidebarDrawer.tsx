@@ -13,7 +13,12 @@ import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
 import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { useHistory } from "react-router-dom";
+import {
+  ABOUT_ROUTE,
+  SETTINGS_MENU_ROUTE,
+} from "../../../common/constants/RoutesConstants";
 
 const drawerWidth = 240;
 
@@ -112,6 +117,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   helpItem: {
     color: alpha(theme.palette.text.primary, 0.54),
     cursor: "pointer",
+
+    "&:hover": {
+      background: "none",
+    },
   },
   helpIcon: {
     color: alpha(theme.palette.text.primary, 0.54),
@@ -128,6 +137,7 @@ interface IProps {
 }
 
 export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
+  const history = useHistory();
   const classes = useStyles({ open });
 
   return (
@@ -144,7 +154,11 @@ export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
           const Icon = icons[icon];
 
           return (
-            <ListItem button className={classes.menuListItem}>
+            <ListItem
+              button
+              onClick={() => history.push(SETTINGS_MENU_ROUTE)}
+              className={classes.menuListItem}
+            >
               <ListItemIcon className={classes.menuListItemIcon}>
                 <Icon className={classes.menuIcon} fontSize="medium" />
               </ListItemIcon>
@@ -156,7 +170,11 @@ export const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       <Divider className={classes.divider} />
       <List style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <Divider className={classes.divider} />
-        <ListItem className={classes.helpItem}>
+        <ListItem
+          button
+          onClick={() => history.push(ABOUT_ROUTE)}
+          className={classes.helpItem}
+        >
           <ListItemIcon className={classes.menuListItemIcon}>
             <HelpOutline fontSize="medium" className={classes.helpIcon} />
           </ListItemIcon>

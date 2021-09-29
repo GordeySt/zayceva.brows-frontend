@@ -1,25 +1,20 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useStore } from "./common/stores/Store";
+import { useStore } from "../../common/stores/Store";
 import { useEffect } from "react";
-import { IUserThemeSettings } from "./common/stores/CommonStore";
-import { USER_THEME_SETTINGS } from "./common/constants/localStorageConstants";
+import { USER_THEME_SETTINGS } from "../../common/constants/LocalStorageConstants";
 import React from "react";
-import AppLayout from "./components/common/AppLayout";
-
-export interface IStyleProps {
-  isDarkMode: boolean;
-}
+import { AppLayout } from "./AppLayout";
+import { UserThemeSettings } from "../../common/types/UserSettings";
+import { Router } from "./Router";
 
 const App = observer(() => {
   const {
     commonStore: { setUserThemeSettings, storeTheme },
   } = useStore();
 
-  const muiTheme = createTheme(storeTheme);
-
   useEffect(() => {
-    const userThemeSettings: IUserThemeSettings = JSON.parse(
+    const userThemeSettings: UserThemeSettings = JSON.parse(
       localStorage.getItem(USER_THEME_SETTINGS)!
     );
 
@@ -28,9 +23,13 @@ const App = observer(() => {
     }
   }, [setUserThemeSettings]);
 
+  const muiTheme = createTheme(storeTheme);
+
   return (
     <ThemeProvider theme={muiTheme}>
-      <AppLayout />
+      <AppLayout>
+        <Router />
+      </AppLayout>
     </ThemeProvider>
   );
 });

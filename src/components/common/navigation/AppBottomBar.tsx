@@ -5,9 +5,14 @@ import {
   Theme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { HelpOutline } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import {
+  ABOUT_ROUTE,
+  SETTINGS_MENU_ROUTE,
+} from "../../../common/constants/RoutesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   bottomBar: {
@@ -26,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const AppBottomBar = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Box className={classes.bottomBar}>
@@ -33,9 +39,19 @@ export const AppBottomBar = () => {
         {menuItems.slice(2, 5).map(({ label, icon }) => {
           const Icon = icons[icon];
 
-          return <BottomNavigationAction label={label} icon={<Icon />} />;
+          return (
+            <BottomNavigationAction
+              onClick={() => history.push(SETTINGS_MENU_ROUTE)}
+              label={label}
+              icon={<Icon />}
+            />
+          );
         })}
-        <BottomNavigationAction label="Обо мне" icon={<HelpOutline />} />
+        <BottomNavigationAction
+          onClick={() => history.push(ABOUT_ROUTE)}
+          label="Обо мне"
+          icon={<HelpOutline />}
+        />
       </BottomNavigation>
     </Box>
   );

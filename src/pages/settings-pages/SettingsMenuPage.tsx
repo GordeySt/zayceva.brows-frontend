@@ -6,7 +6,9 @@ import {
   Collections,
   VisibilityOff,
 } from "@material-ui/icons";
-import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { Link } from "react-router-dom";
+import { APPEARANCE_SETTINGS_ROUTE } from "../../common/constants/RoutesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -91,11 +93,11 @@ export const SettingsMenuPage = () => {
         const Icon = icons[icon];
 
         return (
-          <div className={classes.link}>
+          <Link to={APPEARANCE_SETTINGS_ROUTE} className={classes.link}>
             <Icon className={classes.linkIcon} />
             <Typography className={classes.linkText}>{text}</Typography>
             <ArrowForwardIos className={classes.linkIconChevronRight} />
-          </div>
+          </Link>
         );
       })}
     </div>
