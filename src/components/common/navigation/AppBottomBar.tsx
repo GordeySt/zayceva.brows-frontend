@@ -3,12 +3,13 @@ import {
   BottomNavigationAction,
   Box,
   Theme,
+  useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { HelpOutline } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   ABOUT_ROUTE,
   SETTINGS_MENU_ROUTE,
@@ -32,25 +33,45 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AppBottomBar = () => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  const theme = useTheme();
 
   return (
     <Box className={classes.bottomBar}>
-      <BottomNavigation showLabels value={0}>
-        {menuItems.slice(2, 5).map(({ label, icon }) => {
+      <BottomNavigation showLabels>
+        {menuItems.slice(2, 5).map(({ label, icon, to }) => {
           const Icon = icons[icon];
 
           return (
             <BottomNavigationAction
               onClick={() => history.push(SETTINGS_MENU_ROUTE)}
               label={label}
-              icon={<Icon />}
+              icon={
+                <Icon
+                  style={{
+                    color:
+                      location.pathname === to
+                        ? theme.palette.primary.main
+                        : "",
+                  }}
+                />
+              }
             />
           );
         })}
         <BottomNavigationAction
           onClick={() => history.push(ABOUT_ROUTE)}
           label="Обо мне"
-          icon={<HelpOutline />}
+          icon={
+            <HelpOutline
+              style={{
+                color:
+                  location.pathname === ABOUT_ROUTE
+                    ? theme.palette.primary.main
+                    : "",
+              }}
+            />
+          }
         />
       </BottomNavigation>
     </Box>

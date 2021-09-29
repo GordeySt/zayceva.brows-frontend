@@ -14,11 +14,8 @@ import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
-import { useHistory } from "react-router-dom";
-import {
-  ABOUT_ROUTE,
-  SETTINGS_MENU_ROUTE,
-} from "../../../common/constants/RoutesConstants";
+import { useHistory, useLocation } from "react-router-dom";
+import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
 
 const drawerWidth = 240;
 
@@ -82,14 +79,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: 20,
   },
   menuList: {
-    color: alpha(theme.palette.text.primary, 0.54),
+    color: theme.palette.text.secondary,
   },
   menuListItem: ({ open }: IStyleProps) => ({
-    color: alpha(theme.palette.text.primary, 0.54),
+    color: theme.palette.text.secondary,
     marginLeft: "5px",
     width: open ? "96%" : "85%",
     paddingLeft: "13px",
     borderRadius: "5px",
+
     "&:nth-child(1)": {
       background: alpha(theme.palette.text.primary, 0.1),
       marginBottom: "20px",
@@ -99,13 +97,23 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: alpha(theme.palette.text.primary, 0.2),
       },
     },
+
     "&:nth-child(n+2)": {
       "&:hover": {
         background: "transparent",
-        color: theme.palette.text.primary,
+        color: alpha(theme.palette.text.primary, 0.75),
       },
     },
   }),
+  active: {
+    background: alpha(theme.palette.text.primary, 0.1),
+    color: theme.palette.text.primary + " !important",
+
+    "&:hover": {
+      background: alpha(theme.palette.text.primary, 0.1) + " !important",
+      color: theme.palette.text.primary + " !important",
+    },
+  },
   menuListItemIcon: {
     marginRight: "-13px",
   },
@@ -139,6 +147,9 @@ interface IProps {
 const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const history = useHistory();
   const classes = useStyles({ open });
+  const location = useLocation();
+
+  console.log(location);
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -150,14 +161,17 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       </DrawerHeader>
       <Divider />
       <List className={classes.menuList}>
-        {menuItems.map(({ label, icon }) => {
+        {menuItems.map(({ label, icon, to }) => {
           const Icon = icons[icon];
 
           return (
             <ListItem
               button
-              onClick={() => history.push(SETTINGS_MENU_ROUTE)}
-              className={classes.menuListItem}
+              onClick={() => history.push(to)}
+              className={
+                classes.menuListItem +
+                (location.pathname === to ? " " + classes.active : "")
+              }
             >
               <ListItemIcon className={classes.menuListItemIcon}>
                 <Icon className={classes.menuIcon} fontSize="medium" />
