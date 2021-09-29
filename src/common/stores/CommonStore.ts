@@ -1,16 +1,19 @@
-import { ThemeOptions } from "@mui/material";
-import { grey, blue } from "@mui/material/colors";
+import { PaletteMode, ThemeOptions } from "@mui/material";
 import { makeAutoObservable } from "mobx";
 import { USER_THEME_SETTINGS } from "../constants/localStorageConstants";
-
-export interface IUserThemeSettings {
-  isDarkMode: boolean;
-}
+import {
+  BACKGROUND_COLORS_DEFAULT,
+  BACKGROUND_COLORS_PAPER,
+  PaletteType,
+  THEME_PRIMARY_COLORS,
+  THEME_TEXT_COLORS,
+} from "../constants/themeConstants";
+import { UserThemeSettings } from "../types/UserSettings";
 
 export default class CommonStore {
   userThemeSettings = {
-    isDarkMode: false,
-  } as IUserThemeSettings;
+    themeType: "light",
+  } as UserThemeSettings;
 
   constructor() {
     makeAutoObservable(this);
@@ -19,26 +22,32 @@ export default class CommonStore {
   get storeTheme(): ThemeOptions {
     return {
       palette: {
-        mode: this.userThemeSettings.isDarkMode ? "dark" : "light",
-        text: {
-          primary: this.userThemeSettings.isDarkMode ? "#fff" : "#000",
-        },
+        mode: this.userThemeSettings.themeType as PaletteMode,
+        text: THEME_TEXT_COLORS[
+          this.userThemeSettings.themeType as PaletteType
+        ],
         background: {
-          default: this.userThemeSettings.isDarkMode ? "#0e0e0e" : grey["100"],
+          default:
+            BACKGROUND_COLORS_DEFAULT[
+              this.userThemeSettings.themeType as PaletteType
+            ],
+          paper:
+            BACKGROUND_COLORS_PAPER[
+              this.userThemeSettings.themeType as PaletteType
+            ],
         },
-        primary: {
-          main: this.userThemeSettings.isDarkMode ? blue["A100"] : blue["A400"],
-        },
+        primary:
+          THEME_PRIMARY_COLORS[this.userThemeSettings.themeType as PaletteType],
       },
     };
   }
 
-  setUserThemeSettings = (userThemeSettings: IUserThemeSettings) => {
+  setUserThemeSettings = (userThemeSettings: UserThemeSettings) => {
     this.userThemeSettings = userThemeSettings;
   };
 
-  handleSetIsDarkMode = () => {
-    this.userThemeSettings.isDarkMode = !this.userThemeSettings.isDarkMode;
+  setUserThemeType = (themeType: string) => {
+    this.userThemeSettings.themeType = themeType;
     localStorage.setItem(
       USER_THEME_SETTINGS,
       JSON.stringify(this.userThemeSettings)
