@@ -33,7 +33,7 @@ export const THEME_TEXT_COLORS = {
     disabled: "rgba(0, 0, 0, 0.38)",
   },
   dark: {
-    primary: "#fff",
+    primary: "#e9e9e9",
     secondary: alpha("#e9e9e9", 0.54),
     disabled: alpha("#e9e9e9", 0.38),
   },
