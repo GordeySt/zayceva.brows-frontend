@@ -4,8 +4,9 @@ import { routes } from "../../common/config/routes";
 const Router = () => {
   return (
     <Switch>
-      {routes.map((route) => (
+      {routes.map((route, i) => (
         <Route
+          key={i}
           exact={route.exact}
           path={route.path}
           component={route.component}

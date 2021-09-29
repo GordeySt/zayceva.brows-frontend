@@ -97,11 +97,11 @@ const SettingsMenuPage = () => {
 
   return (
     <div className={classes.root}>
-      {settingsMenuItems.map(({ text, icon }) => {
+      {settingsMenuItems.map(({ text, icon }, i) => {
         const Icon = icons[icon];
 
         return (
-          <Link to={APPEARANCE_SETTINGS_ROUTE} className={classes.link}>
+          <Link key={i} to={APPEARANCE_SETTINGS_ROUTE} className={classes.link}>
             <Icon className={classes.linkIcon} />
             <Typography className={classes.linkText}>{text}</Typography>
             <ArrowForwardIos className={classes.linkIconChevronRight} />

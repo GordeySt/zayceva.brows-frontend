@@ -111,8 +111,9 @@ const AboutPage = () => {
         помощью открытых библиотек.
       </Typography>
       <Grid container spacing={2} className={classes.grid}>
-        {contactInformation.map((info) => (
+        {contactInformation.map((info, i) => (
           <ContactCard
+            key={i}
             iconSrc={info.iconSrc}
             title={info.title}
             to={info.to}

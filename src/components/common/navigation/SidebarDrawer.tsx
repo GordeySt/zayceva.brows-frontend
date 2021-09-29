@@ -149,8 +149,6 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const classes = useStyles({ open });
   const location = useLocation();
 
-  console.log(location);
-
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader style={{ minHeight: "55px" }}>
@@ -161,11 +159,12 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       </DrawerHeader>
       <Divider />
       <List className={classes.menuList}>
-        {menuItems.map(({ label, icon, to }) => {
+        {menuItems.map(({ label, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (
             <ListItem
+              key={i}
               button
               onClick={() => history.push(to)}
               className={

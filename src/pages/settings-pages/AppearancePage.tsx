@@ -104,9 +104,7 @@ const AppearancePage = () => {
           className={classes.themeCardsContainer}
         >
           {THEMES.map((theme, i) => (
-            <>
-              <ThemeCard theme={makeCustomThemeFromThemeType(theme)} key={i} />
-            </>
+            <ThemeCard key={i} theme={makeCustomThemeFromThemeType(theme)} />
           ))}
           <div className={classes.dividerHolder}>
             <Divider className={classes.divider} orientation="vertical" />
