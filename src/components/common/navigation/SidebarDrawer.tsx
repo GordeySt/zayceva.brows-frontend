@@ -77,12 +77,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   drawerHeader: {
     position: "absolute",
     left: 20,
+    fontWeight: 800,
+    fontFamily: "Google Sans",
+    fontSize: "18px",
   },
   menuList: {
     color: theme.palette.text.secondary,
   },
   menuListItem: ({ open }: IStyleProps) => ({
-    color: theme.palette.text.secondary,
     marginLeft: "5px",
     width: open ? "96%" : "85%",
     paddingLeft: "13px",
