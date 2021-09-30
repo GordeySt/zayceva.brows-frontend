@@ -8,12 +8,13 @@ import {
   AppBarProps as MuiAppBarProps,
   Box,
 } from "@mui/material";
-import MenuIcon from "@material-ui/icons/Menu";
+import { Menu, ArrowBack, HelpOutline } from "@material-ui/icons";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
-import { PermIdentity } from "@material-ui/icons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";
+import { useHistory } from "react-router-dom";
+import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
 
 const drawerWidth = 240;
 
@@ -59,11 +60,21 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: "none",
     },
   },
+  backButton: {
+    marginRight: "10px",
+    display: "none",
+
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      display: "block",
+      marginLeft: "-9px",
+    },
+  },
   appBarTitle: {
-    fontFamily: "serif",
+    fontFamily: "Google Sans",
   },
   appBarMenuItems: {
     display: "flex",
+    marginRight: "-9px",
     [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {
       display: "none",
     },
@@ -80,8 +91,9 @@ interface IProps {
 
 const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
   const classes = useStyles();
+  const history = useHistory();
   const {
-    commonStore: { appBarTitle },
+    commonStore: { appBarTitle, showMobileMenu, showGoBackButton },
   } = useStore();
 
   return (
@@ -95,26 +107,39 @@ const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
             onClick={handleDrawerOpen}
             edge="start"
             style={{
-              marginRight: "36px",
+              marginRight: "35px",
               ...(open && { display: "none" }),
             }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
-          <Typography
-            className={classes.appBarTitle}
-            variant="h6"
-            noWrap
-            component="div"
-          >
-            {appBarTitle}
-          </Typography>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {showGoBackButton && (
+              <IconButton
+                onClick={() => history.goBack()}
+                color="inherit"
+                className={classes.backButton}
+              >
+                <ArrowBack />
+              </IconButton>
+            )}
+            <Typography
+              className={classes.appBarTitle}
+              variant="h6"
+              noWrap
+              component="div"
+            >
+              {appBarTitle}
+            </Typography>
+          </div>
         </div>
-        <Box className={classes.appBarMenuItems}>
-          <IconButton size="large" aria-label="show 17 new notifications">
-            <PermIdentity className={classes.accountIcon} />
-          </IconButton>
-        </Box>
+        {showMobileMenu && (
+          <Box className={classes.appBarMenuItems}>
+            <IconButton onClick={() => history.push(ABOUT_ROUTE)} size="large">
+              <HelpOutline className={classes.accountIcon} />
+            </IconButton>
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );

@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginTop: theme.spacing(4),
     [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
-      height: "100%",
+      minHeight: "97%",
+      marginBottom: "10px",
     },
   },
   text: {
@@ -71,10 +72,19 @@ const contactInformation = [
 const AboutPage = () => {
   const classes = useStyles();
   const {
-    commonStore: { setAppBarTitle },
+    commonStore: { setAppBarTitle, setShowMobileMenu, setShowGoBackButton },
   } = useStore();
 
-  useEffect(() => setAppBarTitle("Обо мне"), [setAppBarTitle]);
+  useEffect(() => {
+    setAppBarTitle("Обо мне");
+    setShowMobileMenu(false);
+    setShowGoBackButton(true);
+
+    return () => {
+      setShowMobileMenu(true);
+      setShowGoBackButton(false);
+    };
+  }, [setAppBarTitle, setShowMobileMenu, setShowGoBackButton]);
 
   return (
     <Container className={classes.container}>

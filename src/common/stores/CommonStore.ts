@@ -15,6 +15,8 @@ export default class CommonStore {
     themeType: "light",
   } as UserSettings;
   appBarTitle = "";
+  showMobileMenu = true;
+  showGoBackButton = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -39,12 +41,20 @@ export default class CommonStore {
     };
   }
 
+  setShowGoBackButton = (showGoBackButton: boolean) => {
+    this.showGoBackButton = showGoBackButton;
+  };
+
   setAppBarTitle = (appBarTitle: string) => {
     this.appBarTitle = appBarTitle;
   };
 
   setUserSettings = (userThemeSettings: UserSettings) => {
     this.userSettings = userThemeSettings;
+  };
+
+  setShowMobileMenu = (showMobileMenu: boolean) => {
+    this.showMobileMenu = showMobileMenu;
   };
 
   setUserSettingsToLocalStorage = (userSettings: UserSettings) => {

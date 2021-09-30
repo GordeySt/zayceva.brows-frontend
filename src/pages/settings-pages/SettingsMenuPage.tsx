@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
       maxWidth: "100%",
+      marginTop: theme.spacing(1.5),
     },
 
     [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {

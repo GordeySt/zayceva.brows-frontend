@@ -83,10 +83,19 @@ const AppearancePage = () => {
   const classes = useStyles();
 
   const {
-    commonStore: { setAppBarTitle },
+    commonStore: { setAppBarTitle, setShowMobileMenu, setShowGoBackButton },
   } = useStore();
 
-  useEffect(() => setAppBarTitle("Внешний вид"), [setAppBarTitle]);
+  useEffect(() => {
+    setAppBarTitle("Внешний вид");
+    setShowMobileMenu(false);
+    setShowGoBackButton(true);
+
+    return () => {
+      setShowMobileMenu(true);
+      setShowGoBackButton(false);
+    };
+  }, [setAppBarTitle, setShowMobileMenu, setShowGoBackButton]);
 
   return (
     <div className={classes.root}>

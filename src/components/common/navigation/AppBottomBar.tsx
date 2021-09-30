@@ -8,30 +8,37 @@ import {
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
-import { HelpOutline } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router-dom";
-import {
-  ABOUT_ROUTE,
-  SETTINGS_MENU_ROUTE,
-} from "../../../common/constants/RoutesConstants";
+import { SETTINGS_MENU_ROUTE } from "../../../common/constants/RoutesConstants";
+import { useStore } from "../../../common/stores/Store";
+import { observer } from "mobx-react-lite";
+
+interface IStyleProps {
+  showMobileMenu: boolean;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
-  bottomBar: {
+  bottomBar: ({ showMobileMenu }: IStyleProps) => ({
+    display: showMobileMenu ? "block" : "none",
     position: "fixed",
     bottom: 0,
     left: 0,
     right: 0,
     width: "100%",
     zIndex: 999,
-    backgroundColor: theme.palette.background.default,
+    background: theme.palette.background.default,
+    paddingBottom: "env(safe-area-inset-bottom, 0)",
     [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {
       display: "none",
     },
-  },
+  }),
 }));
 
-const AppBottomBar = () => {
-  const classes = useStyles();
+const AppBottomBar = observer(() => {
+  const {
+    commonStore: { showMobileMenu },
+  } = useStore();
+  const classes = useStyles({ showMobileMenu });
   const history = useHistory();
   const location = useLocation();
   const theme = useTheme();
@@ -39,7 +46,7 @@ const AppBottomBar = () => {
   return (
     <Box className={classes.bottomBar}>
       <BottomNavigation showLabels>
-        {menuItems.slice(2, 5).map(({ label, icon, to }, i) => {
+        {menuItems.slice(1, 5).map(({ label, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (
@@ -60,23 +67,9 @@ const AppBottomBar = () => {
             />
           );
         })}
-        <BottomNavigationAction
-          onClick={() => history.push(ABOUT_ROUTE)}
-          label="Обо мне"
-          icon={
-            <HelpOutline
-              style={{
-                color:
-                  location.pathname === ABOUT_ROUTE
-                    ? theme.palette.primary.main
-                    : "",
-              }}
-            />
-          }
-        />
       </BottomNavigation>
     </Box>
   );
-};
+});
 
 export default AppBottomBar;
