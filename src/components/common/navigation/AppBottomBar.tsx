@@ -9,17 +9,15 @@ import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { useHistory, useLocation } from "react-router-dom";
-import { SETTINGS_MENU_ROUTE } from "../../../common/constants/RoutesConstants";
-import { useStore } from "../../../common/stores/Store";
-import { observer } from "mobx-react-lite";
+import { useRoute } from "../../../common/utils/routeUtils";
 
 interface IStyleProps {
-  showMobileMenu: boolean;
+  showBottomBar?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  bottomBar: ({ showMobileMenu }: IStyleProps) => ({
-    display: showMobileMenu ? "block" : "none",
+  bottomBar: ({ showBottomBar }: IStyleProps) => ({
+    display: showBottomBar ? "block" : "none",
     position: "fixed",
     bottom: 0,
     left: 0,
@@ -34,11 +32,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }),
 }));
 
-const AppBottomBar = observer(() => {
-  const {
-    commonStore: { showMobileMenu },
-  } = useStore();
-  const classes = useStyles({ showMobileMenu });
+const AppBottomBar = () => {
+  const route = useRoute();
+  const showBottomBar = route?.showBottomBar;
+  const classes = useStyles({ showBottomBar });
   const history = useHistory();
   const location = useLocation();
   const theme = useTheme();
@@ -52,7 +49,7 @@ const AppBottomBar = observer(() => {
           return (
             <BottomNavigationAction
               key={i}
-              onClick={() => history.push(SETTINGS_MENU_ROUTE)}
+              onClick={() => history.push(to)}
               label={label}
               icon={
                 <Icon
@@ -70,6 +67,6 @@ const AppBottomBar = observer(() => {
       </BottomNavigation>
     </Box>
   );
-});
+};
 
 export default AppBottomBar;

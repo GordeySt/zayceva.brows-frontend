@@ -1,8 +1,6 @@
 import { alpha, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect } from "react";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
-import { useStore } from "../../common/stores/Store";
 import ContactCard from "../../components/about-page/ContactCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -71,20 +69,6 @@ const contactInformation = [
 
 const AboutPage = () => {
   const classes = useStyles();
-  const {
-    commonStore: { setAppBarTitle, setShowMobileMenu, setShowGoBackButton },
-  } = useStore();
-
-  useEffect(() => {
-    setAppBarTitle("Обо мне");
-    setShowMobileMenu(false);
-    setShowGoBackButton(true);
-
-    return () => {
-      setShowMobileMenu(true);
-      setShowGoBackButton(false);
-    };
-  }, [setAppBarTitle, setShowMobileMenu, setShowGoBackButton]);
 
   return (
     <Container className={classes.container}>
@@ -159,7 +143,7 @@ const AboutPage = () => {
       >
         Зачем так стараться? Чтобы делать людей более привлекательными, а также{" "}
         получить разнообразный опыта в данной сфере. Ну и приложение свое
-        хотелось бы. иметь, да.
+        хотелось бы иметь, да.
       </Typography>
     </Container>
   );

@@ -7,10 +7,8 @@ import {
   Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect } from "react";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { THEMES } from "../../common/constants/ThemeConstants";
-import { useStore } from "../../common/stores/Store";
 import OneByTwoGrid from "../../components/settings-pages/OneByTwoGrid";
 import SingleRowGrid from "../../components/settings-pages/SingleRowGrid";
 import ThemeCard from "../../components/settings-pages/ThemeCard";
@@ -47,6 +45,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: 8,
       marginTop: theme.spacing(4),
     },
+
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      border: "none",
+    },
   },
   section: {
     backgroundColor: theme.palette.background.paper,
@@ -56,6 +58,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {
       borderRadius: 8,
+    },
+
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      border: "none",
     },
   },
   themeCardsContainer: {
@@ -81,21 +87,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AppearancePage = () => {
   const classes = useStyles();
-
-  const {
-    commonStore: { setAppBarTitle, setShowMobileMenu, setShowGoBackButton },
-  } = useStore();
-
-  useEffect(() => {
-    setAppBarTitle("Внешний вид");
-    setShowMobileMenu(false);
-    setShowGoBackButton(true);
-
-    return () => {
-      setShowMobileMenu(true);
-      setShowGoBackButton(false);
-    };
-  }, [setAppBarTitle, setShowMobileMenu, setShowGoBackButton]);
 
   return (
     <div className={classes.root}>

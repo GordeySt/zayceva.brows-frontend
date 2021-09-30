@@ -30,7 +30,7 @@ export const menuItems: IMenuItem[] = [
   {
     label: "Профиль",
     icon: "PermIdentity",
-    to: "",
+    to: "/",
   },
   {
     label: "Услуги",

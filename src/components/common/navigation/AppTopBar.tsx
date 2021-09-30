@@ -11,10 +11,9 @@ import {
 import { Menu, ArrowBack, HelpOutline } from "@material-ui/icons";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
-import { observer } from "mobx-react-lite";
-import { useStore } from "../../../common/stores/Store";
 import { useHistory } from "react-router-dom";
 import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
+import { useRoute } from "../../../common/utils/routeUtils";
 
 const drawerWidth = 240;
 
@@ -89,12 +88,10 @@ interface IProps {
   handleDrawerOpen: () => void;
 }
 
-const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
+const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
   const classes = useStyles();
   const history = useHistory();
-  const {
-    commonStore: { appBarTitle, showMobileMenu, showGoBackButton },
-  } = useStore();
+  const route = useRoute();
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
@@ -114,7 +111,7 @@ const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
             <Menu />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {showGoBackButton && (
+            {route?.showGoBackButton && (
               <IconButton
                 onClick={() => history.goBack()}
                 color="inherit"
@@ -129,11 +126,11 @@ const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
               noWrap
               component="div"
             >
-              {appBarTitle}
+              {route?.title}
             </Typography>
           </div>
         </div>
-        {showMobileMenu && (
+        {route?.showBottomBar && (
           <Box className={classes.appBarMenuItems}>
             <IconButton onClick={() => history.push(ABOUT_ROUTE)} size="large">
               <HelpOutline className={classes.accountIcon} />
@@ -143,6 +140,6 @@ const AppTopBar = observer(({ open, handleDrawerOpen }: IProps) => {
       </Toolbar>
     </AppBar>
   );
-});
+};
 
 export default AppTopBar;
