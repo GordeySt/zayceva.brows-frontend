@@ -8,7 +8,10 @@ import {
 } from "@material-ui/icons";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { Link } from "react-router-dom";
-import { APPEARANCE_SETTINGS_ROUTE } from "../../common/constants/RoutesConstants";
+import {
+  APPEARANCE_SETTINGS_ROUTE,
+  BLACK_LIST_SETTINGS_ROUTE,
+} from "../../common/constants/RoutesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -68,20 +71,24 @@ const icons = {
 interface IMenuItem {
   text: string;
   icon: keyof typeof icons;
+  to: string;
 }
 
 const settingsMenuItems: IMenuItem[] = [
   {
     icon: "Palette",
     text: "Внешний вид",
+    to: APPEARANCE_SETTINGS_ROUTE,
   },
   {
     icon: "Collections",
     text: "Настройки интерфейса",
+    to: APPEARANCE_SETTINGS_ROUTE,
   },
   {
     icon: "VisibilityOff",
     text: "Черный список",
+    to: BLACK_LIST_SETTINGS_ROUTE,
   },
 ];
 
@@ -90,11 +97,11 @@ const SettingsMenuPage = () => {
 
   return (
     <div className={classes.root}>
-      {settingsMenuItems.map(({ text, icon }, i) => {
+      {settingsMenuItems.map(({ text, icon, to }, i) => {
         const Icon = icons[icon];
 
         return (
-          <Link key={i} to={APPEARANCE_SETTINGS_ROUTE} className={classes.link}>
+          <Link key={i} to={to} className={classes.link}>
             <Icon className={classes.linkIcon} />
             <Typography className={classes.linkText}>{text}</Typography>
             <ArrowForwardIos className={classes.linkIconChevronRight} />
