@@ -4,6 +4,7 @@ import AppTopBar from "./navigation/AppTopBar";
 import SidebarDrawer, { DrawerHeader } from "./navigation/SidebarDrawer";
 import { Children, useState } from "react";
 import AppBottomBar from "./navigation/AppBottomBar";
+import ModalContainer from "./ModalContainer";
 
 const AppLayout: React.FC = ({ children }) => {
   const [open, setOpen] = useState(true);
@@ -18,6 +19,7 @@ const AppLayout: React.FC = ({ children }) => {
 
   return (
     <Box sx={{ display: "flex" }}>
+      <ModalContainer />
       <CssBaseline />
       <AppTopBar open={open} handleDrawerOpen={handleDrawerOpen} />
       <SidebarDrawer open={open} handleDrawerClose={handleDrawerClose} />
