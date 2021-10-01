@@ -9,9 +9,9 @@ import {
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { THEMES } from "../../common/constants/ThemeConstants";
-import OneByTwoGrid from "../../components/settings-pages/OneByTwoGrid";
-import SingleRowGrid from "../../components/settings-pages/SingleRowGrid";
-import ThemeCard from "../../components/settings-pages/ThemeCard";
+import OneByTwoGrid from "../../components/settings-pages/appearance-page/OneByTwoGrid";
+import SingleRowGrid from "../../components/settings-pages/appearance-page/SingleRowGrid";
+import ThemeCard from "../../components/settings-pages/appearance-page/ThemeCard";
 import { makeCustomThemeFromThemeType } from "./utils/functions";
 
 const useStyles = makeStyles((theme: Theme) => ({

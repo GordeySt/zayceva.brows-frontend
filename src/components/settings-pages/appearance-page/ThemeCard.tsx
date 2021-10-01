@@ -1,8 +1,8 @@
 import { ButtonBase, Grid, Radio, Theme, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../common/stores/Store";
+import { useStore } from "../../../common/stores/Store";
 import { makeStyles } from "@mui/styles";
-import { CustomTheme } from "../../common/types/UserSettings";
+import { CustomTheme } from "../../../common/types/UserSettings";
 
 const useThemeCardStyles = makeStyles((theme: Theme) => ({
   root: {
