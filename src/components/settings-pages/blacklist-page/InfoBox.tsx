@@ -1,4 +1,4 @@
-﻿import { Theme, Typography } from "@mui/material";
+import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
 

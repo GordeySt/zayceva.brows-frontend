@@ -3,6 +3,7 @@ import BlockedUsersList from "./BlockedUsersList";
 import { AddRounded } from "@material-ui/icons";
 import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { makeStyles } from "@mui/styles";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
@@ -28,19 +29,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: 0,
     padding: theme.spacing(0, 1.8),
   },
-  emptyText: {
-    padding: theme.spacing(2.5, 0),
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "85%",
-  },
   addButton: {
     color: theme.palette.text.secondary,
   },
 }));
 
-const BlackListBox = () => {
+const BlackListBox = observer(() => {
   const classes = useStyles();
 
   return (
@@ -59,16 +53,9 @@ const BlackListBox = () => {
           <AddRounded />
         </IconButton>
       </div>
-      {/* <Typography
-          color="textSecondary"
-          variant="body2"
-          className={classes.emptyText}
-        >
-          В черном списке пока нет пользователей.
-        </Typography> */}
       <BlockedUsersList />
     </div>
   );
-};
+});
 
 export default BlackListBox;
