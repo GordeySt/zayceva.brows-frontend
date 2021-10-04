@@ -3,6 +3,7 @@ import {
   Avatar,
   CircularProgress,
   Fab,
+  LinearProgress,
   Link,
   List,
   ListItem,
@@ -12,10 +13,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Block, Clear } from "@material-ui/icons";
-import { observer } from "mobx-react-lite";
-import { useStore } from "../../../common/stores/Store";
 import { makeStyles } from "@mui/styles";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import { useStore } from "../../../common/stores/Store";
+import { observer } from "mobx-react-lite";
+import { Box } from "@mui/system";
 
 const useStyles = makeStyles((theme: Theme) => ({
   loadingContainer: {
@@ -59,6 +61,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingBottom: "2px",
     },
   },
+  loaderWrapper: {
+    width: "20%",
+    margin: "0 auto",
+    position: "absolute",
+    bottom: "10px",
+    left: "40%",
+  },
 }));
 
 const BlockedUsersList = observer(() => {
@@ -69,6 +78,11 @@ const BlockedUsersList = observer(() => {
       deleteUserLoading,
       removeUserFromBlackList,
       target,
+      totalPages,
+      currentPage,
+      setCurrentPage,
+      loadMoreUsers,
+      loadMoreUsersLoading,
     },
     modalStore: { openModal, closeModal },
   } = useStore();
@@ -95,10 +109,13 @@ const BlockedUsersList = observer(() => {
           <List
             sx={{
               width: "100%",
-              marginBottom: blockedUsers.length > 3 ? "20px" : "0",
+              marginBottom:
+                currentPage !== totalPages || loadMoreUsersLoading
+                  ? "30px"
+                  : "0",
             }}
           >
-            {blockedUsers.slice(0, 3).map((user) => (
+            {blockedUsers.map((user) => (
               <ListItem key={user.userName}>
                 <ListItemAvatar>
                   <Avatar>
@@ -125,12 +142,23 @@ const BlockedUsersList = observer(() => {
               </ListItem>
             ))}
           </List>
-          {blockedUsers.length > 3 && (
+          {currentPage !== totalPages && !loadMoreUsersLoading && (
             <div className={classes.linkTextWrapper}>
-              <Link className={classes.linkText}>
-                Показать всех пользователей
+              <Link
+                onClick={() => {
+                  setCurrentPage(currentPage + 1);
+                  loadMoreUsers();
+                }}
+                className={classes.linkText}
+              >
+                Показать еще пользователей
               </Link>
             </div>
+          )}
+          {loadMoreUsersLoading && (
+            <Box className={classes.loaderWrapper}>
+              <LinearProgress color="primary" />
+            </Box>
           )}
         </>
       ) : (
