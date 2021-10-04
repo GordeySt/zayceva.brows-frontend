@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     borderRadius: 8,
+    position: "relative",
     [theme.breakpoints.down(MIN_WIDTH)]: {
       borderRadius: 0,
       width: "100%",

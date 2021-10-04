@@ -1,7 +1,9 @@
 import {
+  alpha,
   Avatar,
   CircularProgress,
   Fab,
+  Link,
   List,
   ListItem,
   ListItemAvatar,
@@ -16,15 +18,12 @@ import { makeStyles } from "@mui/styles";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  dialog: {
-    background: theme.palette.background.paper,
-  },
   loadingContainer: {
     background: "transparent",
     boxShadow: "none",
 
     "&:hover": {
-      background: "transparent",
+      background: alpha(theme.palette.text.secondary, 0.1),
     },
   },
   clearIcon: {
@@ -42,6 +41,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  linkTextWrapper: {
+    width: "100%",
+    textAlign: "center",
+    paddingBottom: "10px",
+    position: "absolute",
+    bottom: "2px",
+  },
+  linkText: {
+    textDecoration: "none",
+    cursor: "pointer",
+    color: theme.palette.text.secondary,
+
+    "&:hover": {
+      borderBottom: "1px solid " + theme.palette.text.secondary,
+      paddingBottom: "2px",
+    },
   },
 }));
 
@@ -74,44 +90,58 @@ const BlockedUsersList = observer(() => {
 
   return (
     <>
-      <List sx={{ width: "100%" }}>
-        {blockedUsers && blockedUsers.length ? (
-          blockedUsers.map((user) => (
-            <ListItem key={user.userName}>
-              <ListItemAvatar>
-                <Avatar>
-                  <Block />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={`${user.firstName} ${user.secondName}`}
-                secondary={`@${user.userName}`}
-              />
-              <div style={{ position: "relative" }}>
-                <Fab
-                  aria-label={user.userName}
-                  size="small"
-                  className={classes.loadingContainer}
-                  onClick={() => handleOpenDialog(user.userName)}
-                >
-                  <Clear className={classes.clearIcon} />
-                </Fab>
-                {deleteUserLoading && target === user.userName && (
-                  <CircularProgress size={40} className={classes.loading} />
-                )}
-              </div>
-            </ListItem>
-          ))
-        ) : (
-          <Typography
-            color="textSecondary"
-            variant="body2"
-            className={classes.emptyText}
+      {blockedUsers && blockedUsers.length ? (
+        <>
+          <List
+            sx={{
+              width: "100%",
+              marginBottom: blockedUsers.length > 3 ? "20px" : "0",
+            }}
           >
-            В черном списке пока нет пользователей.
-          </Typography>
-        )}
-      </List>
+            {blockedUsers.slice(0, 3).map((user) => (
+              <ListItem key={user.userName}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <Block />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${user.firstName} ${user.secondName}`}
+                  secondary={`@${user.userName}`}
+                />
+                <div style={{ position: "relative" }}>
+                  <Fab
+                    aria-label={user.userName}
+                    size="small"
+                    className={classes.loadingContainer}
+                    onClick={() => handleOpenDialog(user.userName)}
+                  >
+                    <Clear className={classes.clearIcon} />
+                  </Fab>
+                  {deleteUserLoading && target === user.userName && (
+                    <CircularProgress size={40} className={classes.loading} />
+                  )}
+                </div>
+              </ListItem>
+            ))}
+          </List>
+          {blockedUsers.length > 3 && (
+            <div className={classes.linkTextWrapper}>
+              <Link className={classes.linkText}>
+                Показать всех пользователей
+              </Link>
+            </div>
+          )}
+        </>
+      ) : (
+        <Typography
+          color="textSecondary"
+          variant="body2"
+          className={classes.emptyText}
+        >
+          В черном списке пока нет пользователей.
+        </Typography>
+      )}
     </>
   );
 });
