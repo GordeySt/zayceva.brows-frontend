@@ -4,11 +4,14 @@ import { AddRounded } from "@material-ui/icons";
 import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
+import { useStore } from "../../../common/stores/Store";
+import BlackListBoxSkeleton from "./BlockedUsersListSkeleton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
     backgroundColor: theme.palette.background.paper,
     marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
     width: "70%",
     minHeight: "265px",
     marginLeft: "auto",
@@ -37,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const BlackListBox = observer(() => {
   const classes = useStyles();
+  const {
+    blacklistStore: { loadUsersLoading },
+  } = useStore();
 
   return (
     <div className={classes.section}>
@@ -54,7 +60,7 @@ const BlackListBox = observer(() => {
           <AddRounded />
         </IconButton>
       </div>
-      <BlockedUsersList />
+      {loadUsersLoading ? <BlackListBoxSkeleton /> : <BlockedUsersList />}
     </div>
   );
 });
