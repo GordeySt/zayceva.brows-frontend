@@ -8,8 +8,13 @@ export type User = {
 
 export default class BlacklistStore {
   deleteUserLoading = false;
+  loadUsersLoading = false;
+  loadMoreUsersLoading = false;
+  pageSize = 3;
+  currentPage = 1;
   target = "";
-  blockedUsers: User[] = [
+  blockedUsers: User[] = [];
+  loadedUsers: User[] = [
     {
       userName: "vredina",
       firstName: "Анастасия",
@@ -19,6 +24,16 @@ export default class BlacklistStore {
       userName: "maxim2002",
       firstName: "Максим",
       secondName: "Горький",
+    },
+    {
+      userName: "dronova",
+      firstName: "Ангелина",
+      secondName: "Дронова",
+    },
+    {
+      userName: "gonchar",
+      firstName: "Андрей",
+      secondName: "Гончаров",
     },
   ];
 
@@ -44,6 +59,38 @@ export default class BlacklistStore {
     makeAutoObservable(this);
   }
 
+  get totalPages() {
+    return Math.ceil(this.loadedUsers.length / this.pageSize);
+  }
+
+  setCurrentPage = (currentPage: number) => {
+    this.currentPage = currentPage;
+  };
+
+  loadUsers = () => {
+    this.loadUsersLoading = true;
+
+    setTimeout(() => {
+      this.blockedUsers = this.loadedUsers.slice(
+        0,
+        this.pageSize * this.currentPage
+      );
+      this.loadUsersLoading = false;
+    }, 2000);
+  };
+
+  loadMoreUsers = () => {
+    this.loadMoreUsersLoading = true;
+
+    setTimeout(() => {
+      this.blockedUsers = this.loadedUsers.slice(
+        0,
+        this.pageSize * this.currentPage
+      );
+      this.loadMoreUsersLoading = false;
+    }, 2000);
+  };
+
   addUserToBlackList = (userName: string) => {
     const user = this.users.find((user) => user.userName === userName);
 
@@ -52,7 +99,7 @@ export default class BlacklistStore {
     }
   };
 
-  removeUserFromBlackList = async (userName: string, target: string) => {
+  removeUserFromBlackList = (userName: string, target: string) => {
     this.deleteUserLoading = true;
     this.target = target;
     setTimeout(() => {
