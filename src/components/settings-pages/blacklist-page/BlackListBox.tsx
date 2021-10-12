@@ -70,6 +70,7 @@ const BlackListBox = observer(() => {
         <IconButton
           onClick={handleOpenAddUserToBlacklistDialog}
           className={classes.addButton}
+          disabled={loadUsersLoading}
         >
           <AddRounded />
         </IconButton>
