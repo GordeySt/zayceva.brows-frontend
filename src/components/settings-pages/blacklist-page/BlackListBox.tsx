@@ -6,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";
 import BlackListBoxSkeleton from "./BlockedUsersListSkeleton";
+import AddUserToBlackListModal from "./AddUserToBlackListModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
@@ -41,8 +42,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 const BlackListBox = observer(() => {
   const classes = useStyles();
   const {
-    blacklistStore: { loadUsersLoading },
+    blacklistStore: { loadUsersLoading, addUserToBlackList },
+    modalStore: { openModal, closeModal },
   } = useStore();
+
+  const handleAddUserToBlacklist = (userName: string) => {
+    addUserToBlackList(userName);
+    closeModal();
+  };
+
+  const handleOpenAddUserToBlacklistDialog = () => {
+    const fullDialogWidth = true;
+    const modalComponent = (
+      <AddUserToBlackListModal
+        handleCloseDialog={closeModal}
+        handleAddUserToBlacklistButtonClick={handleAddUserToBlacklist}
+      />
+    );
+
+    openModal(modalComponent, fullDialogWidth);
+  };
 
   return (
     <div className={classes.section}>
@@ -56,7 +75,10 @@ const BlackListBox = observer(() => {
         <Typography className={classes.sectionHeader}>
           Скрытые пользователи
         </Typography>
-        <IconButton className={classes.addButton}>
+        <IconButton
+          onClick={handleOpenAddUserToBlacklistDialog}
+          className={classes.addButton}
+        >
           <AddRounded />
         </IconButton>
       </div>
