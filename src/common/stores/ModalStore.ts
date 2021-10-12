@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { store } from "./Store";
 
 interface Modal {
   open: boolean;
@@ -27,5 +28,6 @@ export default class ModalStore {
   closeModal = () => {
     this.modal.open = false;
     this.modal.body = null;
+    store.blacklistStore.notFoundUserMessage = "";
   };
 }

@@ -14,6 +14,7 @@ export default class BlacklistStore {
   currentPage = 1;
   target = "";
   blockedUsers: User[] = [];
+  notFoundUserMessage?: string = undefined;
   loadedUsers: User[] = [
     {
       userName: "vredina",
@@ -29,11 +30,6 @@ export default class BlacklistStore {
       userName: "dronova",
       firstName: "Ангелина",
       secondName: "Дронова",
-    },
-    {
-      userName: "gonchar",
-      firstName: "Андрей",
-      secondName: "Гончаров",
     },
   ];
 
@@ -96,6 +92,9 @@ export default class BlacklistStore {
 
     if (user) {
       this.blockedUsers = [...this.blockedUsers, user];
+      this.notFoundUserMessage = "";
+    } else {
+      this.notFoundUserMessage = "Пользователь не найден"
     }
   };
 

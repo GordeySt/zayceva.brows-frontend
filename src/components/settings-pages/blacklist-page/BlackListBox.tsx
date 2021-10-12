@@ -42,22 +42,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 const BlackListBox = observer(() => {
   const classes = useStyles();
   const {
-    blacklistStore: { loadUsersLoading, addUserToBlackList },
+    blacklistStore: { loadUsersLoading },
     modalStore: { openModal, closeModal },
   } = useStore();
-
-  const handleAddUserToBlacklist = (userName: string) => {
-    addUserToBlackList(userName);
-    closeModal();
-  };
 
   const handleOpenAddUserToBlacklistDialog = () => {
     const fullDialogWidth = true;
     const modalComponent = (
-      <AddUserToBlackListModal
-        handleCloseDialog={closeModal}
-        handleAddUserToBlacklistButtonClick={handleAddUserToBlacklist}
-      />
+      <AddUserToBlackListModal handleCloseDialog={closeModal} />
     );
 
     openModal(modalComponent, fullDialogWidth);
