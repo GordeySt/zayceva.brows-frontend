@@ -4,9 +4,13 @@ import { useStore } from "../../common/stores/Store";
 
 const ModalContainer = observer(() => {
   const {
-    modalStore: { modal },
+    modalStore: { modal, closeModal },
   } = useStore();
-  return <Dialog open={modal.open}>{modal.body}</Dialog>;
+  return (
+    <Dialog open={modal.open} onClose={closeModal} fullWidth={modal.fullWidth}>
+      {modal.body}
+    </Dialog>
+  );
 });
 
 export default ModalContainer;
