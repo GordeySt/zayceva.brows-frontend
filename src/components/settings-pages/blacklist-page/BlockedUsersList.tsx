@@ -92,14 +92,17 @@ const BlockedUsersList = observer(() => {
     closeModal();
   };
 
-  const handleOpenDialog = (userName: string) => {
-    openModal(
+  const handleOpenDeleteConfirmationDialog = (userName: string) => {
+    const fullDialogWidth = false;
+    const modalComponent = (
       <DeleteConfirmationModal
         selectedUserName={userName}
         handleCloseDialog={closeModal}
         handleDeleteUserFromBlacklist={handleDeleteUserFromBlacklist}
       />
     );
+
+    openModal(modalComponent, fullDialogWidth);
   };
 
   return (
@@ -131,7 +134,9 @@ const BlockedUsersList = observer(() => {
                     aria-label={user.userName}
                     size="small"
                     className={classes.loadingContainer}
-                    onClick={() => handleOpenDialog(user.userName)}
+                    onClick={() =>
+                      handleOpenDeleteConfirmationDialog(user.userName)
+                    }
                   >
                     <Clear className={classes.clearIcon} />
                   </Fab>
