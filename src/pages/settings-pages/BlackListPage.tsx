@@ -11,7 +11,7 @@ const BlackListPage = observer(() => {
 
   useEffect(() => {
     if (blockedUsers.length === 0) loadUsers();
-  }, []);
+  }, [blockedUsers.length, loadUsers]);
 
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
