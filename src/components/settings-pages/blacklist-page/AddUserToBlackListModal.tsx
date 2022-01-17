@@ -18,7 +18,11 @@ const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
   const theme = useTheme();
   const [textFieldValue, setTextFieldValue] = useState("");
   const {
-    blacklistStore: { notFoundUserMessage, addUserToBlackList },
+    blacklistStore: {
+      notFoundUserMessage,
+      addUserToBlackList,
+      addUserToBlackListLoading,
+    },
     modalStore: { closeModal },
   } = useStore();
 
@@ -67,6 +71,7 @@ const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
           Отмена
         </Button>
         <Button
+          disabled={addUserToBlackListLoading}
           color="primary"
           variant="contained"
           onClick={() => handleAddUserToBlacklist(textFieldValue)}

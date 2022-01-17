@@ -10,6 +10,7 @@ export default class BlacklistStore {
   deleteUserLoading = false;
   loadUsersLoading = false;
   loadMoreUsersLoading = false;
+  addUserToBlackListLoading = false;
   pageSize = 3;
   currentPage = 1;
   target = "";
@@ -88,14 +89,20 @@ export default class BlacklistStore {
   };
 
   addUserToBlackList = (userName: string) => {
-    const user = this.users.find((user) => user.userName === userName);
+    this.addUserToBlackListLoading = true;
 
-    if (user) {
-      this.blockedUsers = [...this.blockedUsers, user];
-      this.notFoundUserMessage = "";
-    } else {
-      this.notFoundUserMessage = "Пользователь не найден"
-    }
+    setTimeout(() => {
+      const user = this.users.find((user) => user.userName === userName);
+
+      if (user) {
+        this.blockedUsers = [...this.blockedUsers, user];
+        this.notFoundUserMessage = "";
+      } else {
+        this.notFoundUserMessage = "Пользователь не найден"
+      }
+
+      this.addUserToBlackListLoading = false;
+    }, 2000)
   };
 
   removeUserFromBlackList = (userName: string, target: string) => {
