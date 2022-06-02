@@ -1,4 +1,5 @@
 import AboutPage from "../../pages/about-page/AboutPage";
+import LoginPage from "../../pages/login-page/LoginPage";
 import AppearancePage from "../../pages/settings-pages/AppearancePage";
 import BlackListPage from "../../pages/settings-pages/BlackListPage";
 import SettingsMenuPage from "../../pages/settings-pages/SettingsMenuPage";
@@ -8,6 +9,7 @@ import {
   APPEARANCE_SETTINGS_ROUTE,
   BLACK_LIST_SETTINGS_ROUTE,
   DEFAULT_ROUTE,
+  LOGIN_ROUTE,
   SETTINGS_MENU_ROUTE,
 } from "../constants/RoutesConstants";
 
@@ -27,6 +29,12 @@ export const routes: Route[] = [
     title: "zayceva.brows",
     showBottomBar: true,
     exact: true,
+  },
+  {
+    path: LOGIN_ROUTE,
+    component: LoginPage,
+    showBottomBar: true,
+    title: "Войти в приложение"
   },
   {
     path: SETTINGS_MENU_ROUTE,
