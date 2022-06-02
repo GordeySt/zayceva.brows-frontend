@@ -8,11 +8,11 @@ import {
   AppBarProps as MuiAppBarProps,
   Box,
 } from "@mui/material";
-import { Menu, ArrowBack, HelpOutline } from "@material-ui/icons";
+import { Menu, ArrowBack, Person } from "@material-ui/icons";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { useHistory } from "react-router-dom";
-import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
+import { LOGIN_ROUTE } from "../../../common/constants/RoutesConstants";
 import { useRoute } from "../../../common/utils/routeUtils";
 
 const drawerWidth = 240;
@@ -132,8 +132,8 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
         </div>
         {route?.showBottomBar && (
           <Box className={classes.appBarMenuItems}>
-            <IconButton onClick={() => history.push(ABOUT_ROUTE)} size="large">
-              <HelpOutline className={classes.accountIcon} />
+            <IconButton onClick={() => history.push(LOGIN_ROUTE)} size="large">
+              <Person className={classes.accountIcon} />
             </IconButton>
           </Box>
         )}
