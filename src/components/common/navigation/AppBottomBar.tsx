@@ -43,7 +43,7 @@ const AppBottomBar = () => {
   return (
     <Box className={classes.bottomBar}>
       <BottomNavigation showLabels>
-        {menuItems.slice(1, 5).map(({ label, icon, to }, i) => {
+        {menuItems.slice(2, 6).map(({ label, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (

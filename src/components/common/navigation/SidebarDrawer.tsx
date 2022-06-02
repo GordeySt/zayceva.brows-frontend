@@ -161,7 +161,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       </DrawerHeader>
       <Divider />
       <List className={classes.menuList}>
-        {menuItems.map(({ label, icon, to }, i) => {
+        {menuItems.slice(0, 5).map(({ label, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (
