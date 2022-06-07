@@ -10,15 +10,16 @@ import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorage
 
 const App = observer(() => {
   const {
-    commonStore: { setUserSettings, storeTheme, userSettings },
+    userSettingsStore: { setUserSettings, storeTheme, userSettings },
   } = useStore();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const userSettings: UserSettings = getUserSettingsFromLocalStorage();
+    const userSettingsFromStorage: UserSettings =
+      getUserSettingsFromLocalStorage();
 
-    if (userSettings) {
-      setUserSettings(userSettings);
+    if (userSettingsFromStorage) {
+      setUserSettings(userSettingsFromStorage);
     }
 
     setLoading(true);
