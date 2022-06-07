@@ -58,16 +58,13 @@ const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
   const paperColor = theme.palette.background.paper;
   const classes = useThemeCardStyles({ color: textColor });
   const {
-    commonStore: {
-      userSettings: { themeType },
-      setUserSettingsToLocalStorage,
-    },
+    userSettingsStore: { userSettings, setUserSettingsToLocalStorage },
   } = useStore();
-  const isCurrent = themeType === theme.type;
+  const isCurrent = userSettings.themeType === theme.type;
 
   const changeTheme = () => {
     if (!isCurrent)
-      setUserSettingsToLocalStorage({ themeType: theme.type });
+      setUserSettingsToLocalStorage({ ...userSettings, themeType: theme.type });
   };
 
   return (
