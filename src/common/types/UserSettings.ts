@@ -21,4 +21,5 @@
 
 export type UserSettings = {
   themeType: string;
+  language: 'en' | 'ru';
 };
