@@ -10,9 +10,10 @@ import {
 import { UserSettings } from "../types/UserSettings";
 import { setUserSettingsToLocalStorage } from "../utils/localStorageUtils";
 
-export default class CommonStore {
+export default class UserSettingsStore {
   userSettings = {
     themeType: "light",
+    language: 'ru'
   } as UserSettings;
 
   constructor() {
@@ -38,8 +39,8 @@ export default class CommonStore {
     };
   }
 
-  setUserSettings = (userThemeSettings: UserSettings) => {
-    this.userSettings = userThemeSettings;
+  setUserSettings = (userSettings: UserSettings) => {
+    this.userSettings = userSettings;
   };
 
   setUserSettingsToLocalStorage = (userSettings: UserSettings) => {

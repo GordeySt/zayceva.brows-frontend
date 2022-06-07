@@ -1,16 +1,16 @@
 import { createContext, useContext } from "react";
 import BlacklistStore from "./BlacklistStore";
-import CommonStore from "./CommonStore";
+import UserSettingsStore from "./UserSettingsStore";
 import ModalStore from "./ModalStore";
 
 interface Store {
-  commonStore: CommonStore;
+  userSettingsStore: UserSettingsStore;
   blacklistStore: BlacklistStore;
   modalStore: ModalStore;
 }
 
 export const store: Store = {
-  commonStore: new CommonStore(),
+  userSettingsStore: new UserSettingsStore(),
   blacklistStore: new BlacklistStore(),
   modalStore: new ModalStore(),
 };
