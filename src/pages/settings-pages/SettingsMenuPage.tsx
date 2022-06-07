@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import {
   Palette,
   ArrowForwardIos,
-  Collections,
+  Language,
   VisibilityOff,
 } from "@material-ui/icons";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import {
   APPEARANCE_SETTINGS_ROUTE,
   BLACK_LIST_SETTINGS_ROUTE,
+  LANGUAGE_SETTINGS_ROUTE,
 } from "../../common/constants/RoutesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const icons = {
   Palette,
-  Collections,
+  Language,
   VisibilityOff,
 };
 
@@ -81,9 +82,9 @@ const settingsMenuItems: IMenuItem[] = [
     to: APPEARANCE_SETTINGS_ROUTE,
   },
   {
-    icon: "Collections",
-    text: "Настройки интерфейса",
-    to: APPEARANCE_SETTINGS_ROUTE,
+    icon: "Language",
+    text: "Настройки языка",
+    to: LANGUAGE_SETTINGS_ROUTE,
   },
   {
     icon: "VisibilityOff",
