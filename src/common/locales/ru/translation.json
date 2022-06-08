@@ -1,0 +1,52 @@
+{
+  "menu": {
+    "signInMenuItemText": "Войти",
+    "profileMenuItemText": "Профиль",
+    "servicesMenuItemText": "Услуги",
+    "tipsMenuItemText": "Советы",
+    "settingsMenuItemText": "Настройки",
+    "aboutMenuItemText": "Обо мне"
+  },
+  "pages": {
+    "settingsMenu": {
+      "pageTitle": "Настройки",
+      "appearanceSettingsMenuItem": "Внешний вид",
+      "languageSettingsMenuItem": "Настройки языка",
+      "blacklistSettingsMenuItem": "Черный список"
+    },
+    "appearanceSettingsPage": {
+      "pageTitle": "Внешний вид",
+      "paletteSectionTitle": "Палитра",
+      "themesSectionTitle": "Темы",
+      "lightTheme": "Светлая",
+      "darkTheme": "Темная"
+    },
+    "languageSettingsPage": {
+      "pageTitle": "Настройки языка",
+      "interfaceLanguageSectionTitle": "Интерфейс"
+    },
+    "blacklistPage": {
+      "pageTitle": "Черный список",
+      "hiddenUserSectionTitle": "Скрытые пользователи",
+      "informationSectionTitle": "Информация",
+      "informationSectionInfo": "Здесь находятся те пользователи, которые по той или иной причине нарушили правила сообщества. Доступ к приложению для их аккаунтов будет заблокирован.",
+      "addUserSectionTitle": "Добавить пользователя",
+      "addUserInputPlaceholder": "Например, vredina",
+      "confirmationSectionInfo": "Точно хотите удалить из списка"
+    },
+    "aboutPage": {
+      "pageTitle": "Обо мне"
+    },
+    "signInPage": {
+      "pageTitle": "Войти в приложение",
+      "signInSectionTitle": "Вход",
+      "signInSectionMailLabel": "Электропочта"
+    }
+  },
+  "common": {
+    "add": "Добавить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "confirmation": "Подтверждение"
+  }
+}

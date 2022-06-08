@@ -1,0 +1,52 @@
+{
+  "menu": {
+    "signInMenuItemText": "Sign in",
+    "profileMenuItemText": "Profile",
+    "servicesMenuItemText": "Services",
+    "tipsMenuItemText": "Tips",
+    "settingsMenuItemText": "Settings",
+    "aboutMenuItemText": "About me"
+  },
+  "pages": {
+    "settingsMenu": {
+      "pageTitle": "Settings",
+      "appearanceSettingsMenuItem": "Appearance",
+      "languageSettingsMenuItem": "Language",
+      "blacklistSettingsMenuItem": "Blacklist"
+    },
+    "appearanceSettingsPage": {
+      "pageTitle": "Appearance",
+      "paletteSectionTitle": "Palette",
+      "themesSectionTitle": "Themes",
+      "lightTheme": "Light",
+      "darkTheme": "Dark"
+    },
+    "languageSettingsPage": {
+      "pageTitle": "Language",
+      "interfaceLanguageSectionTitle": "Interface"
+    },
+    "blacklistPage": {
+      "pageTitle": "Blacklist",
+      "hiddenUserSectionTitle": "Hidden users",
+      "informationSectionTitle": "Information",
+      "informationSectionInfo": "Here you can find those users who break the application rules. Their access to this app will be denied.",
+      "addUserSectionTitle": "Add user",
+      "addUserInputPlaceholder": "For example, vredina",
+      "confirmationSectionInfo": "Are you sure you want to delete"
+    },
+    "aboutPage": {
+      "pageTitle": "About"
+    },
+    "signInPage": {
+      "pageTitle": "Sign in",
+      "signInSectionTitle": "Sign in",
+      "signInSectionMailLabel": "Mail"
+    }
+  },
+  "common": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmation": "Confirmation"
+  }
+}
