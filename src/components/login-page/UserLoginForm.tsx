@@ -2,6 +2,7 @@ import { Button, Card, Grid, TextField, Typography } from "@mui/material";
 import { alpha, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const UserLoginForm = observer(() => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const handleLoginSubmit = (e: any) => {
     e.preventDefault();
@@ -41,10 +43,14 @@ const UserLoginForm = observer(() => {
       <form onSubmit={handleLoginSubmit}>
         <Grid container direction="column">
           <Grid item>
-            <Typography className={classes.cardTitle}>Вход</Typography>
+            <Typography
+              className={classes.cardTitle}
+            >{t`pages.signInPage.signInSectionTitle`}</Typography>
           </Grid>
           <Grid item className={classes.gridItem}>
-            <Typography className={classes.inputLabel}>Электропочта</Typography>
+            <Typography
+              className={classes.inputLabel}
+            >{t`pages.signInPage.signInSectionMailLabel`}</Typography>
             <TextField
               autoFocus
               autoComplete="email"
@@ -63,7 +69,7 @@ const UserLoginForm = observer(() => {
               color="primary"
               type="submit"
             >
-              Войти
+              {t`pages.signInPage.signInSectionTitle`}
             </Button>
           </Grid>
         </Grid>

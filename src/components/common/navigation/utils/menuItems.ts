@@ -18,39 +18,39 @@ export const icons = {
 };
 
 interface IMenuItem {
-  label: string;
+  labelKey: string;
   icon: keyof typeof icons;
   to: string;
 }
 
 export const menuItems: IMenuItem[] = [
   {
-    label: "Войти",
+    labelKey: "signInMenuItemText",
     icon: "ExitToApp",
     to: LOGIN_ROUTE,
   },
   {
-    label: "Профиль",
+    labelKey: "profileMenuItemText",
     icon: "PermIdentity",
     to: "/",
   },
   {
-    label: "Услуги",
+    labelKey: "servicesMenuItemText",
     icon: "ListAlt",
     to: "",
   },
   {
-    label: "Советы",
+    labelKey: "tipsMenuItemText",
     icon: "Book",
     to: "",
   },
   {
-    label: "Настройки",
+    labelKey: "settingsMenuItemText",
     icon: "Settings",
     to: SETTINGS_MENU_ROUTE,
   },
   {
-    label: "Обо мне",
+    labelKey: "aboutMenuItemText",
     icon: "HelpOutline",
     to: ABOUT_ROUTE
   }

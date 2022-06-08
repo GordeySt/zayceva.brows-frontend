@@ -2,7 +2,7 @@ import {
   BACKGROUND_COLORS_DEFAULT,
   BACKGROUND_COLORS_PAPER,
   PaletteType,
-  THEME_NAMES,
+  THEME_NAMES_KEYS,
   THEME_PRIMARY_COLORS,
   THEME_TEXT_COLORS,
   THEME_TYPES,
@@ -12,7 +12,7 @@ import { CustomTheme } from "../../../common/types/UserSettings";
 export const makeCustomThemeFromThemeType = (
   type: PaletteType
 ): CustomTheme => ({
-  name: THEME_NAMES[type],
+  name: THEME_NAMES_KEYS[type],
   type,
   palette: {
     type: THEME_TYPES[type],

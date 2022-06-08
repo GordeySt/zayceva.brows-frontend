@@ -39,9 +39,9 @@ export const THEME_TEXT_COLORS = {
   },
 };
 
-export const THEME_NAMES = {
-  light: "Светлая",
-  dark: "Тёмная",
+export const THEME_NAMES_KEYS = {
+  light: "lightTheme",
+  dark: "darkTheme",
 };
 
 export type PaletteType = "light" | "dark";

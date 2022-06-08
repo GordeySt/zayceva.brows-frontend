@@ -20,7 +20,7 @@ export type Route = {
   component: () => JSX.Element;
   showBottomBar?: boolean;
   showGoBackButton?: boolean;
-  title: string;
+  titleKey: string;
   exact?: boolean;
 };
 
@@ -28,7 +28,7 @@ export const routes: Route[] = [
   {
     path: DEFAULT_ROUTE,
     component: TestPage,
-    title: "zayceva.brows",
+    titleKey: "zayceva.brows",
     showBottomBar: true,
     exact: true,
   },
@@ -36,37 +36,37 @@ export const routes: Route[] = [
     path: LOGIN_ROUTE,
     component: LoginPage,
     showBottomBar: true,
-    title: "Войти в приложение"
+    titleKey: "pages.signInPage.pageTitle"
   },
   {
     path: SETTINGS_MENU_ROUTE,
     component: SettingsMenuPage,
     showBottomBar: true,
     exact: true,
-    title: "Настройки",
+    titleKey: "pages.settingsMenu.pageTitle",
   },
   {
     path: APPEARANCE_SETTINGS_ROUTE,
     component: AppearancePage,
     showGoBackButton: true,
-    title: "Внешний вид",
+    titleKey: "pages.appearanceSettingsPage.pageTitle",
   },
   {
     path: LANGUAGE_SETTINGS_ROUTE,
     component: LanguageSettingsPage,
     showGoBackButton: true,
-    title: "Настройки языка"
+    titleKey: "pages.languageSettingsPage.pageTitle"
   },
   {
     path: BLACK_LIST_SETTINGS_ROUTE,
     component: BlackListPage,
     showGoBackButton: true,
-    title: "Черный список",
+    titleKey: "pages.blacklistPage.pageTitle",
   },
   {
     path: ABOUT_ROUTE,
     component: AboutPage,
     showGoBackButton: true,
-    title: "Обо мне",
+    titleKey: "pages.aboutPage.pageTitle",
   },
 ];

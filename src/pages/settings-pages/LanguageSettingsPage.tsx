@@ -12,6 +12,7 @@ import { observer } from "mobx-react-lite";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { useStore } from "../../common/stores/Store";
 import { languages } from "./utils/languages";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const LanguageSettingsPage = observer(() => {
   const theme = useTheme();
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
   const {
     userSettingsStore: { userSettings, setUserSettingsToLocalStorage },
   } = useStore();
@@ -60,13 +62,15 @@ const LanguageSettingsPage = observer(() => {
       ...userSettings,
       language: value as "en" | "ru",
     });
+
+    i18n.changeLanguage(value);
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.section}>
         <Typography className={classes.sectionHeader}>
-          {userSettings.language === "ru" ? "Интерфейс" : "Interface"}
+          {t`pages.languageSettingsPage.interfaceLanguageSectionTitle`}
         </Typography>
         <RadioGroup
           aria-label="language-interface"

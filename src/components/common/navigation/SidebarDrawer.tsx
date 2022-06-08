@@ -16,6 +16,7 @@ import { alpha } from "@mui/material";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { useHistory, useLocation } from "react-router-dom";
 import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -150,6 +151,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const history = useHistory();
   const classes = useStyles({ open });
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -161,7 +163,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       </DrawerHeader>
       <Divider />
       <List className={classes.menuList}>
-        {menuItems.slice(0, 5).map(({ label, icon, to }, i) => {
+        {menuItems.slice(0, 5).map(({ labelKey, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (
@@ -177,7 +179,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
               <ListItemIcon className={classes.menuListItemIcon}>
                 <Icon className={classes.menuIcon} fontSize="medium" />
               </ListItemIcon>
-              <ListItemText primary={label} />
+              <ListItemText primary={t(`menu.${labelKey}`)} />
             </ListItem>
           );
         })}
@@ -194,7 +196,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
           <ListItemIcon className={classes.menuListItemIcon}>
             <HelpOutline fontSize="medium" className={classes.helpIcon} />
           </ListItemIcon>
-          <ListItemText primary="Обо мне" />
+          <ListItemText primary={t`menu.aboutMenuItemText`} />
         </ListItem>
       </List>
     </Drawer>

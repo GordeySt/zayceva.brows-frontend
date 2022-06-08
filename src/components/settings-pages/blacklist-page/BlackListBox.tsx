@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";
 import BlackListBoxSkeleton from "./BlockedUsersListSkeleton";
 import AddUserToBlackListModal from "./AddUserToBlackListModal";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const BlackListBox = observer(() => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const {
     blacklistStore: { loadUsersLoading },
     modalStore: { openModal, closeModal },
@@ -65,7 +67,7 @@ const BlackListBox = observer(() => {
         }}
       >
         <Typography className={classes.sectionHeader}>
-          Скрытые пользователи
+          {t`pages.blacklistPage.hiddenUserSectionTitle`}
         </Typography>
         <IconButton
           onClick={handleOpenAddUserToBlacklistDialog}

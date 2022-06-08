@@ -7,6 +7,7 @@ import {
   Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { THEMES } from "../../common/constants/ThemeConstants";
 import OneByTwoGrid from "../../components/settings-pages/appearance-page/OneByTwoGrid";
@@ -87,16 +88,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AppearancePage = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
       <Grid container className={classes.previewContainer} direction="row">
-        <Typography className={classes.sectionHeader}>Палитра</Typography>
+        <Typography
+          className={classes.sectionHeader}
+        >{t`pages.appearanceSettingsPage.paletteSectionTitle`}</Typography>
         <SingleRowGrid />
         <OneByTwoGrid />
       </Grid>
       <div className={classes.section}>
-        <Typography className={classes.sectionHeader}>Темы</Typography>
+        <Typography
+          className={classes.sectionHeader}
+        >{t`pages.appearanceSettingsPage.themesSectionTitle`}</Typography>
         <FormControl
           component="fieldset"
           aria-label="theme-type"

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { ChangeEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useStore } from "../../../common/stores/Store";
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
 
 const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [textFieldValue, setTextFieldValue] = useState("");
   const {
     blacklistStore: {
@@ -39,14 +41,14 @@ const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
 
   return (
     <>
-      <DialogTitle>Добавить пользователя</DialogTitle>
+      <DialogTitle>{t`pages.blacklistPage.addUserSectionTitle`}</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
           margin="dense"
           id="name"
           label="User Id"
-          placeholder="Например, vredina"
+          placeholder={t`pages.blacklistPage.addUserInputPlaceholder`}
           type="userId"
           fullWidth
           variant="standard"
@@ -68,7 +70,7 @@ const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
       </DialogContent>
       <DialogActions>
         <Button color="inherit" onClick={handleCloseDialog}>
-          Отмена
+          {t`common.cancel`}
         </Button>
         <Button
           disabled={addUserToBlackListLoading}
@@ -76,7 +78,7 @@ const AddUserToBlackListModal = observer(({ handleCloseDialog }: IProps) => {
           variant="contained"
           onClick={() => handleAddUserToBlacklist(textFieldValue)}
         >
-          Добавить
+          {t`common.add`}
         </Button>
       </DialogActions>
     </>

@@ -1,5 +1,6 @@
 import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,22 +36,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const InfoBox = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   return (
     <div className={classes.infoSection}>
       <Typography
         style={{ paddingTop: "10px" }}
         className={classes.sectionHeader}
       >
-        Информация
+        {t`pages.blacklistPage.informationSectionTitle`}
       </Typography>
       <Typography
         className={classes.infoText}
         color="textSecondary"
         variant="body2"
       >
-        Здесь находятся те пользователи, которые по той или иной причине
-        нарушили правила сообщества. Доступ к приложению для их аккаунтов будет
-        заблокирован.
+        {t`pages.blacklistPage.informationSectionInfo`}
       </Typography>
     </div>
   );

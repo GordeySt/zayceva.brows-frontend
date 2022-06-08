@@ -13,6 +13,7 @@ import {
   BLACK_LIST_SETTINGS_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
 } from "../../common/constants/RoutesConstants";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -70,41 +71,44 @@ const icons = {
 };
 
 interface IMenuItem {
-  text: string;
   icon: keyof typeof icons;
+  textKey: string;
   to: string;
 }
 
 const settingsMenuItems: IMenuItem[] = [
   {
     icon: "Palette",
-    text: "Внешний вид",
+    textKey: "appearanceSettingsMenuItem",
     to: APPEARANCE_SETTINGS_ROUTE,
   },
   {
     icon: "Language",
-    text: "Настройки языка",
+    textKey: "languageSettingsMenuItem",
     to: LANGUAGE_SETTINGS_ROUTE,
   },
   {
     icon: "VisibilityOff",
-    text: "Черный список",
+    textKey: "blacklistSettingsMenuItem",
     to: BLACK_LIST_SETTINGS_ROUTE,
   },
 ];
 
 const SettingsMenuPage = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
-      {settingsMenuItems.map(({ text, icon, to }, i) => {
+      {settingsMenuItems.map(({ textKey, icon, to }, i) => {
         const Icon = icons[icon];
 
         return (
           <Link key={i} to={to} className={classes.link}>
             <Icon className={classes.linkIcon} />
-            <Typography className={classes.linkText}>{text}</Typography>
+            <Typography className={classes.linkText}>
+              {t(`pages.settingsMenu.${textKey}`)}
+            </Typography>
             <ArrowForwardIos className={classes.linkIconChevronRight} />
           </Link>
         );

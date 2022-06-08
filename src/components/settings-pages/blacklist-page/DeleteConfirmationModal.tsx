@@ -5,6 +5,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   selectedUserName: string;
@@ -17,17 +18,20 @@ const DeleteConfirmationModal = ({
   handleCloseDialog,
   handleDeleteUserFromBlacklist,
 }: IProps) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <DialogTitle id="alert-dialog-title">Подтверждение</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{t`common.confirmation`}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Точно хочешь удалить из списка <b>&quot;@{selectedUserName}&quot;</b>?
+          {t`pages.blacklistPage.confirmationSectionInfo`}{" "}
+          <b>&quot;@{selectedUserName}&quot;</b>?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button color="inherit" onClick={handleCloseDialog}>
-          Отмена
+          {t`common.cancel`}
         </Button>
         <Button
           color="primary"
@@ -36,7 +40,7 @@ const DeleteConfirmationModal = ({
           autoFocus
           onClick={() => handleDeleteUserFromBlacklist(selectedUserName)}
         >
-          Удалить
+          {t`common.delete`}
         </Button>
       </DialogActions>
     </>

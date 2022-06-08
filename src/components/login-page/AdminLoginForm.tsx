@@ -13,6 +13,7 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { alpha, Theme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -41,13 +42,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AdminLoginForm = observer(() => {
   const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.rootCard}>
       <form>
         <Grid container direction="column">
           <Grid item>
-            <Typography className={classes.cardTitle}>Вход</Typography>
+            <Typography
+              className={classes.cardTitle}
+            >{t`pages.signInPage.signInSectionTitle`}</Typography>
           </Grid>
           <Grid item style={{ paddingTop: "13px" }}>
             <Typography className={classes.inputLabel}>Пароль</Typography>
@@ -79,7 +83,7 @@ const AdminLoginForm = observer(() => {
               color="primary"
               type="submit"
             >
-              Войти
+              {t`pages.signInPage.signInSectionTitle`}
             </Button>
           </Grid>
         </Grid>

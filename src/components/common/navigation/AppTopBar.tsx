@@ -14,6 +14,7 @@ import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { useHistory } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../../common/constants/RoutesConstants";
 import { useRoute } from "../../../common/utils/routeUtils";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -92,6 +93,7 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
   const classes = useStyles();
   const history = useHistory();
   const route = useRoute();
+  const { t } = useTranslation();
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
@@ -120,14 +122,16 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
                 <ArrowBack />
               </IconButton>
             )}
-            <Typography
-              className={classes.appBarTitle}
-              variant="h6"
-              noWrap
-              component="div"
-            >
-              {route?.title}
-            </Typography>
+            {route?.titleKey && (
+              <Typography
+                className={classes.appBarTitle}
+                variant="h6"
+                noWrap
+                component="div"
+              >
+                {t(`${route?.titleKey}`)}
+              </Typography>
+            )}
           </div>
         </div>
         {route?.showBottomBar && (

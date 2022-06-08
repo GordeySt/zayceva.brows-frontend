@@ -10,6 +10,7 @@ import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { useHistory, useLocation } from "react-router-dom";
 import { useRoute } from "../../../common/utils/routeUtils";
+import { useTranslation } from "react-i18next";
 
 interface IStyleProps {
   showBottomBar?: boolean;
@@ -39,18 +40,19 @@ const AppBottomBar = () => {
   const history = useHistory();
   const location = useLocation();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Box className={classes.bottomBar}>
       <BottomNavigation showLabels>
-        {menuItems.slice(2, 6).map(({ label, icon, to }, i) => {
+        {menuItems.slice(2, 6).map(({ labelKey, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (
             <BottomNavigationAction
               key={i}
               onClick={() => history.push(to)}
-              label={label}
+              label={t(`menu.${labelKey}`)}
               icon={
                 <Icon
                   style={{

@@ -7,11 +7,13 @@ import AppLayout from "./AppLayout";
 import { UserSettings } from "../../common/types/UserSettings";
 import Router from "./Router";
 import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorageUtils";
+import { useTranslation } from "react-i18next";
 
 const App = observer(() => {
   const {
     userSettingsStore: { setUserSettings, storeTheme, userSettings },
   } = useStore();
+  const { i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,6 +22,7 @@ const App = observer(() => {
 
     if (userSettingsFromStorage) {
       setUserSettings(userSettingsFromStorage);
+      i18n.changeLanguage(userSettingsFromStorage.language);
     }
 
     setLoading(true);
@@ -27,7 +30,7 @@ const App = observer(() => {
     setTimeout(() => {
       setLoading(false);
     }, 300);
-  }, [setUserSettings]);
+  }, [setUserSettings, i18n]);
 
   const muiTheme = createTheme(storeTheme);
 

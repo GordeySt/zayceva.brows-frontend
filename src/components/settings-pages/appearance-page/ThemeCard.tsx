@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";
 import { makeStyles } from "@mui/styles";
 import { CustomTheme } from "../../../common/types/UserSettings";
+import { useTranslation } from "react-i18next";
 
 const useThemeCardStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -57,6 +58,7 @@ const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
   const textColor = theme.palette.text.primary;
   const paperColor = theme.palette.background.paper;
   const classes = useThemeCardStyles({ color: textColor });
+  const { t } = useTranslation();
   const {
     userSettingsStore: { userSettings, setUserSettingsToLocalStorage },
   } = useStore();
@@ -98,7 +100,9 @@ const ThemeCard = observer(({ theme }: { theme: CustomTheme }) => {
           />
         </div>
       </Grid>
-      <Typography className={classes.type}>{theme.name}</Typography>
+      <Typography className={classes.type}>
+        {t(`pages.appearanceSettingsPage.${theme.name}`)}
+      </Typography>
     </div>
   );
 });
