@@ -40,7 +40,8 @@
     "signInPage": {
       "pageTitle": "Sign in",
       "signInSectionTitle": "Sign in",
-      "signInSectionMailLabel": "Mail"
+      "signInSectionMailLabel": "Mail",
+      "signInSectionPasswordLabel": "Password"
     }
   },
   "common": {

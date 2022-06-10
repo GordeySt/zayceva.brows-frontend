@@ -89,7 +89,9 @@ const LoginForm = observer(() => {
             />
           </Grid>
           <Grid item style={{ paddingTop: "13px" }}>
-            <Typography className={classes.inputLabel}>Пароль</Typography>
+            <Typography
+              className={classes.inputLabel}
+            >{t`pages.signInPage.signInSectionPasswordLabel`}</Typography>
             <OutlinedInput
               autoComplete="current-password"
               name="password"

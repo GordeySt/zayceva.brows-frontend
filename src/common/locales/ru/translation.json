@@ -38,9 +38,10 @@
       "pageTitle": "Обо мне"
     },
     "signInPage": {
-      "pageTitle": "Войти в приложение",
+      "pageTitle": "Авторизация",
       "signInSectionTitle": "Вход",
-      "signInSectionMailLabel": "Электропочта"
+      "signInSectionMailLabel": "Электропочта",
+      "signInSectionPasswordLabel": "Пароль"
     }
   },
   "common": {
