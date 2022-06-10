@@ -1,17 +1,16 @@
-import { Container } from "@mui/material";
-import UserLoginForm from "../../components/login-page/UserLoginForm";
+import LoginForm from "../../components/login-page/LoginForm";
 
 const LoginPage = () => {
   return (
-    <Container
+    <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <UserLoginForm />
-    </Container>
+      <LoginForm />
+    </div>
   );
 };
 
