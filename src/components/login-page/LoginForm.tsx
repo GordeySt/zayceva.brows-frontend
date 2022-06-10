@@ -1,13 +1,37 @@
-import { Button, Card, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  Grid,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { alpha, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { useState } from "react";
+import {
+  MAX_TABLET_WIDTH,
+  MIN_WIDTH,
+} from "../../common/constants/AdaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
-    width: "460px",
     padding: "20px",
+    width: "550px",
+
+    [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
+      width: "100%",
+      borderRadius: 0,
+    },
+    [theme.breakpoints.down(MIN_WIDTH)]: {
+      marginTop: "10px",
+    },
   },
   cardTitle: {
     fontSize: "28px",
@@ -26,10 +50,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "8px 0 8px 0",
     fontWeight: 500,
   },
+  iconButton: {
+    color: theme.palette.text.secondary,
+  },
 }));
 
-const UserLoginForm = observer(() => {
+const LoginForm = observer(() => {
   const classes = useStyles();
+  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
 
   const handleLoginSubmit = (e: any) => {
@@ -60,6 +88,27 @@ const UserLoginForm = observer(() => {
               variant="outlined"
             />
           </Grid>
+          <Grid item style={{ paddingTop: "13px" }}>
+            <Typography className={classes.inputLabel}>Пароль</Typography>
+            <OutlinedInput
+              autoComplete="current-password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              fullWidth
+              size="small"
+              margin="dense"
+              endAdornment={
+                <InputAdornment position="end" style={{ marginRight: -8 }}>
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Grid>
           <Grid item className={classes.gridItem}>
             <Button
               className={classes.submitButton}
@@ -78,4 +127,4 @@ const UserLoginForm = observer(() => {
   );
 });
 
-export default UserLoginForm;
+export default LoginForm;
