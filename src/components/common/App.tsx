@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../common/stores/Store";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import React from "react";
 import AppLayout from "./AppLayout";
 import { UserSettings } from "../../common/types/UserSettings";
@@ -11,12 +11,12 @@ import { useTranslation } from "react-i18next";
 
 const App = observer(() => {
   const {
-    userSettingsStore: { setUserSettings, storeTheme, userSettings },
+    userSettingsStore: { setUserSettings, storeTheme },
   } = useStore();
   const { i18n } = useTranslation();
-  const [loading, setLoading] = useState(false);
+  const [_, setLoading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const userSettingsFromStorage: UserSettings =
       getUserSettingsFromLocalStorage();
 
@@ -33,19 +33,6 @@ const App = observer(() => {
   }, [setUserSettings, i18n]);
 
   const muiTheme = createTheme(storeTheme);
-
-  if (loading) {
-    return (
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          backgroundColor:
-            userSettings.themeType === "dark" ? "#0e0e0e" : "#f5f5f5",
-        }}
-      ></div>
-    );
-  }
 
   return (
     <ThemeProvider theme={muiTheme}>
