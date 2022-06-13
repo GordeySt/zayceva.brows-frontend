@@ -44,7 +44,7 @@ export const routes: Route[] = [
     path: SIGN_UP_ROUTE,
     component: SignUpPage,
     titleKey: "pages.signUpPage.pageTitle",
-    showBottomBar: true
+    showGoBackButton: true
   },
   {
     path: SETTINGS_MENU_ROUTE,
