@@ -4,6 +4,7 @@ import AppearancePage from "../../pages/settings-pages/AppearancePage";
 import BlackListPage from "../../pages/settings-pages/BlackListPage";
 import LanguageSettingsPage from "../../pages/settings-pages/LanguageSettingsPage";
 import SettingsMenuPage from "../../pages/settings-pages/SettingsMenuPage";
+import SignUpPage from "../../pages/sign-up-page/SignUpPage";
 import { TestPage } from "../../pages/TestPage";
 import {
   ABOUT_ROUTE,
@@ -13,6 +14,7 @@ import {
   LANGUAGE_SETTINGS_ROUTE,
   LOGIN_ROUTE,
   SETTINGS_MENU_ROUTE,
+  SIGN_UP_ROUTE,
 } from "../constants/RoutesConstants";
 
 export type Route = {
@@ -37,6 +39,12 @@ export const routes: Route[] = [
     component: LoginPage,
     showBottomBar: true,
     titleKey: "pages.signInPage.pageTitle"
+  },
+  {
+    path: SIGN_UP_ROUTE,
+    component: SignUpPage,
+    titleKey: "pages.signUpPage.pageTitle",
+    showBottomBar: true
   },
   {
     path: SETTINGS_MENU_ROUTE,
