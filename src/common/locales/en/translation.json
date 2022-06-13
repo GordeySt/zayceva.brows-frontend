@@ -44,6 +44,14 @@
       "passwordLabel": "Password",
       "dividerTitle": "OR",
       "signUpButtonText": "Sign up"
+    },
+    "signUpPage": {
+      "pageTitle": "Sign up",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "mailLabel": "Mail",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm password"
     }
   },
   "common": {

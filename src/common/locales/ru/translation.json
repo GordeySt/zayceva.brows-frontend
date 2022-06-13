@@ -44,6 +44,14 @@
       "passwordLabel": "Пароль",
       "dividerTitle": "ИЛИ",
       "signUpButtonText": "Зарегистрироваться"
+    },
+    "signUpPage": {
+      "pageTitle": "Регистрация",
+      "firstNameLabel": "Имя",
+      "lastNameLabel": "Фамилия",
+      "mailLabel": "Электропочта",
+      "passwordLabel": "Пароль",
+      "confirmPasswordLabel": "Подтверждение пароля"
     }
   },
   "common": {
