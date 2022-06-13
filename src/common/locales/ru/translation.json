@@ -39,9 +39,11 @@
     },
     "signInPage": {
       "pageTitle": "Авторизация",
-      "signInSectionTitle": "Вход",
-      "signInSectionMailLabel": "Электропочта",
-      "signInSectionPasswordLabel": "Пароль"
+      "sectionTitle": "Вход",
+      "mailLabel": "Электропочта",
+      "passwordLabel": "Пароль",
+      "dividerTitle": "ИЛИ",
+      "signUpButtonText": "Зарегистрироваться"
     }
   },
   "common": {

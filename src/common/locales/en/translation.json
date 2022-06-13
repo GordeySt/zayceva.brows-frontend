@@ -39,9 +39,11 @@
     },
     "signInPage": {
       "pageTitle": "Sign in",
-      "signInSectionTitle": "Sign in",
-      "signInSectionMailLabel": "Mail",
-      "signInSectionPasswordLabel": "Password"
+      "sectionTitle": "Sign in",
+      "mailLabel": "Mail",
+      "passwordLabel": "Password",
+      "dividerTitle": "OR",
+      "signUpButtonText": "Sign up"
     }
   },
   "common": {
