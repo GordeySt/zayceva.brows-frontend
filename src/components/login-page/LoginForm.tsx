@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Divider,
   Grid,
   IconButton,
   InputAdornment,
@@ -73,12 +74,12 @@ const LoginForm = observer(() => {
           <Grid item>
             <Typography
               className={classes.cardTitle}
-            >{t`pages.signInPage.signInSectionTitle`}</Typography>
+            >{t`pages.signInPage.sectionTitle`}</Typography>
           </Grid>
           <Grid item className={classes.gridItem}>
             <Typography
               className={classes.inputLabel}
-            >{t`pages.signInPage.signInSectionMailLabel`}</Typography>
+            >{t`pages.signInPage.mailLabel`}</Typography>
             <TextField
               autoFocus
               autoComplete="email"
@@ -91,7 +92,7 @@ const LoginForm = observer(() => {
           <Grid item style={{ paddingTop: "13px" }}>
             <Typography
               className={classes.inputLabel}
-            >{t`pages.signInPage.signInSectionPasswordLabel`}</Typography>
+            >{t`pages.signInPage.passwordLabel`}</Typography>
             <OutlinedInput
               autoComplete="current-password"
               name="password"
@@ -120,7 +121,22 @@ const LoginForm = observer(() => {
               color="primary"
               type="submit"
             >
-              {t`pages.signInPage.signInSectionTitle`}
+              {t`pages.signInPage.sectionTitle`}
+            </Button>
+          </Grid>
+          <Grid item className={classes.gridItem}>
+            <Divider>{t`pages.signInPage.dividerTitle`}</Divider>
+          </Grid>
+          <Grid item className={classes.gridItem}>
+            <Button
+              className={classes.submitButton}
+              disableElevation
+              fullWidth
+              variant="outlined"
+              color="primary"
+              type="submit"
+            >
+              {t`pages.signInPage.signUpButtonText`}
             </Button>
           </Grid>
         </Grid>
