@@ -124,7 +124,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: open
       ? theme.palette.primary.main
       : alpha(theme.palette.text.primary, 0.7),
+
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
   }),
+  activeIcon: {
+    color: theme.palette.primary.main,
+  },
   helpItem: {
     color: alpha(theme.palette.text.primary, 0.54),
     cursor: "pointer",
@@ -161,7 +168,7 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
           <KeyboardArrowLeft />
         </IconButton>
       </DrawerHeader>
-      <Divider />
+      <Divider variant="middle" />
       <List className={classes.menuList}>
         {menuItems.slice(0, 5).map(({ labelKey, icon, to }, i) => {
           const Icon = icons[icon];
