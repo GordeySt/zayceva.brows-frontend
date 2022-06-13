@@ -52,6 +52,15 @@
       "mailLabel": "Mail",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm password"
+    },
+    "confirmEmailPage": {
+      "pageTitle": "Email confirmation",
+      "cardTitle": "Thank You!",
+      "cardMainInfo": "We will send you a confirmation e-mail shortly with an activation link to get you started with our app.",
+      "cardAdditionalInfo1": "Didn't see it?",
+      "cardAdditionalInfo2": "Check your spam for an e-mail from",
+      "cardAdditionalInfo3": "or",
+      "cardAdditionalInfo4": "send again"
     }
   },
   "common": {

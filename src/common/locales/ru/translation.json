@@ -52,6 +52,15 @@
       "mailLabel": "Электропочта",
       "passwordLabel": "Пароль",
       "confirmPasswordLabel": "Подтверждение пароля"
+    },
+    "confirmEmailPage": {
+      "pageTitle": "Верификации почты",
+      "cardTitle": "Благодарим!",
+      "cardMainInfo": "Мы отправим вам на почту письмо вместe со ссылкой для активации вашего аккаунта в нашем приложении.",
+      "cardAdditionalInfo1": "Не получили письмо?",
+      "cardAdditionalInfo2": "Проверьте спам вашей почты на наличие письма от",
+      "cardAdditionalInfo3": "или",
+      "cardAdditionalInfo4": "отправьте снова"
     }
   },
   "common": {
