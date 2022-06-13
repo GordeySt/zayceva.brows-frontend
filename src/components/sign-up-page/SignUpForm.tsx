@@ -1,27 +1,24 @@
 import {
   Button,
   Card,
-  Divider,
   Grid,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
   TextField,
+  Theme,
+  alpha,
   Typography,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
-import { alpha, Theme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { observer } from "mobx-react-lite";
-import { useTranslation } from "react-i18next";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
 } from "../../common/constants/AdaptiveConstants";
-import { useHistory } from "react-router-dom";
-import { SIGN_UP_ROUTE } from "../../common/constants/RoutesConstants";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -58,31 +55,52 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const LoginForm = observer(() => {
+const SignUpForm = () => {
   const classes = useStyles();
-  const history = useHistory();
-  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
-
-  const handleLoginSubmit = (e: any) => {
-    e.preventDefault();
-
-    console.log(e.target.email.value);
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Card className={classes.rootCard}>
-      <form onSubmit={handleLoginSubmit}>
+      <form>
         <Grid container direction="column">
-          <Grid item>
+          <Grid item className={classes.gridItem}>
             <Typography
               className={classes.cardTitle}
-            >{t`pages.signInPage.sectionTitle`}</Typography>
+            >{t`pages.signUpPage.pageTitle`}</Typography>
+          </Grid>
+          <Grid item container spacing={1} className={classes.gridItem}>
+            <Grid item xs={6}>
+              <Typography
+                className={classes.inputLabel}
+              >{t`pages.signUpPage.firstNameLabel`}</Typography>
+              <TextField
+                autoFocus
+                autoComplete="firstName"
+                name="firstName"
+                size="small"
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Typography
+                className={classes.inputLabel}
+              >{t`pages.signUpPage.lastNameLabel`}</Typography>
+              <TextField
+                autoFocus
+                autoComplete="lastName"
+                name="lastName"
+                size="small"
+                fullWidth
+                variant="outlined"
+              />
+            </Grid>
           </Grid>
           <Grid item className={classes.gridItem}>
             <Typography
               className={classes.inputLabel}
-            >{t`pages.signInPage.mailLabel`}</Typography>
+            >{t`pages.signUpPage.mailLabel`}</Typography>
             <TextField
               autoFocus
               autoComplete="email"
@@ -92,10 +110,10 @@ const LoginForm = observer(() => {
               variant="outlined"
             />
           </Grid>
-          <Grid item style={{ paddingTop: "13px" }}>
+          <Grid item className={classes.gridItem}>
             <Typography
               className={classes.inputLabel}
-            >{t`pages.signInPage.passwordLabel`}</Typography>
+            >{t`pages.signUpPage.passwordLabel`}</Typography>
             <OutlinedInput
               autoComplete="current-password"
               name="password"
@@ -116,36 +134,40 @@ const LoginForm = observer(() => {
             />
           </Grid>
           <Grid item className={classes.gridItem}>
-            <Button
-              className={classes.button}
-              disableElevation
+            <Typography className={classes.inputLabel}>
+              {t`pages.signUpPage.confirmPasswordLabel`}
+            </Typography>
+            <OutlinedInput
+              autoComplete="current-password"
+              name="confirmPassword"
+              type={showPassword ? "text" : "password"}
               fullWidth
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              {t`pages.signInPage.sectionTitle`}
-            </Button>
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Divider>{t`pages.signInPage.dividerTitle`}</Divider>
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Button
-              onClick={() => history.push(SIGN_UP_ROUTE)}
-              className={classes.button}
-              disableElevation
-              fullWidth
-              variant="outlined"
-              color="primary"
-            >
-              {t`pages.signInPage.signUpButtonText`}
-            </Button>
+              size="small"
+              margin="dense"
+              endAdornment={
+                <InputAdornment position="end" style={{ marginRight: -8 }}>
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </Grid>
         </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign Up
+        </Button>
       </form>
     </Card>
   );
-});
+};
 
-export default LoginForm;
+export default SignUpForm;
