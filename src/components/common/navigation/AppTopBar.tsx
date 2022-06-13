@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "none",
 
     [theme.breakpoints.down(MAX_TABLET_WIDTH)]: {
-      display: "block",
+      display: "flex",
       marginLeft: "-9px",
     },
   },
