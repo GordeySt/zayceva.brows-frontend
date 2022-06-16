@@ -12,7 +12,7 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { Block, Clear } from "@material-ui/icons";
+import { Block, Clear } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { useStore } from "../../../common/stores/Store";

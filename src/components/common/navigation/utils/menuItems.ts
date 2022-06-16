@@ -5,7 +5,7 @@ import {
   Settings,
   ExitToApp,
   HelpOutline
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { ABOUT_ROUTE, LOGIN_ROUTE, SETTINGS_MENU_ROUTE } from "../../../../common/constants/RoutesConstants";
 
 export const icons = {

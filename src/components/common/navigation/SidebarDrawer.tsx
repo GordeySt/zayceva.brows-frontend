@@ -9,7 +9,7 @@ import {
   ListItemText,
   IconButton,
 } from "@mui/material";
-import { KeyboardArrowLeft, HelpOutline } from "@material-ui/icons";
+import { KeyboardArrowLeft, HelpOutline } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";

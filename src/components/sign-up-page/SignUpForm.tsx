@@ -10,8 +10,8 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import {

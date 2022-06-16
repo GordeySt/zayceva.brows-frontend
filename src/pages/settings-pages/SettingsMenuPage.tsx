@@ -5,7 +5,7 @@ import {
   ArrowForwardIos,
   Language,
   VisibilityOff,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { Link } from "react-router-dom";
 import {

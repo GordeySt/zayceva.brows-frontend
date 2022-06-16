@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, Link, Typography } from "@mui/material";
-import { alpha, Theme } from "@mui/material";
+import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import {

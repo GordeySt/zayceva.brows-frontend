@@ -8,7 +8,7 @@ import {
   AppBarProps as MuiAppBarProps,
   Box,
 } from "@mui/material";
-import { Menu, ArrowBack, Person } from "@material-ui/icons";
+import { Menu, ArrowBack, Person } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { useHistory } from "react-router-dom";
