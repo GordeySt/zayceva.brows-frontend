@@ -61,6 +61,9 @@
       "cardAdditionalInfo2": "Check your spam for an e-mail from",
       "cardAdditionalInfo3": "or",
       "cardAdditionalInfo4": "send again"
+    },
+    "confirmedEmailPage": {
+      "cardInfo": "You email address is confirmed. You can now log into the app."
     }
   },
   "common": {

@@ -61,6 +61,9 @@
       "cardAdditionalInfo2": "Проверьте спам вашей почты на наличие письма от",
       "cardAdditionalInfo3": "или",
       "cardAdditionalInfo4": "отправьте снова"
+    },
+    "confirmedEmailPage": {
+      "cardInfo": "Ваша почта прошла верификацию. Теперь вы можете войти в приложение."
     }
   },
   "common": {
