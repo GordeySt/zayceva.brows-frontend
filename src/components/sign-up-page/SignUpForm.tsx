@@ -1,12 +1,10 @@
 import {
-  Button,
   Card,
   Grid,
   TextField,
   Theme,
   alpha,
   Typography,
-  OutlinedInput,
   InputAdornment,
   IconButton,
 } from "@mui/material";
@@ -19,6 +17,8 @@ import {
   MIN_WIDTH,
 } from "../../common/constants/AdaptiveConstants";
 import { useTranslation } from "react-i18next";
+import { Field, Form } from "react-final-form";
+import { LoadingButton } from "@mui/lab";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -55,117 +55,181 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+interface ISignUpFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const SignUpForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const onSubmit = async (values: ISignUpFormValues) => {
+    const sleep = (ms: number) =>
+      new Promise((resolve) => setTimeout(resolve, ms));
+    await sleep(3000);
+
+    console.log(values);
+  };
 
   return (
     <Card className={classes.rootCard}>
-      <form>
-        <Grid container direction="column">
-          <Grid item className={classes.gridItem}>
-            <Typography
-              className={classes.cardTitle}
-            >{t`pages.signUpPage.pageTitle`}</Typography>
-          </Grid>
-          <Grid item container spacing={1} className={classes.gridItem}>
-            <Grid item xs={6}>
-              <Typography
-                className={classes.inputLabel}
-              >{t`pages.signUpPage.firstNameLabel`}</Typography>
-              <TextField
-                autoFocus
-                autoComplete="firstName"
-                name="firstName"
-                size="small"
-                fullWidth
-                variant="outlined"
-              />
+      <Form
+        onSubmit={onSubmit}
+        subscription={{ submitting: true }}
+        render={({ handleSubmit, submitting }) => (
+          <form onSubmit={handleSubmit} noValidate>
+            <Grid container direction="column">
+              <Grid item className={classes.gridItem}>
+                <Typography
+                  className={classes.cardTitle}
+                >{t`pages.signUpPage.pageTitle`}</Typography>
+              </Grid>
+              <Grid item container spacing={1} className={classes.gridItem}>
+                <Grid item xs={6}>
+                  <Typography
+                    className={classes.inputLabel}
+                  >{t`pages.signUpPage.firstNameLabel`}</Typography>
+                  <Field<string> name="firstName">
+                    {({ input }) => (
+                      <TextField
+                        {...input}
+                        autoFocus
+                        autoComplete="firstName"
+                        size="small"
+                        fullWidth
+                        variant="outlined"
+                      />
+                    )}
+                  </Field>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    className={classes.inputLabel}
+                  >{t`pages.signUpPage.lastNameLabel`}</Typography>
+                  <Field<string> name="lastName">
+                    {({ input }) => (
+                      <TextField
+                        {...input}
+                        autoFocus
+                        autoComplete="lastName"
+                        size="small"
+                        fullWidth
+                        variant="outlined"
+                      />
+                    )}
+                  </Field>
+                </Grid>
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <Typography
+                  className={classes.inputLabel}
+                >{t`pages.signUpPage.mailLabel`}</Typography>
+                <Field<string> name="email">
+                  {({ input }) => (
+                    <TextField
+                      {...input}
+                      autoFocus
+                      autoComplete="email"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <Typography
+                  className={classes.inputLabel}
+                >{t`pages.signUpPage.passwordLabel`}</Typography>
+                <Field<string> name="password">
+                  {({ input }) => (
+                    <TextField
+                      {...input}
+                      autoComplete="current-password"
+                      type={showPassword ? "text" : "password"}
+                      fullWidth
+                      size="small"
+                      margin="dense"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            position="end"
+                            style={{ marginRight: -8 }}
+                          >
+                            <IconButton
+                              className={classes.iconButton}
+                              onClick={() => setShowPassword((prev) => !prev)}
+                            >
+                              {showPassword ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <Typography className={classes.inputLabel}>
+                  {t`pages.signUpPage.confirmPasswordLabel`}
+                </Typography>
+                <Field<string> name="confirmPassword">
+                  {({ input }) => (
+                    <TextField
+                      {...input}
+                      autoComplete="current-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      fullWidth
+                      size="small"
+                      margin="dense"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            position="end"
+                            style={{ marginRight: -8 }}
+                          >
+                            <IconButton
+                              className={classes.iconButton}
+                              onClick={() =>
+                                setShowConfirmPassword((prev) => !prev)
+                              }
+                            >
+                              {showConfirmPassword ? (
+                                <VisibilityIcon />
+                              ) : (
+                                <VisibilityOffIcon />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                </Field>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Typography
-                className={classes.inputLabel}
-              >{t`pages.signUpPage.lastNameLabel`}</Typography>
-              <TextField
-                autoFocus
-                autoComplete="lastName"
-                name="lastName"
-                size="small"
-                fullWidth
-                variant="outlined"
-              />
-            </Grid>
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Typography
-              className={classes.inputLabel}
-            >{t`pages.signUpPage.mailLabel`}</Typography>
-            <TextField
-              autoFocus
-              autoComplete="email"
-              name="email"
-              size="small"
+            <LoadingButton
+              type="submit"
               fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Typography
-              className={classes.inputLabel}
-            >{t`pages.signUpPage.passwordLabel`}</Typography>
-            <OutlinedInput
-              autoComplete="current-password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              fullWidth
-              size="small"
-              margin="dense"
-              endAdornment={
-                <InputAdornment position="end" style={{ marginRight: -8 }}>
-                  <IconButton
-                    className={classes.iconButton}
-                    onClick={() => setShowPassword((prev) => !prev)}
-                  >
-                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Typography className={classes.inputLabel}>
-              {t`pages.signUpPage.confirmPasswordLabel`}
-            </Typography>
-            <OutlinedInput
-              autoComplete="current-password"
-              name="confirmPassword"
-              type={showPassword ? "text" : "password"}
-              fullWidth
-              size="small"
-              margin="dense"
-              endAdornment={
-                <InputAdornment position="end" style={{ marginRight: -8 }}>
-                  <IconButton
-                    className={classes.iconButton}
-                    onClick={() => setShowPassword((prev) => !prev)}
-                  >
-                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign Up
-        </Button>
-      </form>
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              loading={submitting}
+            >
+              Sign Up
+            </LoadingButton>
+          </form>
+        )}
+      />
     </Card>
   );
 };
