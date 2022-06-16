@@ -1,5 +1,6 @@
 import AboutPage from "../../pages/about-page/AboutPage";
 import ConfirmEmailPage from "../../pages/confirm-email-page/ConfirmEmailPage";
+import ConfirmedEmailPage from "../../pages/confirmed-email-page/ConfirmedEmailPage";
 import LoginPage from "../../pages/login-page/LoginPage";
 import AppearancePage from "../../pages/settings-pages/AppearancePage";
 import BlackListPage from "../../pages/settings-pages/BlackListPage";
@@ -12,6 +13,7 @@ import {
   APPEARANCE_SETTINGS_ROUTE,
   BLACK_LIST_SETTINGS_ROUTE,
   CONFIRM_EMAIL_ROUTE,
+  CONFIRMED_EMAIL_ROUTE,
   DEFAULT_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
   LOGIN_ROUTE,
@@ -84,5 +86,10 @@ export const routes: Route[] = [
     component: ConfirmEmailPage,
     showGoBackButton: true,
     titleKey: "pages.confirmEmailPage.pageTitle"
+  },
+  {
+    path: CONFIRMED_EMAIL_ROUTE,
+    component: ConfirmedEmailPage,
+    titleKey: ""
   }
 ];

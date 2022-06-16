@@ -6,4 +6,5 @@ export const ABOUT_ROUTE = "/about";
 export const LOGIN_ROUTE = "/login"
 export const SIGN_UP_ROUTE = "/sign-up"
 export const CONFIRM_EMAIL_ROUTE = "/confirm-email"
+export const CONFIRMED_EMAIL_ROUTE = "/confirmed-email"
 export const DEFAULT_ROUTE = "/";
