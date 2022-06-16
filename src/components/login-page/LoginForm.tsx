@@ -82,6 +82,7 @@ const LoginForm = observer(() => {
     <Card className={classes.rootCard}>
       <Form
         onSubmit={onSubmit}
+        subscription={{ submitting: true }}
         render={({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Grid container direction="column">
@@ -94,7 +95,7 @@ const LoginForm = observer(() => {
                 <Typography
                   className={classes.inputLabel}
                 >{t`pages.signInPage.mailLabel`}</Typography>
-                <Field name="email">
+                <Field<string> name="email">
                   {({ input }) => (
                     <TextField
                       {...input}
@@ -111,7 +112,7 @@ const LoginForm = observer(() => {
                 <Typography
                   className={classes.inputLabel}
                 >{t`pages.signInPage.passwordLabel`}</Typography>
-                <Field name="password">
+                <Field<string> name="password">
                   {({ input }) => (
                     <TextField
                       {...input}
