@@ -59,6 +59,7 @@ interface ISignUpFormValues {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
   password: string;
   confirmPassword: string;
 }
@@ -134,6 +135,22 @@ const SignUpForm = () => {
                     <TextField
                       {...input}
                       autoComplete="email"
+                      size="small"
+                      fullWidth
+                      variant="outlined"
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item className={classes.gridItem}>
+                <Typography className={classes.inputLabel}>
+                  {t`pages.signUpPage.phoneNumberLabel`}
+                </Typography>
+                <Field name="phoneNumber">
+                  {({ input }) => (
+                    <TextField
+                      {...input}
+                      autoComplete="phone-number"
                       size="small"
                       fullWidth
                       variant="outlined"
