@@ -50,6 +50,7 @@
       "firstNameLabel": "First name",
       "lastNameLabel": "Last name",
       "mailLabel": "Mail",
+      "phoneNumberLabel": "Phone number",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm password"
     },

@@ -50,6 +50,7 @@
       "firstNameLabel": "Имя",
       "lastNameLabel": "Фамилия",
       "mailLabel": "Электропочта",
+      "phoneNumberLabel": "Номер телефона",
       "passwordLabel": "Пароль",
       "confirmPasswordLabel": "Подтверждение пароля"
     },
