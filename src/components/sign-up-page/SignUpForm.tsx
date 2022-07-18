@@ -116,7 +116,6 @@ const SignUpForm = () => {
                     {({ input }) => (
                       <TextField
                         {...input}
-                        autoFocus
                         autoComplete="lastName"
                         size="small"
                         fullWidth
@@ -134,7 +133,6 @@ const SignUpForm = () => {
                   {({ input }) => (
                     <TextField
                       {...input}
-                      autoFocus
                       autoComplete="email"
                       size="small"
                       fullWidth
@@ -225,7 +223,7 @@ const SignUpForm = () => {
               sx={{ mt: 3, mb: 2 }}
               loading={submitting}
             >
-              Sign Up
+              {t`pages.signInPage.signUpButtonText`}
             </LoadingButton>
           </form>
         )}
