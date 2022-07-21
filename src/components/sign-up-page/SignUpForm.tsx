@@ -19,6 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
+import { formatPhoneNumber } from "../../common/utils/formatterUtils";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -69,13 +70,20 @@ const SignUpForm = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [phoneNumberValue, setPhoneNumberValue] = useState("");
 
-  const onSubmit = async (values: ISignUpFormValues) => {
+  const onSubmit = async (values: ISignUpFormValues): Promise<any> => {
     const sleep = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
     await sleep(3000);
 
-    console.log(values);
+    console.log({ ...values, phoneNumber: phoneNumberValue });
+  };
+
+  const handlePhoneNumberValueChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPhoneNumberValue(formatPhoneNumber(e.currentTarget.value));
   };
 
   return (
@@ -150,6 +158,8 @@ const SignUpForm = () => {
                   {({ input }) => (
                     <TextField
                       {...input}
+                      value={phoneNumberValue}
+                      onChange={handlePhoneNumberValueChange}
                       autoComplete="phone-number"
                       size="small"
                       fullWidth
