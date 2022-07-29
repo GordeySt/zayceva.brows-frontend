@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
 import { formatPhoneNumber } from "../../common/utils/formatterUtils";
-import { isRequired } from "revalidate";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -105,10 +104,7 @@ const SignUpForm = () => {
                   <Typography
                     className={classes.inputLabel}
                   >{t`pages.signUpPage.firstNameLabel`}</Typography>
-                  <Field<string>
-                    name="firstName"
-                    validate={isRequired("firstName")}
-                  >
+                  <Field<string> name="firstName">
                     {({ input }) => (
                       <TextField
                         {...input}
@@ -125,10 +121,7 @@ const SignUpForm = () => {
                   <Typography
                     className={classes.inputLabel}
                   >{t`pages.signUpPage.lastNameLabel`}</Typography>
-                  <Field<string>
-                    name="lastName"
-                    validate={isRequired("lastName")}
-                  >
+                  <Field<string> name="lastName">
                     {({ input }) => (
                       <TextField
                         {...input}
@@ -145,7 +138,7 @@ const SignUpForm = () => {
                 <Typography
                   className={classes.inputLabel}
                 >{t`pages.signUpPage.mailLabel`}</Typography>
-                <Field<string> name="email" validate={isRequired("email")}>
+                <Field<string> name="email">
                   {({ input }) => (
                     <TextField
                       {...input}
@@ -179,10 +172,7 @@ const SignUpForm = () => {
                 <Typography
                   className={classes.inputLabel}
                 >{t`pages.signUpPage.passwordLabel`}</Typography>
-                <Field<string>
-                  name="password"
-                  validate={isRequired("password")}
-                >
+                <Field<string> name="password">
                   {({ input }) => (
                     <TextField
                       {...input}
@@ -218,10 +208,7 @@ const SignUpForm = () => {
                 <Typography className={classes.inputLabel}>
                   {t`pages.signUpPage.confirmPasswordLabel`}
                 </Typography>
-                <Field<string>
-                  name="confirmPassword"
-                  validate={isRequired("confirmPassword")}
-                >
+                <Field<string> name="confirmPassword">
                   {({ input }) => (
                     <TextField
                       {...input}
