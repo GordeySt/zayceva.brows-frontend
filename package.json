@@ -5,6 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@lemoncode/fonk": "^1.5.4",
+    "@lemoncode/fonk-final-form": "^2.3.4",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.86",
     "@mui/material": "^5.0.1",
