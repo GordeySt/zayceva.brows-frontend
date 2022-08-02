@@ -20,6 +20,10 @@ import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
 import { formatPhoneNumber } from "../../common/utils/formatterUtils";
+import {
+  isBYPhoneNumber,
+  createValidation,
+} from "../../common/utils/validatorUtils";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -47,6 +51,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: "16px",
     marginBottom: "8px",
   },
+  errorText: {
+    color: theme.palette.error.main,
+    fontSize: "14px",
+    marginTop: "8px",
+  },
   button: {
     padding: "8px 0 8px 0",
     fontWeight: 500,
@@ -69,12 +78,20 @@ const SignUpForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
+  const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
 
-  const onSubmit = async (values: ISignUpFormValues): Promise<any> => {
+  const onSubmit = async (values: ISignUpFormValues) => {
     const sleep = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
+    setPhoneNumberErrorMsg("");
+
+    if (isBYPhoneNumber(phoneNumberValue)) {
+      setPhoneNumberErrorMsg("Phone number should be like +375 (33) 123-44-22");
+      await sleep(0);
+      return;
+    }
+
     await sleep(3000);
 
     console.log({ ...values, phoneNumber: phoneNumberValue });
@@ -91,6 +108,7 @@ const SignUpForm = () => {
       <Form
         onSubmit={onSubmit}
         subscription={{ submitting: true, invalid: true }}
+        validate={(values) => createValidation(t).validateForm(values)}
         render={({ handleSubmit, submitting, invalid }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Grid container direction="column">
@@ -105,15 +123,23 @@ const SignUpForm = () => {
                     className={classes.inputLabel}
                   >{t`pages.signUpPage.firstNameLabel`}</Typography>
                   <Field<string> name="firstName">
-                    {({ input }) => (
-                      <TextField
-                        {...input}
-                        autoFocus
-                        autoComplete="firstName"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                      />
+                    {({ input, meta }) => (
+                      <>
+                        <TextField
+                          {...input}
+                          autoFocus
+                          autoComplete="firstName"
+                          size="small"
+                          fullWidth
+                          variant="outlined"
+                          error={meta.touched && !!meta.error}
+                        />
+                        {meta.error && meta.touched && (
+                          <span className={classes.errorText}>
+                            {meta.error}
+                          </span>
+                        )}
+                      </>
                     )}
                   </Field>
                 </Grid>
@@ -122,14 +148,22 @@ const SignUpForm = () => {
                     className={classes.inputLabel}
                   >{t`pages.signUpPage.lastNameLabel`}</Typography>
                   <Field<string> name="lastName">
-                    {({ input }) => (
-                      <TextField
-                        {...input}
-                        autoComplete="lastName"
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                      />
+                    {({ input, meta }) => (
+                      <>
+                        <TextField
+                          {...input}
+                          autoComplete="lastName"
+                          size="small"
+                          fullWidth
+                          variant="outlined"
+                          error={meta.touched && !!meta.error}
+                        />
+                        {meta.error && meta.touched && (
+                          <span className={classes.errorText}>
+                            {meta.error}
+                          </span>
+                        )}
+                      </>
                     )}
                   </Field>
                 </Grid>
@@ -139,14 +173,20 @@ const SignUpForm = () => {
                   className={classes.inputLabel}
                 >{t`pages.signUpPage.mailLabel`}</Typography>
                 <Field<string> name="email">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      autoComplete="email"
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                    />
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        autoComplete="email"
+                        size="small"
+                        fullWidth
+                        variant="outlined"
+                        error={meta.touched && !!meta.error}
+                      />
+                      {meta.error && meta.touched && (
+                        <span className={classes.errorText}>{meta.error}</span>
+                      )}
+                    </>
                   )}
                 </Field>
               </Grid>
@@ -154,17 +194,25 @@ const SignUpForm = () => {
                 <Typography className={classes.inputLabel}>
                   {t`pages.signUpPage.phoneNumberLabel`}
                 </Typography>
-                <Field name="phoneNumber">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      value={phoneNumberValue}
-                      onChange={handlePhoneNumberValueChange}
-                      autoComplete="phone-number"
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                    />
+                <Field<string> name="phoneNumber">
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        value={phoneNumberValue}
+                        onChange={handlePhoneNumberValueChange}
+                        autoComplete="phone-number"
+                        size="small"
+                        error={meta.touched && !!phoneNumberErrorMsg}
+                        fullWidth
+                        variant="outlined"
+                      />
+                      {phoneNumberErrorMsg && meta.touched && (
+                        <span className={classes.errorText}>
+                          {phoneNumberErrorMsg}
+                        </span>
+                      )}
+                    </>
                   )}
                 </Field>
               </Grid>
@@ -173,72 +221,40 @@ const SignUpForm = () => {
                   className={classes.inputLabel}
                 >{t`pages.signUpPage.passwordLabel`}</Typography>
                 <Field<string> name="password">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      autoComplete="current-password"
-                      type={showPassword ? "text" : "password"}
-                      fullWidth
-                      size="small"
-                      margin="dense"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment
-                            position="end"
-                            style={{ marginRight: -8 }}
-                          >
-                            <IconButton
-                              className={classes.iconButton}
-                              onClick={() => setShowPassword((prev) => !prev)}
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        autoComplete="current-password"
+                        type={showPassword ? "text" : "password"}
+                        fullWidth
+                        size="small"
+                        margin="dense"
+                        sx={{ marginTop: "0px" }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              position="end"
+                              style={{ marginRight: -8 }}
                             >
-                              {showPassword ? (
-                                <VisibilityIcon />
-                              ) : (
-                                <VisibilityOffIcon />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
-                </Field>
-              </Grid>
-              <Grid item className={classes.gridItem}>
-                <Typography className={classes.inputLabel}>
-                  {t`pages.signUpPage.confirmPasswordLabel`}
-                </Typography>
-                <Field<string> name="confirmPassword">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      autoComplete="current-password"
-                      type={showConfirmPassword ? "text" : "password"}
-                      fullWidth
-                      size="small"
-                      margin="dense"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment
-                            position="end"
-                            style={{ marginRight: -8 }}
-                          >
-                            <IconButton
-                              className={classes.iconButton}
-                              onClick={() =>
-                                setShowConfirmPassword((prev) => !prev)
-                              }
-                            >
-                              {showConfirmPassword ? (
-                                <VisibilityIcon />
-                              ) : (
-                                <VisibilityOffIcon />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                              <IconButton
+                                className={classes.iconButton}
+                                onClick={() => setShowPassword((prev) => !prev)}
+                              >
+                                {showPassword ? (
+                                  <VisibilityIcon />
+                                ) : (
+                                  <VisibilityOffIcon />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {meta.error && meta.touched && (
+                        <span className={classes.errorText}>{meta.error}</span>
+                      )}
+                    </>
                   )}
                 </Field>
               </Grid>
