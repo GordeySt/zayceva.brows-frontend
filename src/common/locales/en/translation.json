@@ -52,7 +52,14 @@
       "mailLabel": "Mail",
       "phoneNumberLabel": "Phone number",
       "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm password"
+      "confirmPasswordLabel": "Confirm password",
+      "errors": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "emailRequired": "Email is required",
+        "emailFormat": "Email is not valid",
+        "passwordRequired": "Password is required"
+      }
     },
     "confirmEmailPage": {
       "pageTitle": "Email confirmation",

@@ -52,7 +52,14 @@
       "mailLabel": "Электропочта",
       "phoneNumberLabel": "Номер телефона",
       "passwordLabel": "Пароль",
-      "confirmPasswordLabel": "Подтверждение пароля"
+      "confirmPasswordLabel": "Подтверждение пароля",
+      "errors": {
+        "firstNameRequired": "Имя обязательно",
+        "lastNameRequired": "Фамилия обязательна",
+        "emailRequired": "Почта обязательна",
+        "emailFormat": "Неверный формат почты",
+        "passwordRequired": "Пароль обязателен"
+      }
     },
     "confirmEmailPage": {
       "pageTitle": "Верификации почты",
