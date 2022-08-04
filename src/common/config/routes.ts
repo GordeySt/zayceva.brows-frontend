@@ -8,6 +8,7 @@ import LanguageSettingsPage from "../../pages/settings-pages/LanguageSettingsPag
 import SettingsMenuPage from "../../pages/settings-pages/SettingsMenuPage";
 import SignUpPage from "../../pages/sign-up-page/SignUpPage";
 import { TestPage } from "../../pages/TestPage";
+import TipsPage from "../../pages/tips-page/TipsPage";
 import {
   ABOUT_ROUTE,
   APPEARANCE_SETTINGS_ROUTE,
@@ -19,6 +20,7 @@ import {
   LOGIN_ROUTE,
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
+  TIPS_ROUTE,
 } from "../constants/RoutesConstants";
 
 export type Route = {
@@ -91,5 +93,11 @@ export const routes: Route[] = [
     path: CONFIRMED_EMAIL_ROUTE,
     component: ConfirmedEmailPage,
     titleKey: ""
+  },
+  {
+    path: TIPS_ROUTE,
+    component: TipsPage,
+    titleKey: "Tips",
+    showBottomBar: true
   }
 ];

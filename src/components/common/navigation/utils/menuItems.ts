@@ -6,7 +6,7 @@ import {
   ExitToApp,
   HelpOutline
 } from "@mui/icons-material";
-import { ABOUT_ROUTE, LOGIN_ROUTE, SETTINGS_MENU_ROUTE } from "../../../../common/constants/RoutesConstants";
+import { ABOUT_ROUTE, LOGIN_ROUTE, SETTINGS_MENU_ROUTE, TIPS_ROUTE } from "../../../../common/constants/RoutesConstants";
 
 export const icons = {
   PermIdentity,
@@ -42,7 +42,7 @@ export const menuItems: IMenuItem[] = [
   {
     labelKey: "tipsMenuItemText",
     icon: "Book",
-    to: "",
+    to: TIPS_ROUTE,
   },
   {
     labelKey: "settingsMenuItemText",
