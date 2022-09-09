@@ -17,11 +17,12 @@ import {
   CONFIRMED_EMAIL_ROUTE,
   DEFAULT_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
-  LOGIN_ROUTE,
+  LOGIN_ROUTE, SERVICES_ROUTE,
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
   TIPS_ROUTE,
 } from "../constants/RoutesConstants";
+import ServicesPage from "../../pages/services-page/ServicesPage";
 
 export type Route = {
   path: string | string[];
@@ -98,6 +99,12 @@ export const routes: Route[] = [
     path: TIPS_ROUTE,
     component: TipsPage,
     titleKey: "Tips",
+    showBottomBar: true
+  },
+  {
+    path: SERVICES_ROUTE,
+    component: ServicesPage,
+    titleKey: 'Services',
     showBottomBar: true
   }
 ];

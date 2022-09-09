@@ -8,4 +8,5 @@ export const SIGN_UP_ROUTE = "/sign-up"
 export const CONFIRM_EMAIL_ROUTE = "/confirm-email"
 export const CONFIRMED_EMAIL_ROUTE = "/confirmed-email"
 export const TIPS_ROUTE = "/tips"
+export const SERVICES_ROUTE = "/services"
 export const DEFAULT_ROUTE = "/";
