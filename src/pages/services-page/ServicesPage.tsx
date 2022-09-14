@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Chip, Container, Divider, Grid, Theme } from "@mui/material";
-import { tips } from "../tips-page/tips";
-import TipsCard from "../../components/tips-page/TipsCard";
 import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { ShowMode, showModes } from "./utils/showMode";
 import TabGroupUnmemoized from "../../components/services-page/TabGroupUnmemoized";
 import { makeStyles } from "@mui/styles";
+import ServiceCard from "../../components/services-page/ServiceCard";
+import { mockServices } from "./utils/mockServices";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -25,16 +25,16 @@ const useStyles = makeStyles((theme: Theme) => ({
             marginTop: "10px",
         },
     },
-    circle: {
-        display: "inline-block",
-        marginRight: "10px",
-        height: "10px",
-        width: "10px",
-        borderRadius: "30px",
+    divider: {
+        marginBottom: '1rem',
     },
-    text: {
-        marginTop: "10px",
-    },
+    grid: {
+        marginBottom: '1rem',
+
+        [theme.breakpoints.down(MIN_WIDTH)]: {
+            marginBottom: '2rem',
+        },
+    }
 }));
 
 const TabGroup = React.memo(TabGroupUnmemoized)
@@ -54,35 +54,25 @@ const ServicesPage = () => {
                 showMode={showMode}
             />
             {(showMode === 'all' || showMode === 'brows') &&
-                <Divider textAlign='left' style={{ marginBottom: "1rem" }}>
+                <Divider className={classes.divider} textAlign='left'>
                     <Chip label={showModes.find(t => t.mode === 'brows')?.text}/>
                 </Divider>
             }
             {showMode !== 'eyelashes' &&
-                <Grid container spacing={2}>
-                    {tips.map((tip, idx) => (
-                        <TipsCard
-                            key={idx}
-                            circleColor={tip.circleColor}
-                            hashtag={tip.hashtag}
-                            text={tip.text}
-                        />
+                <Grid className={classes.grid} container spacing={2}>
+                    {mockServices.brows.map((service, idx) => (
+                        <ServiceCard key={idx} {...service} />
                     ))}
                 </Grid>
             }
             {showMode !== 'brows' &&
                 <>
-                    <Divider textAlign='left' style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+                    <Divider className={classes.divider} textAlign='left'>
                         <Chip label={showModes.find(t => t.mode === 'eyelashes')?.text}/>
                     </Divider>
                     <Grid container spacing={2}>
-                        {tips.slice(0, 3).map((tip, idx) => (
-                            <TipsCard
-                                key={idx}
-                                circleColor={tip.circleColor}
-                                hashtag={tip.hashtag}
-                                text={tip.text}
-                            />
+                        {mockServices.eyelashes.map((service, idx) => (
+                            <ServiceCard key={idx} {...service} />
                         ))}
                     </Grid>
                 </>}
