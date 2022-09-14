@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Grid, Theme } from "@mui/material";
+import { Chip, Container, Divider, Grid, Theme } from "@mui/material";
 import { tips } from "../tips-page/tips";
 import TipsCard from "../../components/tips-page/TipsCard";
-import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { ShowMode, showModes } from "./utils/showMode";
 import TabGroupUnmemoized from "../../components/services-page/TabGroupUnmemoized";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -53,16 +53,39 @@ const ServicesPage = () => {
                 handleShowModeChange={(m) => handleShowModeChange(m)}
                 showMode={showMode}
             />
-            <Grid container spacing={2}>
-                {tips.map((tip, idx) => (
-                    <TipsCard
-                        key={idx}
-                        circleColor={tip.circleColor}
-                        hashtag={tip.hashtag}
-                        text={tip.text}
-                    />
-                ))}
-            </Grid>
+            {(showMode === 'all' || showMode === 'brows') &&
+                <Divider textAlign='left' style={{ marginBottom: "1rem" }}>
+                    <Chip label={showModes.find(t => t.mode === 'brows')?.text}/>
+                </Divider>
+            }
+            {showMode !== 'eyelashes' &&
+                <Grid container spacing={2}>
+                    {tips.map((tip, idx) => (
+                        <TipsCard
+                            key={idx}
+                            circleColor={tip.circleColor}
+                            hashtag={tip.hashtag}
+                            text={tip.text}
+                        />
+                    ))}
+                </Grid>
+            }
+            {showMode !== 'brows' &&
+                <>
+                    <Divider textAlign='left' style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+                        <Chip label={showModes.find(t => t.mode === 'eyelashes')?.text}/>
+                    </Divider>
+                    <Grid container spacing={2}>
+                        {tips.slice(0, 3).map((tip, idx) => (
+                            <TipsCard
+                                key={idx}
+                                circleColor={tip.circleColor}
+                                hashtag={tip.hashtag}
+                                text={tip.text}
+                            />
+                        ))}
+                    </Grid>
+                </>}
         </Container>
     );
 };
