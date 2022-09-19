@@ -1,16 +1,16 @@
 export type ShowMode = 'all' | 'brows' | 'eyelashes'
 
-export const showModes: { text: string; mode: ShowMode }[] = [
+export const createShowModes = (t: any): { text: string; mode: ShowMode }[] => [
     {
-        text: 'Все',
+        text: t('pages.servicesPage.categories.all'),
         mode: 'all',
     },
     {
-        text: 'Брови',
+        text: t('pages.servicesPage.categories.brows'),
         mode: 'brows',
     },
     {
-        text: 'Ресницы',
+        text: t('pages.servicesPage.categories.lashes'),
         mode: 'eyelashes'
     }
 ]

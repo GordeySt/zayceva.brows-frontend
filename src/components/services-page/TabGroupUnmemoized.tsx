@@ -2,8 +2,9 @@ import { createStyles, withStyles } from "@mui/styles";
 import { Tab, Tabs, Theme } from "@mui/material";
 import { MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
 import React, { SyntheticEvent } from "react";
-import { ShowMode, showModes } from "../../pages/services-page/utils/showMode";
+import { ShowMode, createShowModes } from "../../pages/services-page/utils/showMode";
 import {isDarkTheme} from "../../common/utils/themeUtils";
+import { useTranslation } from "react-i18next";
 
 interface TabGroupProps {
     handleShowModeChange: (newShowMode: ShowMode) => void
@@ -44,10 +45,11 @@ const IOSTabs = withStyles((theme: Theme) => ({
 }))(Tabs)
 
 const TabGroupUnmemoized: React.FC<TabGroupProps> = ({ handleShowModeChange, showMode }) => {
-    const currentValue = showModes.findIndex((e) => e.mode === showMode)
+    const { t } = useTranslation();
+    const currentValue = createShowModes(t).findIndex((e) => e.mode === showMode)
 
     const handleChange = (event: SyntheticEvent<Element, Event>, value: any) => {
-        handleShowModeChange(showModes[value].mode)
+        handleShowModeChange(createShowModes(t)[value].mode)
     }
 
     const IOSTab = withStyles((theme: Theme) =>
@@ -77,7 +79,7 @@ const TabGroupUnmemoized: React.FC<TabGroupProps> = ({ handleShowModeChange, sho
 
     return (
         <IOSTabs value={currentValue} onChange={handleChange}>
-            {showModes.map((e, i) => (
+            {createShowModes(t).map((e, i) => (
                 <IOSTab label={e.text} key={i} />
             ))}
         </IOSTabs>

@@ -3,6 +3,7 @@ import React from 'react';
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
 import { formatTimeToHoursAndMinutes } from "../../pages/services-page/utils/timeUtils";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
     rootCard: {
@@ -54,6 +55,7 @@ interface IProps {
 
 const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
     const classes = useStyles();
+    const { t } = useTranslation();
 
     return (
         <Grid item xs={12} md={6}>
@@ -75,7 +77,7 @@ const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
                     <CardContent>
                         <Divider className={classes.divider} />
                         <Typography className={classes.availabilityTitle} variant='subtitle1' component="div">
-                            Свободное время на сегодня
+                            {t`pages.servicesPage.common.todayAvailability`}:
                         </Typography>
                         <div>
                             {availableTime.map(t =>
@@ -84,7 +86,7 @@ const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
                         </div>
                     </CardContent>
                     <CardActions>
-                        <Button variant='contained'>Записаться</Button>
+                        <Button variant='contained'>{t`pages.servicesPage.common.bookService`}</Button>
                     </CardActions>
                 </div>
             </Card>

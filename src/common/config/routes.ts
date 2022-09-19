@@ -98,13 +98,13 @@ export const routes: Route[] = [
   {
     path: TIPS_ROUTE,
     component: TipsPage,
-    titleKey: "Tips",
+    titleKey: "menu.tipsMenuItemText",
     showBottomBar: true
   },
   {
     path: SERVICES_ROUTE,
     component: ServicesPage,
-    titleKey: 'Services',
+    titleKey: 'menu.servicesMenuItemText',
     showBottomBar: true
   }
 ];

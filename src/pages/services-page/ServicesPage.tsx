@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Chip, Container, Divider, Grid, Theme } from "@mui/material";
 import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
-import { ShowMode, showModes } from "./utils/showMode";
+import { createShowModes, ShowMode } from "./utils/showMode";
 import TabGroupUnmemoized from "../../components/services-page/TabGroupUnmemoized";
 import { makeStyles } from "@mui/styles";
 import ServiceCard from "../../components/services-page/ServiceCard";
-import { mockServices } from "./utils/mockServices";
+import { createService } from "./utils/mockServices";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -41,7 +42,8 @@ const TabGroup = React.memo(TabGroupUnmemoized)
 
 const ServicesPage = () => {
     const classes = useStyles();
-    const [showMode, setShowMode] = useState<ShowMode>(showModes[0].mode)
+    const { t } = useTranslation();
+    const [showMode, setShowMode] = useState<ShowMode>(createShowModes(t)[0].mode)
 
     const handleShowModeChange = (newShowMode: ShowMode) => {
         setShowMode(newShowMode)
@@ -55,12 +57,12 @@ const ServicesPage = () => {
             />
             {(showMode === 'all' || showMode === 'brows') &&
                 <Divider className={classes.divider} textAlign='left'>
-                    <Chip label={showModes.find(t => t.mode === 'brows')?.text}/>
+                    <Chip label={createShowModes(t).find(t => t.mode === 'brows')?.text}/>
                 </Divider>
             }
             {showMode !== 'eyelashes' &&
                 <Grid className={classes.grid} container spacing={2}>
-                    {mockServices.brows.map((service, idx) => (
+                    {createService(t).brows.map((service, idx) => (
                         <ServiceCard key={idx} {...service} />
                     ))}
                 </Grid>
@@ -68,10 +70,10 @@ const ServicesPage = () => {
             {showMode !== 'brows' &&
                 <>
                     <Divider className={classes.divider} textAlign='left'>
-                        <Chip label={showModes.find(t => t.mode === 'eyelashes')?.text}/>
+                        <Chip label={createShowModes(t).find(t => t.mode === 'eyelashes')?.text}/>
                     </Divider>
                     <Grid container spacing={2}>
-                        {mockServices.eyelashes.map((service, idx) => (
+                        {createService(t).eyelashes.map((service, idx) => (
                             <ServiceCard key={idx} {...service} />
                         ))}
                     </Grid>

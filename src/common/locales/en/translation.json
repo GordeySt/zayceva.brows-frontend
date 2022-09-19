@@ -72,6 +72,27 @@
     },
     "confirmedEmailPage": {
       "cardInfo": "You email address is confirmed. You can now log into the app."
+    },
+    "servicesPage": {
+      "categories": {
+        "all": "All",
+        "brows": "Eyebrows",
+        "lashes": "Eyelashes"
+      },
+      "servicesCard": {
+        "browCorrection": "Eyebrows Correction",
+        "browCorrectionDesc": "During an eyebrow correction, an individual who has undergone a permanent cosmetics procedure on his or her eyebrows works with a specialist to correct problems with the brows: color, shape, or appearance.",
+        "browTinting": "Eyebrows tinting and correction",
+        "browTintingDesc": "Eyebrow tinting is the process of applying semi-permanent dye to enhance, shape, and define your brows. Tinting allows a professional to manipulate the brow area by darkening the fine hairs that surround the perimeter of the brow to increase the width.",
+        "longTermStylingAndCorrection": "Long-term styling and correction",
+        "longTermStylingAndCorrectionDesc": "Complex service including long-term styling and correction per one session.",
+        "longTermStylingAndTinting": "Long-term styling with tinting and correction",
+        "longTermStylingAndTintingDesc": "Complex service including long-term styling with tinting and correction per one session."
+      },
+      "common": {
+        "todayAvailability": "Today's availability",
+        "bookService": "Book"
+      }
     }
   },
   "common": {
