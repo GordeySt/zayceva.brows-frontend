@@ -15,7 +15,7 @@ import { useState } from "react";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
-} from "../../common/constants/AdaptiveConstants";
+} from "../../common/constants/adaptiveConstants";
 import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Chip, Container, Divider, Grid, Theme } from "@mui/material";
-import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/adaptiveConstants";
 import { createShowModes, ShowMode } from "./utils/showMode";
 import TabGroupUnmemoized from "../../components/services-page/TabGroupUnmemoized";
 import { makeStyles } from "@mui/styles";

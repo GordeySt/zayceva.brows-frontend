@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
-import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
-import { THEMES } from "../../common/constants/ThemeConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
+import { THEMES } from "../../common/constants/themeConstants";
 import OneByTwoGrid from "../../components/settings-pages/appearance-page/OneByTwoGrid";
 import SingleRowGrid from "../../components/settings-pages/appearance-page/SingleRowGrid";
 import ThemeCard from "../../components/settings-pages/appearance-page/ThemeCard";

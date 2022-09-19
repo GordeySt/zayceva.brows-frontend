@@ -6,7 +6,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { useHistory, useLocation } from "react-router-dom";
 import { useRoute } from "../../../common/utils/routeUtils";

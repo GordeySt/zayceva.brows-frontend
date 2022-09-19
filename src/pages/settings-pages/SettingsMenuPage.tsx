@@ -6,13 +6,13 @@ import {
   Language,
   VisibilityOff,
 } from "@mui/icons-material";
-import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import { Link } from "react-router-dom";
 import {
   APPEARANCE_SETTINGS_ROUTE,
   BLACK_LIST_SETTINGS_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
-} from "../../common/constants/RoutesConstants";
+} from "../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({

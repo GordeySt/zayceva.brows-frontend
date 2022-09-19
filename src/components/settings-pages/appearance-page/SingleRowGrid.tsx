@@ -1,7 +1,7 @@
 import { Grid, useTheme, Theme } from "@mui/material";
 import PaletteItem from "./PaletteItem";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   singleRowGrid: {

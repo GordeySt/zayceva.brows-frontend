@@ -1,6 +1,6 @@
 import { createStyles, withStyles } from "@mui/styles";
 import { Tab, Tabs, Theme } from "@mui/material";
-import { MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MIN_WIDTH } from "../../common/constants/adaptiveConstants";
 import React, { SyntheticEvent } from "react";
 import { ShowMode, createShowModes } from "../../pages/services-page/utils/showMode";
 import {isDarkTheme} from "../../common/utils/themeUtils";

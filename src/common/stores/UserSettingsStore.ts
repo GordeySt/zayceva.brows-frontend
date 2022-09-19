@@ -6,7 +6,7 @@ import {
   PaletteType,
   THEME_PRIMARY_COLORS,
   THEME_TEXT_COLORS,
-} from "../constants/ThemeConstants";
+} from "../constants/themeConstants";
 import { UserSettings } from "../types/UserSettings";
 import { setUserSettingsToLocalStorage } from "../utils/localStorageUtils";
 

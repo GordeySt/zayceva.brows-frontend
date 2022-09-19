@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import { useStore } from "../../common/stores/Store";
 import { languages } from "./utils/languages";
 import { useTranslation } from "react-i18next";

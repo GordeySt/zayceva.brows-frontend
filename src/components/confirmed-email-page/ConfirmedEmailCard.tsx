@@ -13,8 +13,8 @@ import { useHistory } from "react-router-dom";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
-} from "../../common/constants/AdaptiveConstants";
-import { LOGIN_ROUTE } from "../../common/constants/RoutesConstants";
+} from "../../common/constants/adaptiveConstants";
+import { LOGIN_ROUTE } from "../../common/constants/routesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {

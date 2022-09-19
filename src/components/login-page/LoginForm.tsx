@@ -18,9 +18,9 @@ import { useState } from "react";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
-} from "../../common/constants/AdaptiveConstants";
+} from "../../common/constants/adaptiveConstants";
 import { useHistory } from "react-router-dom";
-import { SIGN_UP_ROUTE } from "../../common/constants/RoutesConstants";
+import { SIGN_UP_ROUTE } from "../../common/constants/routesConstants";
 import { Form, Field } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
 

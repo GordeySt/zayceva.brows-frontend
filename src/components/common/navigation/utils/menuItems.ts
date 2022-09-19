@@ -12,7 +12,7 @@ import {
   SERVICES_ROUTE,
   SETTINGS_MENU_ROUTE,
   TIPS_ROUTE
-} from "../../../../common/constants/RoutesConstants";
+} from "../../../../common/constants/routesConstants";
 
 export const icons = {
   PermIdentity,

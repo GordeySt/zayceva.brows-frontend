@@ -13,10 +13,10 @@ import { KeyboardArrowLeft, HelpOutline } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
 import { useHistory, useLocation } from "react-router-dom";
-import { ABOUT_ROUTE } from "../../../common/constants/RoutesConstants";
+import { ABOUT_ROUTE } from "../../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 
 const drawerWidth = 240;
 

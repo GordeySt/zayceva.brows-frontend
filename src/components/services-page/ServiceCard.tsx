@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, Chip, Divider, Grid, Theme, Typography } from '@mui/material';
 import React from 'react';
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/adaptiveConstants";
 import { formatTimeToHoursAndMinutes } from "../../pages/services-page/utils/timeUtils";
 import { useTranslation } from "react-i18next";
 

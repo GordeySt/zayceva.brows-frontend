@@ -1,7 +1,7 @@
 import { IconButton, Theme, Typography } from "@mui/material";
 import BlockedUsersList from "./BlockedUsersList";
 import { AddRounded } from "@mui/icons-material";
-import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { MIN_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { makeStyles } from "@mui/styles";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../common/stores/Store";

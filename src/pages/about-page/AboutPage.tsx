@@ -1,6 +1,6 @@
 import { alpha, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import ContactCard from "../../components/about-page/ContactCard";
 
 const useStyles = makeStyles((theme: Theme) => ({

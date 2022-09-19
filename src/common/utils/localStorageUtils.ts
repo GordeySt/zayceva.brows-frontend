@@ -1,5 +1,5 @@
-import { USER_SETTINGS } from "../constants/LocalStorageConstants";
 import { UserSettings } from "../types/UserSettings";
+import { USER_SETTINGS } from "../constants/localStorageConstants";
 
 export const getUserSettingsFromLocalStorage = (): UserSettings =>
   JSON.parse(localStorage.getItem(USER_SETTINGS)!);

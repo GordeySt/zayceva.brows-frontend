@@ -21,7 +21,7 @@ import {
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
   TIPS_ROUTE,
-} from "../constants/RoutesConstants";
+} from "../constants/routesConstants";
 import ServicesPage from "../../pages/services-page/ServicesPage";
 
 export type Route = {

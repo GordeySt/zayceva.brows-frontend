@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 import { Menu, ArrowBack, Person } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { useHistory } from "react-router-dom";
-import { LOGIN_ROUTE } from "../../../common/constants/RoutesConstants";
 import { useRoute } from "../../../common/utils/routeUtils";
 import { useTranslation } from "react-i18next";
+import { LOGIN_ROUTE } from "../../../common/constants/routesConstants";
 
 const drawerWidth = 240;
 

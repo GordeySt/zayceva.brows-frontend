@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
-} from "../../common/constants/AdaptiveConstants";
+} from "../../common/constants/adaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {

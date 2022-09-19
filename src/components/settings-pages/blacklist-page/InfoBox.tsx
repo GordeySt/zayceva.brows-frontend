@@ -1,7 +1,7 @@
 import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
-import { MIN_WIDTH } from "../../../common/constants/AdaptiveConstants";
+import { MIN_WIDTH } from "../../../common/constants/adaptiveConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   infoSection: {
