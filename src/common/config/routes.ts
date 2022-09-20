@@ -17,12 +17,13 @@ import {
   CONFIRMED_EMAIL_ROUTE,
   DEFAULT_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
-  LOGIN_ROUTE, SERVICES_ROUTE,
+  LOGIN_ROUTE, SERVICES_ROUTE, SERVICES_SCHEDULE_ROUTE,
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
   TIPS_ROUTE,
 } from "../constants/routesConstants";
 import ServicesPage from "../../pages/services-page/ServicesPage";
+import SchedulePage from "../../pages/schedule-page/SchedulePage";
 
 export type Route = {
   path: string | string[];
@@ -105,6 +106,13 @@ export const routes: Route[] = [
     path: SERVICES_ROUTE,
     component: ServicesPage,
     titleKey: 'menu.servicesMenuItemText',
-    showBottomBar: true
+    showBottomBar: true,
+    exact: true
+  },
+  {
+    path: SERVICES_SCHEDULE_ROUTE,
+    component: SchedulePage,
+    titleKey: 'Schedule',
+    showGoBackButton: true
   }
 ];
