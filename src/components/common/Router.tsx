@@ -1,18 +1,22 @@
 import { Route, Switch } from "react-router-dom";
 import { routes } from "../../common/config/routes";
+import ScrollToTop from "./ScrollToTop";
 
 const Router = () => {
   return (
-    <Switch>
-      {routes.map((route, i) => (
-        <Route
-          key={i}
-          exact={route.exact}
-          path={route.path}
-          component={route.component}
-        />
-      ))}
-    </Switch>
+      <>
+        <ScrollToTop />
+        <Switch>
+          {routes.map((route, i) => (
+              <Route
+                  key={i}
+                  exact={route.exact}
+                  path={route.path}
+                  component={route.component}
+              />
+          ))}
+        </Switch>
+      </>
   );
 };
 
