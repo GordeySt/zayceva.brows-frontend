@@ -19,8 +19,9 @@ export const getEndDayHourWeek = (appointments: IAppointments[]) => {
 export const getStartDayHourDay = (appointments: IAppointments[], currentDate: Date) => {
     const daySchedule = appointments.filter(t => t.startDate.getDate() === currentDate.getDate());
 
-    if (daySchedule)
+    if (daySchedule.length !== 0) {
         return Math.min(...daySchedule.map(d => d.startDate.getHours())) - 0.5;
+    }
 
     return 0;
 };
