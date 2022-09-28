@@ -4,6 +4,8 @@ import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH, MIN_WIDTH } from "../../common/constants/adaptiveConstants";
 import { formatTimeToHoursAndMinutes } from "../../pages/services-page/utils/timeUtils";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import { SERVICES_SCHEDULE_ROUTE } from "../../common/constants/routesConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
     rootCard: {
@@ -55,6 +57,7 @@ interface IProps {
 
 const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
     const classes = useStyles();
+    const history = useHistory();
     const { t } = useTranslation();
 
     return (
@@ -86,7 +89,9 @@ const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
                         </div>
                     </CardContent>
                     <CardActions>
-                        <Button variant='contained'>{t`pages.servicesPage.common.bookService`}</Button>
+                        <Button onClick={() => history.push(SERVICES_SCHEDULE_ROUTE)} variant='contained'>
+                            {t`pages.servicesPage.common.bookService`}
+                        </Button>
                     </CardActions>
                 </div>
             </Card>
