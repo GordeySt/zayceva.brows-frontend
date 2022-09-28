@@ -1,6 +1,6 @@
 import { IAppointments } from "../../../common/models/schedule";
 
-export const currentDate = new Date(2018, 5, 29);
+export const currentMockDate = new Date(2018, 5, 29);
 export const appointments: IAppointments[] = [
     {
         title: 'Website Re-Design Plan',

@@ -1,10 +1,10 @@
 import React from 'react';
 import Scheduler from "../../components/schedule-page/Scheduler";
-import { appointments, currentDate } from "./utils/schedulerMockData";
+import { appointments } from "./utils/schedulerMockData";
 
 const SchedulePage = () => {
     return (
-        <Scheduler currentDate={currentDate} appointments={appointments} />
+        <Scheduler appointments={appointments} />
     );
 };
 
