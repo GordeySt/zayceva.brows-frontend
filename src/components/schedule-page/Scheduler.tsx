@@ -7,9 +7,10 @@ import {
     Appointments,
     Toolbar,
     DateNavigator,
-    TodayButton
+    TodayButton,
+    AppointmentTooltip
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { Paper, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, Button, IconButton, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import CustomAppointment from "./CustomAppointment";
 import {
@@ -20,11 +21,36 @@ import {
 } from "./utils/schedulerTimeUtils";
 import { IAppointments } from "../../common/models/schedule";
 import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorageUtils";
-import {  currentMockDate } from "../../pages/schedule-page/utils/schedulerMockData"
+import { currentMockDate } from "../../pages/schedule-page/utils/schedulerMockData"
+import EditIcon from '@mui/icons-material/Edit';
 
 interface IProps {
     appointments: IAppointments[];
 }
+
+const Header = ({ children, appointmentData, ...restProps }: any) => {
+    return (
+        <AppointmentTooltip.Header
+            {...restProps}
+            appointmentData={appointmentData}
+            style={{ display: "flex", alignItems: "center" }}
+        >
+            <IconButton onClick={() => console.log(appointmentData)}>
+                <EditIcon />
+            </IconButton>
+        </AppointmentTooltip.Header>
+    )
+};
+
+const Content = ({ children, appointmentData, ...restProps }: any) => (
+    <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+        <Grid container style={{ alignItems: "center" }}>
+            <Grid item style={{ margin: "10px 0 0 15px" }}>
+                <Button variant="contained">Записаться</Button>
+            </Grid>
+        </Grid>
+    </AppointmentTooltip.Content>
+);
 
 const Scheduler = ({ appointments }: IProps) => {
     const theme = useTheme();
@@ -64,6 +90,7 @@ const Scheduler = ({ appointments }: IProps) => {
                     />
                 }
                 <Appointments appointmentComponent={CustomAppointment}/>
+                <AppointmentTooltip showCloseButton headerComponent={Header} contentComponent={Content} />
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
