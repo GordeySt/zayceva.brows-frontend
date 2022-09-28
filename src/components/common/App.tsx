@@ -22,7 +22,7 @@ const App = observer(() => {
 
     if (userSettingsFromStorage) {
       setUserSettings(userSettingsFromStorage);
-      i18n.changeLanguage(userSettingsFromStorage.language);
+      i18n.changeLanguage(userSettingsFromStorage.language).then(t => t('key'));
     }
 
     setLoading(true);

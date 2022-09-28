@@ -13,6 +13,7 @@ import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
 import { useStore } from "../../common/stores/Store";
 import { languages } from "./utils/languages";
 import { useTranslation } from "react-i18next";
+import { ChangeEvent } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -55,7 +56,7 @@ const LanguageSettingsPage = observer(() => {
   } = useStore();
 
   const handleLanguageChange = (
-    _event: React.ChangeEvent<HTMLInputElement>,
+    _event: ChangeEvent<HTMLInputElement>,
     value: string
   ) => {
     setUserSettingsToLocalStorage({
@@ -63,7 +64,7 @@ const LanguageSettingsPage = observer(() => {
       language: value as "en" | "ru",
     });
 
-    i18n.changeLanguage(value);
+    i18n.changeLanguage(value).then(t => t('key'));
   };
 
   return (
