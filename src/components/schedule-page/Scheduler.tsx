@@ -8,10 +8,16 @@ import {
     Toolbar,
     DateNavigator,
     TodayButton,
-    AppointmentTooltip
+    AppointmentTooltip,
+    AppointmentForm
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { Grid, Button, IconButton, Paper, useMediaQuery, useTheme } from "@mui/material";
-import { MAX_TABLET_WIDTH } from "../../common/constants/adaptiveConstants";
+import { Paper, useMediaQuery, useTheme } from "@mui/material";
+import {
+    APP_TOP_BAR_DEFAULT_HEIGHT,
+    APP_TOP_BAR_MOBILE_HEIGHT,
+    MAX_TABLET_WIDTH,
+    MIN_WIDTH
+} from "../../common/constants/adaptiveConstants";
 import CustomAppointment from "./CustomAppointment";
 import {
     getEndDayHourDay,
@@ -22,39 +28,26 @@ import {
 import { IAppointments } from "../../common/models/schedule";
 import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorageUtils";
 import { currentMockDate } from "../../pages/schedule-page/utils/schedulerMockData"
-import EditIcon from '@mui/icons-material/Edit';
+import { useStore } from "../../common/stores/Store";
+import AppointmentFormTextEditor from "./AppointmentFormTextEditor";
+import AppointmentFormLayout from "./AppointmentFormLayout";
+import AppointmentFormRadio from "./AppointmentFormRadio";
+import AppointmentTooltipContent from "./AppointmentTooltipContent";
+import { getLabels } from "./utils/localization";
 
 interface IProps {
     appointments: IAppointments[];
 }
 
-const Header = ({ children, appointmentData, ...restProps }: any) => {
-    return (
-        <AppointmentTooltip.Header
-            {...restProps}
-            appointmentData={appointmentData}
-            style={{ display: "flex", alignItems: "center" }}
-        >
-            <IconButton onClick={() => console.log(appointmentData)}>
-                <EditIcon />
-            </IconButton>
-        </AppointmentTooltip.Header>
-    )
-};
-
-const Content = ({ children, appointmentData, ...restProps }: any) => (
-    <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-        <Grid container style={{ alignItems: "center" }}>
-            <Grid item style={{ margin: "10px 0 0 15px" }}>
-                <Button variant="contained">Записаться</Button>
-            </Grid>
-        </Grid>
-    </AppointmentTooltip.Content>
-);
-
 const Scheduler = ({ appointments }: IProps) => {
+    const {
+        userSettingsStore: { userSettings },
+    } = useStore();
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down(MAX_TABLET_WIDTH));
+    const matchesTablets = useMediaQuery(theme.breakpoints.down(MAX_TABLET_WIDTH));
+    const matchesPhones = useMediaQuery(theme.breakpoints.down(MIN_WIDTH));
+
+    const topBarHeight = matchesPhones ? APP_TOP_BAR_MOBILE_HEIGHT : APP_TOP_BAR_DEFAULT_HEIGHT;
 
     const [schedulerData, setSchedulerData] = useState({
         appointments,
@@ -71,6 +64,7 @@ const Scheduler = ({ appointments }: IProps) => {
     return (
         <Paper>
             <ReactScheduler
+                height={document.documentElement.clientHeight - topBarHeight}
                 data={schedulerData.appointments}
                 locale={getUserSettingsFromLocalStorage().language}
             >
@@ -78,7 +72,7 @@ const Scheduler = ({ appointments }: IProps) => {
                     defaultCurrentDate={schedulerData.currentDate}
                     onCurrentDateChange={onCurrentDateChange}
                 />
-                {matches ?
+                {matchesTablets ?
                     <DayView
                         startDayHour={getStartDayHourDay(appointments, schedulerData.currentDate)}
                         endDayHour={getEndDayHourDay(appointments, schedulerData.currentDate)}
@@ -90,7 +84,17 @@ const Scheduler = ({ appointments }: IProps) => {
                     />
                 }
                 <Appointments appointmentComponent={CustomAppointment}/>
-                <AppointmentTooltip showCloseButton headerComponent={Header} contentComponent={Content} />
+                <AppointmentTooltip
+                    showCloseButton
+                    showOpenButton
+                    contentComponent={AppointmentTooltipContent}
+                />
+                <AppointmentForm
+                    layoutComponent={AppointmentFormLayout}
+                    booleanEditorComponent={AppointmentFormRadio}
+                    messages={getLabels(userSettings.language)}
+                    textEditorComponent={AppointmentFormTextEditor}
+                />
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
