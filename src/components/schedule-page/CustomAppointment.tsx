@@ -9,12 +9,13 @@ const CustomAppointment = ({ children, style, ...restProps }: any) => {
 
     return (
         <Appointments.Appointment
-            {...restProps}
             style={{
                 ...style,
-                backgroundColor: isDarkTheme(theme) ? THEME_PRIMARY_COLORS.dark.main : THEME_PRIMARY_COLORS.light.main,
-                borderRadius: '8px',
-            }}
+                backgroundColor: isDarkTheme(theme) ?
+                    THEME_PRIMARY_COLORS.dark.main :
+                    THEME_PRIMARY_COLORS.light.main,
+                borderRadius: '8px' }}
+            {...restProps}
         >
             {children}
         </Appointments.Appointment>
