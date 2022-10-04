@@ -34,7 +34,7 @@ import AppointmentFormTextEditor from "./AppointmentFormTextEditor";
 import AppointmentFormLayout from "./AppointmentFormLayout";
 import AppointmentFormRadio from "./AppointmentFormRadio";
 import AppointmentTooltipContent from "./AppointmentTooltipContent";
-import { getLabels } from "./utils/localization";
+import { getConfirmationDialogMessages, getLabels } from "./utils/localization";
 import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
 import CustomAppointment from "./CustomAppointment";
 
@@ -63,12 +63,15 @@ const Scheduler = ({ appointments }: IProps) => {
         if (added) {
             const startingAddedId = schedulerAppointments.length > 0 ?
                 schedulerAppointments[schedulerAppointments.length - 1].id + 1 : 0;
+
             setSchedulerAppointments([...schedulerAppointments, { id: startingAddedId, ...added }]);
         }
+
         if (changed) {
             setSchedulerAppointments(schedulerAppointments.map(appointment => (
                 changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment)));
         }
+
         if (deleted !== undefined) {
             setSchedulerAppointments(schedulerAppointments.filter(appointment => appointment.id !== deleted));
         }
@@ -103,7 +106,7 @@ const Scheduler = ({ appointments }: IProps) => {
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
-                <ConfirmationDialog />
+                <ConfirmationDialog messages={getConfirmationDialogMessages(userSettings.language)} />
                 <Appointments appointmentComponent={CustomAppointment} />
                 <AppointmentTooltip
                     showCloseButton
