@@ -34,6 +34,7 @@ import AppointmentFormLayout from "./AppointmentFormLayout";
 import AppointmentFormRadio from "./AppointmentFormRadio";
 import AppointmentTooltipContent from "./AppointmentTooltipContent";
 import { getLabels } from "./utils/localization";
+import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
 
 interface IProps {
     appointments: IAppointments[];
@@ -94,6 +95,12 @@ const Scheduler = ({ appointments }: IProps) => {
                     booleanEditorComponent={AppointmentFormRadio}
                     messages={getLabels(userSettings.language)}
                     textEditorComponent={AppointmentFormTextEditor}
+                    dateEditorComponent={(props) =>
+                        <SchedulerDateTimePicker
+                            {...props}
+                            locale={userSettings.language}
+                            matchesMinScreenWidth={matchesPhones}
+                        />}
                 />
                 <Toolbar />
                 <DateNavigator />

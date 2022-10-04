@@ -1,0 +1,5 @@
+@media (max-width: 825px) {
+    .Layout-dividerLabel {
+        display: none;
+    }
+}

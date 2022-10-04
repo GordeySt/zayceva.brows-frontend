@@ -1,3 +1,5 @@
+import { ru } from "date-fns/locale";
+
 export const getLabels = (locale: keyof IDetails): any => detailsLabelLocalization[locale];
 
 interface IDetails {
@@ -20,3 +22,7 @@ const detailsLabelLocalization: IDetails = {
         moreInformationLabel: ''
     }
 }
+
+export const getDateFnsLocaleFromUserSettings = (locale: string) => (
+    locale === 'ru' ? ru : undefined
+)
