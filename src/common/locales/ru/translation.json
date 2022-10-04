@@ -93,6 +93,9 @@
         "todayAvailability": "Свободно время на сегодня",
         "bookService": "Записаться"
       }
+    },
+    "schedulePage": {
+      "pageTitle": "Расписание"
     }
   },
   "common": {

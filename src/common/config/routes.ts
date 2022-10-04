@@ -112,7 +112,7 @@ export const routes: Route[] = [
   {
     path: SERVICES_SCHEDULE_ROUTE,
     component: SchedulePage,
-    titleKey: 'Schedule',
+    titleKey: 'pages.schedulePage.pageTitle',
     showGoBackButton: true
   }
 ];

@@ -93,6 +93,9 @@
         "todayAvailability": "Today's availability",
         "bookService": "Book"
       }
+    },
+    "schedulePage": {
+      "pageTitle": "Schedule"
     }
   },
   "common": {
