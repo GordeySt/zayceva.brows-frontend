@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import React, { useCallback, useState } from 'react';
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
     Scheduler as ReactScheduler,
     WeekView,
@@ -11,7 +11,7 @@ import {
     AppointmentTooltip,
     AppointmentForm,
     ConfirmationDialog,
-    EditRecurrenceMenu
+    DragDropProvider
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { Paper, useMediaQuery, useTheme } from "@mui/material";
 import {
@@ -53,31 +53,26 @@ const Scheduler = ({ appointments }: IProps) => {
     const topBarHeight = matchesPhones ? APP_TOP_BAR_MOBILE_HEIGHT : APP_TOP_BAR_DEFAULT_HEIGHT;
 
     const [schedulerAppointments, setSchedulerAppointments] = useState(appointments);
-    const [schedulerCurrentDate, setSchedulerCurrentDate] = useState(currentMockDate)
+    const [schedulerCurrentDate, setSchedulerCurrentDate] = useState(currentMockDate);
 
     const onCurrentDateChange = (currentDate: Date) => {
         setSchedulerCurrentDate(currentDate);
     }
 
-    const commitChanges = ({ added, changed, deleted }: any) => {
-        setSchedulerAppointments((prevState) => {
-            if (added) {
-                const startingAddedId = appointments.length > 0 ? appointments[appointments.length - 1].id + 1 : 0;
-                appointments = [...prevState, { id: startingAddedId, ...added }];
-            }
-
-            if (changed) {
-                appointments = prevState.map(appointment => (
-                    changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-            }
-
-            if (deleted) {
-                appointments = prevState.filter(appointment => appointment.id !== deleted);
-            }
-
-            return appointments;
-        })
-    }
+    const commitChanges = useCallback(({ added, changed, deleted }: any) => {
+        if (added) {
+            const startingAddedId = schedulerAppointments.length > 0 ?
+                schedulerAppointments[schedulerAppointments.length - 1].id + 1 : 0;
+            setSchedulerAppointments([...schedulerAppointments, { id: startingAddedId, ...added }]);
+        }
+        if (changed) {
+            setSchedulerAppointments(schedulerAppointments.map(appointment => (
+                changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment)));
+        }
+        if (deleted !== undefined) {
+            setSchedulerAppointments(schedulerAppointments.filter(appointment => appointment.id !== deleted));
+        }
+    }, [setSchedulerAppointments, schedulerAppointments]);
 
     return (
         <Paper>
@@ -93,6 +88,7 @@ const Scheduler = ({ appointments }: IProps) => {
                 <EditingState
                     onCommitChanges={commitChanges}
                 />
+                <IntegratedEditing />
                 {matchesTablets ?
                     <DayView
                         startDayHour={getStartDayHourDay(appointments, schedulerCurrentDate)}
@@ -107,9 +103,8 @@ const Scheduler = ({ appointments }: IProps) => {
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
-                <EditRecurrenceMenu />
                 <ConfirmationDialog />
-                <Appointments appointmentComponent={CustomAppointment}/>
+                <Appointments appointmentComponent={CustomAppointment} />
                 <AppointmentTooltip
                     showCloseButton
                     showOpenButton
@@ -128,6 +123,7 @@ const Scheduler = ({ appointments }: IProps) => {
                             matchesMinScreenWidth={matchesPhones}
                         />}
                 />
+                {!matchesTablets && <DragDropProvider />}
             </ReactScheduler>
         </Paper>
     );
