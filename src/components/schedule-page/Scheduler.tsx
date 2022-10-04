@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
     Scheduler as ReactScheduler,
     WeekView,
@@ -9,7 +9,9 @@ import {
     DateNavigator,
     TodayButton,
     AppointmentTooltip,
-    AppointmentForm
+    AppointmentForm,
+    ConfirmationDialog,
+    EditRecurrenceMenu
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { Paper, useMediaQuery, useTheme } from "@mui/material";
 import {
@@ -18,7 +20,6 @@ import {
     MAX_TABLET_WIDTH,
     MIN_WIDTH
 } from "../../common/constants/adaptiveConstants";
-import CustomAppointment from "./CustomAppointment";
 import {
     getEndDayHourDay,
     getEndDayHourWeek,
@@ -35,6 +36,7 @@ import AppointmentFormRadio from "./AppointmentFormRadio";
 import AppointmentTooltipContent from "./AppointmentTooltipContent";
 import { getLabels } from "./utils/localization";
 import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
+import CustomAppointment from "./CustomAppointment";
 
 interface IProps {
     appointments: IAppointments[];
@@ -50,33 +52,51 @@ const Scheduler = ({ appointments }: IProps) => {
 
     const topBarHeight = matchesPhones ? APP_TOP_BAR_MOBILE_HEIGHT : APP_TOP_BAR_DEFAULT_HEIGHT;
 
-    const [schedulerData, setSchedulerData] = useState({
-        appointments,
-        currentDate: currentMockDate
-    });
+    const [schedulerAppointments, setSchedulerAppointments] = useState(appointments);
+    const [schedulerCurrentDate, setSchedulerCurrentDate] = useState(currentMockDate)
 
     const onCurrentDateChange = (currentDate: Date) => {
-        setSchedulerData(prevState => ({
-            appointments: [...prevState.appointments],
-            currentDate: currentDate
-        }))
+        setSchedulerCurrentDate(currentDate);
+    }
+
+    const commitChanges = ({ added, changed, deleted }: any) => {
+        setSchedulerAppointments((prevState) => {
+            if (added) {
+                const startingAddedId = appointments.length > 0 ? appointments[appointments.length - 1].id + 1 : 0;
+                appointments = [...prevState, { id: startingAddedId, ...added }];
+            }
+
+            if (changed) {
+                appointments = prevState.map(appointment => (
+                    changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+            }
+
+            if (deleted) {
+                appointments = prevState.filter(appointment => appointment.id !== deleted);
+            }
+
+            return appointments;
+        })
     }
 
     return (
         <Paper>
             <ReactScheduler
                 height={document.documentElement.clientHeight - topBarHeight}
-                data={schedulerData.appointments}
+                data={schedulerAppointments}
                 locale={getUserSettingsFromLocalStorage().language}
             >
                 <ViewState
-                    defaultCurrentDate={schedulerData.currentDate}
+                    defaultCurrentDate={schedulerCurrentDate}
                     onCurrentDateChange={onCurrentDateChange}
+                />
+                <EditingState
+                    onCommitChanges={commitChanges}
                 />
                 {matchesTablets ?
                     <DayView
-                        startDayHour={getStartDayHourDay(appointments, schedulerData.currentDate)}
-                        endDayHour={getEndDayHourDay(appointments, schedulerData.currentDate)}
+                        startDayHour={getStartDayHourDay(appointments, schedulerCurrentDate)}
+                        endDayHour={getEndDayHourDay(appointments, schedulerCurrentDate)}
                     />
                     :
                     <WeekView
@@ -84,10 +104,16 @@ const Scheduler = ({ appointments }: IProps) => {
                         endDayHour={getEndDayHourWeek(appointments)}
                     />
                 }
+                <Toolbar />
+                <DateNavigator />
+                <TodayButton />
+                <EditRecurrenceMenu />
+                <ConfirmationDialog />
                 <Appointments appointmentComponent={CustomAppointment}/>
                 <AppointmentTooltip
                     showCloseButton
                     showOpenButton
+                    showDeleteButton
                     contentComponent={AppointmentTooltipContent}
                 />
                 <AppointmentForm
@@ -102,9 +128,6 @@ const Scheduler = ({ appointments }: IProps) => {
                             matchesMinScreenWidth={matchesPhones}
                         />}
                 />
-                <Toolbar />
-                <DateNavigator />
-                <TodayButton />
             </ReactScheduler>
         </Paper>
     );
