@@ -46,7 +46,7 @@ const confirmationDialogMessages: IConfirmationDialog = {
     'ru': {
         discardButton: 'Отменить',
         deleteButton: 'Удалить',
-        cancelButton: 'Отменить',
+        cancelButton: 'Назад',
         confirmDeleteMessage: 'Вы точно хотите удалить эту запись?',
         confirmCancelMessage: 'Отменить несохранненые изменения?'
     }
