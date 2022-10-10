@@ -118,13 +118,16 @@ const Scheduler = ({ appointments }: IProps) => {
                     layoutComponent={AppointmentFormLayout}
                     booleanEditorComponent={AppointmentFormRadio}
                     messages={getLabels(userSettings.language)}
-                    textEditorComponent={AppointmentFormTextEditor}
+                    textEditorComponent={(props) =>
+                        <AppointmentFormTextEditor {...props} />
+                    }
                     dateEditorComponent={(props) =>
                         <SchedulerDateTimePicker
                             {...props}
                             locale={userSettings.language}
                             matchesMinScreenWidth={matchesPhones}
-                        />}
+                        />
+                    }
                 />
                 {!matchesTablets && <DragDropProvider />}
             </ReactScheduler>
