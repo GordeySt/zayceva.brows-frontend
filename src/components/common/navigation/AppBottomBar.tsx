@@ -6,7 +6,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { menuItems, icons } from "./utils/menuItems";
 import { useHistory, useLocation } from "react-router-dom";
 import { useRoute } from "../../../common/utils/routeUtils";
@@ -27,9 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     zIndex: 999,
     background: theme.palette.background.default,
     paddingBottom: "env(safe-area-inset-bottom, 0)",
-    [theme.breakpoints.up(MAX_TABLET_WIDTH)]: {
-      display: "none",
-    },
   }),
 }));
 
