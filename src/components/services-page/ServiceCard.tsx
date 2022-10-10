@@ -83,8 +83,8 @@ const ServiceCard = ({ title, price, description, availableTime }: IProps) => {
                             {t`pages.servicesPage.common.todayAvailability`}:
                         </Typography>
                         <div>
-                            {availableTime.map(t =>
-                                <Chip className={classes.timeChip} label={formatTimeToHoursAndMinutes(t)} />
+                            {availableTime.map((t, idx) =>
+                                <Chip key={idx} className={classes.timeChip} label={formatTimeToHoursAndMinutes(t)} />
                             )}
                         </div>
                     </CardContent>
