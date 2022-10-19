@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 const App = observer(() => {
   const {
-    userSettingsStore: { setUserSettings, storeTheme },
+    userSettingsStore: { setUserSettings, storeTheme, userSettings },
   } = useStore();
   const { i18n } = useTranslation();
   const [_, setLoading] = useState(false);
@@ -24,13 +24,16 @@ const App = observer(() => {
       setUserSettings(userSettingsFromStorage);
       i18n.changeLanguage(userSettingsFromStorage.language).then(t => t('key'));
     }
+    else {
+      i18n.changeLanguage(userSettings.language).then(t => t('key'));
+    }
 
     setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
     }, 300);
-  }, [setUserSettings, i18n]);
+  }, [setUserSettings, i18n, userSettings.language]);
 
   const muiTheme = createTheme(storeTheme);
 

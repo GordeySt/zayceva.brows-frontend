@@ -13,7 +13,7 @@ import { setUserSettingsToLocalStorage } from "../utils/localStorageUtils";
 export default class UserSettingsStore {
   userSettings = {
     themeType: "light",
-    language: 'ru'
+    language: "en"
   } as UserSettings;
 
   constructor() {
