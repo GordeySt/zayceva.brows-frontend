@@ -142,7 +142,7 @@ const ConfirmEmailCard = () => {
         open={showNotification}
         TransitionComponent={Slide}
         onClose={handleNotificationClose}
-        key={"bottom" + "right"}
+        key="bottom right"
         autoHideDuration={4000}
       >
         <AlertNotification

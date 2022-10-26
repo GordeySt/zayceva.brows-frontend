@@ -1,6 +1,5 @@
 import { LoadingButton } from "@mui/lab";
 import {
-  Button,
   CardActions,
   CardContent,
   ClassNameMap,
@@ -69,7 +68,7 @@ const ConfirmFailInfo = ({ t, classes, email }: IProps) => {
         open={showNotification}
         TransitionComponent={Slide}
         onClose={handleNotificationClose}
-        key={"bottom" + "right"}
+        key="bottom right"
         autoHideDuration={4000}
       >
         <AlertNotification

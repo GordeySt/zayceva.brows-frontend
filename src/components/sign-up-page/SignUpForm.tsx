@@ -83,8 +83,6 @@ const SignUpForm = () => {
   const { authStore } = useStore();
 
   const onSubmit = async (values: ISignUpFormValues) => {
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
     setPhoneNumberErrorMsg("");
 
     if (isBYPhoneNumber(phoneNumberValue)) {

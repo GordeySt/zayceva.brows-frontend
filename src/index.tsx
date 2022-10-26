@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "./common/config/i18n";
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={history}>

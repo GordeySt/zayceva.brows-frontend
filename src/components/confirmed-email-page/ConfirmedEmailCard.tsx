@@ -1,24 +1,13 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  ClassNameMap,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Card, CardMedia, ClassNameMap } from "@mui/material";
 import { Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import { authApi } from "../../common/api/authApi";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
 } from "../../common/constants/adaptiveConstants";
-import { LOGIN_ROUTE } from "../../common/constants/routesConstants";
 import { useQuery } from "../../common/utils/routeUtils";
 import ConfirmFailInfo from "./ConfirmFailInfo";
 import ConfirmSuccessInfo from "./ConfirmSuccessInfo";
