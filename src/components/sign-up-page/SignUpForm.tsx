@@ -24,6 +24,7 @@ import {
   isBYPhoneNumber,
   createValidation,
 } from "../../common/utils/validatorUtils";
+import { useStore } from "../../common/stores/Store";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -65,13 +66,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface ISignUpFormValues {
+export interface ISignUpFormValues {
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
   password: string;
-  confirmPassword: string;
 }
 
 const SignUpForm = () => {
@@ -80,6 +80,7 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
+  const { authStore } = useStore();
 
   const onSubmit = async (values: ISignUpFormValues) => {
     const sleep = (ms: number) =>
@@ -88,13 +89,10 @@ const SignUpForm = () => {
 
     if (isBYPhoneNumber(phoneNumberValue)) {
       setPhoneNumberErrorMsg("Phone number should be like +375 (33) 123-44-22");
-      await sleep(0);
       return;
     }
 
-    await sleep(3000);
-
-    console.log({ ...values, phoneNumber: phoneNumberValue });
+    await authStore.signUp({ ...values, phoneNumber: phoneNumberValue });
   };
 
   const handlePhoneNumberValueChange = (
