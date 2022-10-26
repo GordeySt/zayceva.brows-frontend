@@ -9,3 +9,7 @@ export const useRoute = () => {
       matchPath(path, { path: e.path, exact: true })
   );
 };
+
+export const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+}
