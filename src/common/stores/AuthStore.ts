@@ -14,7 +14,7 @@ export default class AuthStore {
             await authApi.signUp(data);
             history.push(CONFIRM_EMAIL_ROUTE + `?email=${data.email}`)
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 }

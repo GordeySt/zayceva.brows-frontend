@@ -7,6 +7,7 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  Alert,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -24,6 +25,7 @@ import {
   createValidation,
 } from "../../common/utils/validatorUtils";
 import { useStore } from "../../common/stores/Store";
+import { BAD_REQUEST_MESSAGES } from "../../common/constants/apiErrorMessageConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -78,10 +80,19 @@ const SignUpForm = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
+  const [userAlreadyExists, setUserAlreadyExists] = useState(false);
   const { authStore } = useStore();
 
   const onSubmit = async (values: ISignUpFormValues) => {
-    await authStore.signUp({ ...values, phoneNumber: phoneNumberValue });
+    try {
+      await authStore.signUp({ ...values, phoneNumber: phoneNumberValue })
+    } catch (error: any) {
+      const { status, data } = error.response;
+
+      if (status === 400 && data === BAD_REQUEST_MESSAGES.userAlreadyExists) {
+        setUserAlreadyExists(true);
+      }
+    }
   };
 
   const handlePhoneNumberValueChange = (
@@ -259,6 +270,11 @@ const SignUpForm = () => {
                 </Field>
               </Grid>
             </Grid>
+            {userAlreadyExists &&
+                <Alert sx={{ marginTop: "15px" }} severity="error">
+                  {t`pages.signUpPage.errors.userAlreadyExists`}
+                </Alert>
+            }
             <LoadingButton
               type="submit"
               fullWidth

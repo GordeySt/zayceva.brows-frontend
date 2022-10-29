@@ -59,7 +59,9 @@
         "emailRequired": "Email is required",
         "emailFormat": "Email is not valid",
         "phoneNumberRequired": "Phone number is required",
-        "passwordRequired": "Password is required"
+        "passwordRequired": "Password is required",
+        "passwordLength": "Password length must be greater than",
+        "userAlreadyExists": "User with the following email already exists."
       }
     },
     "confirmEmailPage": {

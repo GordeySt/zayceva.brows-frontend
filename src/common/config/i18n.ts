@@ -18,5 +18,3 @@ i18n
       en: { translation: translation_en },
     },
   })
-
-export default i18n

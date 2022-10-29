@@ -59,7 +59,9 @@
         "emailRequired": "Почта обязательна",
         "emailFormat": "Неверный формат почты",
         "phoneNumberRequired": "Номер телефона обязателен",
-        "passwordRequired": "Пароль обязателен"
+        "passwordRequired": "Пароль обязателен",
+        "passwordLength": "Длина паспорта должна быть больше, чем",
+        "userAlreadyExists": "Пользователь с такой почтой уже существует."
       }
     },
     "confirmEmailPage": {
