@@ -69,10 +69,12 @@
       "cardAdditionalInfo1": "Didn't see it?",
       "cardAdditionalInfo2": "Check your spam for an e-mail from",
       "cardAdditionalInfo3": "or",
-      "cardAdditionalInfo4": "send again"
+      "cardAdditionalInfo4": "send again",
+      "emailSentAgainNotification": "Email has been sent again"
     },
     "confirmedEmailPage": {
-      "cardInfo": "You email address is confirmed. You can now log into the app."
+      "cardInfoSuccess": "You email address is confirmed. You can now log into the app.",
+      "cardInfoFail": "We have some problems verifying your email address. Please try send new confirmation email."
     },
     "servicesPage": {
       "categories": {

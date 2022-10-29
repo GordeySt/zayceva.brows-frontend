@@ -150,7 +150,7 @@ const ConfirmEmailCard = () => {
           severity="info"
           sx={{ width: "100%" }}
         >
-          Email has been sent again
+          {t`pages.confirmEmailPage.emailSentAgainNotification`}
         </AlertNotification>
       </Snackbar>
     </>

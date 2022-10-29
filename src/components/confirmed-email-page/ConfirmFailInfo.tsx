@@ -49,8 +49,7 @@ const ConfirmFailInfo = ({ t, classes, email }: IProps) => {
           color="text.secondary"
           className={classes.cardMainInfo}
         >
-          We have some problems verifying your email address. Please try send
-          new confirmation email.
+          {t`pages.confirmedEmailPage.cardInfoFail`}
         </Typography>
       </CardContent>
       <CardActions>
@@ -76,7 +75,7 @@ const ConfirmFailInfo = ({ t, classes, email }: IProps) => {
           severity="info"
           sx={{ width: "100%" }}
         >
-          Email has been sent again
+          {t`pages.confirmEmailPage.emailSentAgainNotification`}
         </AlertNotification>
       </Snackbar>
     </>

@@ -69,10 +69,12 @@
       "cardAdditionalInfo1": "Не получили письмо?",
       "cardAdditionalInfo2": "Проверьте спам вашей почты на наличие письма от",
       "cardAdditionalInfo3": "или",
-      "cardAdditionalInfo4": "отправьте снова"
+      "cardAdditionalInfo4": "отправьте снова",
+      "emailSentAgainNotification": "Письмо было отправлено еще раз"
     },
     "confirmedEmailPage": {
-      "cardInfo": "Ваша почта прошла верификацию. Теперь вы можете войти в приложение."
+      "cardInfoSuccess": "Ваша почта прошла верификацию. Теперь вы можете войти в приложение.",
+      "cardInfoFail": "Возникли проблемы при подтверждении вашей почты. Пожалуйста, отправьте новое верифакаицонное письмо."
     },
     "servicesPage": {
       "categories": {

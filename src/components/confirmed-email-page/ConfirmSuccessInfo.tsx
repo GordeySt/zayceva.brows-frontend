@@ -28,7 +28,7 @@ const ConfirmSuccessInfo = ({ t, classes }: IProps) => {
           color="text.secondary"
           className={classes.cardMainInfo}
         >
-          {t`pages.confirmedEmailPage.cardInfo`}
+          {t`pages.confirmedEmailPage.cardInfoSuccess`}
         </Typography>
       </CardContent>
       <CardActions>
