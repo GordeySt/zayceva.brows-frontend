@@ -1,31 +1,59 @@
-export const formatPhoneNumber = (value: string) => {
+const byNumberCode = "375";
+
+export const formatPhoneNumber = (value: string, selectionStart: number | null, data: string) => {
     if (!value) return value;
 
-    const currentValue = value.replace(/[^\d]/g, "");
-    const cvLength = currentValue.length;
+    const valueWithDigitsOnly = value.replace(/\D/g, "");
+    const valueNumberCode = valueWithDigitsOnly.substring(0, 3);
+    let formattedValue;
 
-    if (cvLength < 4) return `+${currentValue}`;
+    if (value.length !== selectionStart) {
+        if (data && /\D/g.test(data)) {
+            return valueWithDigitsOnly;
+        }
 
-    if (cvLength < 6)
-      return `+${currentValue.slice(0, 3)} (${currentValue.slice(3)})`;
+        return value;
+    }
 
-    if (cvLength < 9)
-      return `+${currentValue.slice(0, 3)} (${currentValue.slice(
-        3,
-        5
-      )}) ${currentValue.slice(5)}`;
+    if (valueNumberCode === byNumberCode) {
+        formattedValue = `+${valueNumberCode}`
 
-    if (cvLength < 11)
-      return `+${currentValue.slice(0, 3)} (${currentValue.slice(
-        3,
-        5
-      )}) ${currentValue.slice(5, 8)}-${currentValue.slice(8)}`;
+        if (valueWithDigitsOnly.length > 3) {
+            formattedValue += ` (${valueWithDigitsOnly.substring(3, 5)}`
+        }
 
-    return `+${currentValue.slice(0, 3)} (${currentValue.slice(
-      3,
-      5
-    )}) ${currentValue.slice(5, 8)}-${currentValue.slice(
-      8,
-      10
-    )}-${currentValue.slice(10, 12)}`;
-  };
+        if (valueWithDigitsOnly.length > 4) {
+            formattedValue += `) ${valueWithDigitsOnly.substring(5, 8)}`
+        }
+
+        if (valueWithDigitsOnly.length >= 8) {
+            formattedValue += `-${valueWithDigitsOnly.substring(8, 10)}`
+        }
+
+        if (valueWithDigitsOnly.length >= 10) {
+            formattedValue += `-${valueWithDigitsOnly.substring(10, 13)}`
+        }
+    } else {
+        formattedValue = `+${valueWithDigitsOnly.substring(0, 17)}`;
+    }
+
+    return formattedValue;
+};
+
+export const formatPhoneNumberOnKeyDown = (value: string): string => {
+    if (value.substring(1, 4) === byNumberCode) {
+        if (value.length === 17) {
+            return value.substring(0, 16);
+        }
+
+        if (value.length === 14) {
+            return value.substring(0, 13);
+        }
+
+        if (value.length === 10) {
+            return value.substring(0, 8);
+        }
+    }
+
+    return value;
+}

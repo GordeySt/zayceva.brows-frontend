@@ -11,7 +11,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { makeStyles } from "@mui/styles";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
@@ -19,9 +19,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
-import { formatPhoneNumber } from "../../common/utils/formatterUtils";
+import { formatPhoneNumber, formatPhoneNumberOnKeyDown } from "../../common/utils/formatterUtils";
 import {
-  isBYPhoneNumber,
   createValidation,
 } from "../../common/utils/validatorUtils";
 import { useStore } from "../../common/stores/Store";
@@ -79,25 +78,27 @@ const SignUpForm = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
-  const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
   const { authStore } = useStore();
 
   const onSubmit = async (values: ISignUpFormValues) => {
-    setPhoneNumberErrorMsg("");
-
-    if (isBYPhoneNumber(phoneNumberValue)) {
-      setPhoneNumberErrorMsg("Phone number should be like +375 (33) 123-44-22");
-      return;
-    }
-
     await authStore.signUp({ ...values, phoneNumber: phoneNumberValue });
   };
 
   const handlePhoneNumberValueChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: any
   ) => {
-    setPhoneNumberValue(formatPhoneNumber(e.currentTarget.value));
+    const { value, selectionStart } = e.target;
+    const { data } = e.nativeEvent;
+    const formattedValue = formatPhoneNumber(value, selectionStart, data);
+
+    setPhoneNumberValue(formattedValue);
   };
+
+  const handlePhoneNumberKeyDown =  (e: KeyboardEvent<HTMLImageElement>) => {
+    if (e.key === "Backspace") {
+      setPhoneNumberValue(formatPhoneNumberOnKeyDown(phoneNumberValue));
+    }
+  }
 
   return (
     <Card className={classes.rootCard}>
@@ -123,7 +124,6 @@ const SignUpForm = () => {
                       <>
                         <TextField
                           {...input}
-                          autoFocus
                           autoComplete="firstName"
                           size="small"
                           fullWidth
@@ -196,17 +196,21 @@ const SignUpForm = () => {
                       <TextField
                         {...input}
                         value={phoneNumberValue}
-                        onChange={handlePhoneNumberValueChange}
+                        onChange={(e) => {
+                          input.onChange(e);
+                          handlePhoneNumberValueChange(e);
+                        }}
+                        onKeyDown={handlePhoneNumberKeyDown}
                         autoComplete="phone-number"
                         size="small"
-                        error={meta.touched && !!phoneNumberErrorMsg}
+                        error={meta.touched && !!meta.error}
                         fullWidth
                         variant="outlined"
+                        type="tel"
+                        inputProps={{ maxLength: "19" }}
                       />
-                      {phoneNumberErrorMsg && meta.touched && (
-                        <span className={classes.errorText}>
-                          {phoneNumberErrorMsg}
-                        </span>
+                      {meta.error && meta.touched && (
+                          <span className={classes.errorText}>{meta.error}</span>
                       )}
                     </>
                   )}
