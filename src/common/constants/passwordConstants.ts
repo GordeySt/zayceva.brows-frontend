@@ -1,0 +1,1 @@
+export const REQUIRED_PASSWORD_LENGTH = 6;

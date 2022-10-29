@@ -1,5 +1,6 @@
 import { Validators } from "@lemoncode/fonk";
 import { createFinalFormValidation } from "@lemoncode/fonk-final-form";
+import { REQUIRED_PASSWORD_LENGTH } from "../constants/passwordConstants";
 
 export const createValidation = (t: any) => {
     const validationSchema = {
@@ -30,6 +31,11 @@ export const createValidation = (t: any) => {
                 {
                     validator: Validators.required.validator,
                     message: t('pages.signUpPage.errors.passwordRequired')
+                },
+                {
+                    validator: Validators.minLength,
+                    customArgs: { length: REQUIRED_PASSWORD_LENGTH },
+                    message: t('pages.signUpPage.errors.passwordLength') + " {{length}}"
                 }
             ],
             phoneNumber: [
