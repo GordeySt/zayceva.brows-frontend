@@ -58,6 +58,7 @@
         "lastNameRequired": "Last name is required",
         "emailRequired": "Email is required",
         "emailFormat": "Email is not valid",
+        "phoneNumberRequired": "Phone number is required",
         "passwordRequired": "Password is required"
       }
     },

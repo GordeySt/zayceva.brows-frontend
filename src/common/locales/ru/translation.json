@@ -58,6 +58,7 @@
         "lastNameRequired": "Фамилия обязательна",
         "emailRequired": "Почта обязательна",
         "emailFormat": "Неверный формат почты",
+        "phoneNumberRequired": "Номер телефона обязателен",
         "passwordRequired": "Пароль обязателен"
       }
     },

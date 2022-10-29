@@ -14,8 +14,8 @@ export const createValidation = (t: any) => {
                 {
                     validator: Validators.required.validator,
                     message: t('pages.signUpPage.errors.lastNameRequired')
-            }
-        ],
+                }
+            ],
             email: [
                 {
                     validator: Validators.required.validator,
@@ -31,15 +31,15 @@ export const createValidation = (t: any) => {
                     validator: Validators.required.validator,
                     message: t('pages.signUpPage.errors.passwordRequired')
                 }
+            ],
+            phoneNumber: [
+                {
+                    validator: Validators.required.validator,
+                    message: t('pages.signUpPage.errors.phoneNumberRequired')
+                }
             ]
         }
     }
 
     return createFinalFormValidation(validationSchema);
 };
-
-export const isBYPhoneNumber = (value: string, errorMsg = "Phone number is not valid") => {
-    const phoneRegex = /^\+375 \([0-9]{2}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/g;
-
-    return phoneRegex.test(value) ? undefined : errorMsg
-}
