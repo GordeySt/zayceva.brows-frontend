@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   Divider,
@@ -23,6 +24,12 @@ import { useHistory } from "react-router-dom";
 import { SIGN_UP_ROUTE } from "../../common/constants/routesConstants";
 import { Form, Field } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
+import { createSignInValidationSchema } from "../../common/utils/validatorUtils";
+import { useStore } from "../../common/stores/Store";
+import {
+  NOT_FOUND_MESSAGES,
+  UNAUTHORIZED_MESSAGES,
+} from "../../common/constants/apiErrorMessageConstants";
 
 const useStyles = makeStyles((theme: Theme) => ({
   rootCard: {
@@ -57,9 +64,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   iconButton: {
     color: theme.palette.text.secondary,
   },
+  errorText: {
+    display: "inline-block",
+    color: theme.palette.error.main,
+    fontSize: "14px",
+  },
 }));
 
-interface ILoginFormValues {
+export interface ILoginFormValues {
   mail: string;
   password: string;
 }
@@ -68,24 +80,39 @@ const LoginForm = observer(() => {
   const classes = useStyles();
   const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const { t } = useTranslation();
+  const { authStore } = useStore();
 
   const onSubmit = async (values: ILoginFormValues) => {
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-    await sleep(3000);
+    try {
+      await authStore.singIn(values);
+    } catch (error: any) {
+      const { status, data } = error.response;
 
-    console.log(values);
+      if (status === 401 && data === NOT_FOUND_MESSAGES.notFoundUser) {
+        setSubmitError("User with the following email does not exists.");
+        return;
+      }
+
+      if (status === 401 && data === UNAUTHORIZED_MESSAGES.invalidPassword) {
+        setSubmitError("Password is invalid.");
+        return;
+      }
+    }
   };
 
   return (
     <Card className={classes.rootCard}>
-      <Form
-        onSubmit={onSubmit}
-        subscription={{ submitting: true }}
-        render={({ handleSubmit, submitting }) => (
-          <form onSubmit={handleSubmit} noValidate>
-            <Grid container direction="column">
+      <Grid container direction="column">
+        <Form
+          onSubmit={onSubmit}
+          subscription={{ submitting: true }}
+          validate={(values) =>
+            createSignInValidationSchema(t).validateForm(values)
+          }
+          render={({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit} noValidate>
               <Grid item>
                 <Typography
                   className={classes.cardTitle}
@@ -96,15 +123,19 @@ const LoginForm = observer(() => {
                   className={classes.inputLabel}
                 >{t`pages.signInPage.mailLabel`}</Typography>
                 <Field<string> name="email">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      autoFocus
-                      autoComplete="email"
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                    />
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        autoComplete="email"
+                        size="small"
+                        fullWidth
+                        variant="outlined"
+                      />
+                      {meta.error && meta.touched && (
+                        <span className={classes.errorText}>{meta.error}</span>
+                      )}
+                    </>
                   )}
                 </Field>
               </Grid>
@@ -113,38 +144,47 @@ const LoginForm = observer(() => {
                   className={classes.inputLabel}
                 >{t`pages.signInPage.passwordLabel`}</Typography>
                 <Field<string> name="password">
-                  {({ input }) => (
-                    <TextField
-                      {...input}
-                      autoComplete="current-password"
-                      type={showPassword ? "text" : "password"}
-                      fullWidth
-                      size="small"
-                      margin="dense"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment
-                            position="end"
-                            style={{ marginRight: -8 }}
-                          >
-                            <IconButton
-                              className={classes.iconButton}
-                              onClick={() => setShowPassword((prev) => !prev)}
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        autoComplete="current-password"
+                        type={showPassword ? "text" : "password"}
+                        fullWidth
+                        size="small"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              position="end"
+                              style={{ marginRight: -8 }}
                             >
-                              {showPassword ? (
-                                <VisibilityIcon />
-                              ) : (
-                                <VisibilityOffIcon />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                              <IconButton
+                                className={classes.iconButton}
+                                onClick={() => setShowPassword((prev) => !prev)}
+                              >
+                                {showPassword ? (
+                                  <VisibilityIcon />
+                                ) : (
+                                  <VisibilityOffIcon />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {meta.error && meta.touched && (
+                        <span className={classes.errorText}>{meta.error}</span>
+                      )}
+                    </>
                   )}
                 </Field>
               </Grid>
               <Grid item className={classes.gridItem}>
+                {submitError && (
+                  <Alert sx={{ margin: "2px 0 15px 0" }} severity="error">
+                    {submitError}
+                  </Alert>
+                )}
                 <LoadingButton
                   className={classes.button}
                   disableElevation
@@ -157,25 +197,25 @@ const LoginForm = observer(() => {
                   {t`pages.signInPage.sectionTitle`}
                 </LoadingButton>
               </Grid>
-              <Grid item className={classes.gridItem}>
-                <Divider>{t`pages.signInPage.dividerTitle`}</Divider>
-              </Grid>
-              <Grid item className={classes.gridItem}>
-                <Button
-                  onClick={() => history.push(SIGN_UP_ROUTE)}
-                  className={classes.button}
-                  disableElevation
-                  fullWidth
-                  variant="outlined"
-                  color="primary"
-                >
-                  {t`pages.signInPage.signUpButtonText`}
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      />
+            </form>
+          )}
+        />
+        <Grid item className={classes.gridItem}>
+          <Divider>{t`pages.signInPage.dividerTitle`}</Divider>
+        </Grid>
+        <Grid item className={classes.gridItem}>
+          <Button
+            onClick={() => history.push(SIGN_UP_ROUTE)}
+            className={classes.button}
+            disableElevation
+            fullWidth
+            variant="outlined"
+            color="primary"
+          >
+            {t`pages.signInPage.signUpButtonText`}
+          </Button>
+        </Grid>
+      </Grid>
     </Card>
   );
 });
