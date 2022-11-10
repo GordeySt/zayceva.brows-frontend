@@ -20,10 +20,11 @@ import {
 import { useTranslation } from "react-i18next";
 import { Field, Form } from "react-final-form";
 import { LoadingButton } from "@mui/lab";
-import { formatPhoneNumber, formatPhoneNumberOnKeyDown } from "../../common/utils/formatterUtils";
 import {
-  createValidation,
-} from "../../common/utils/validatorUtils";
+  formatPhoneNumber,
+  formatPhoneNumberOnKeyDown,
+} from "../../common/utils/formatterUtils";
+import { createSignUpValidationShema } from "../../common/utils/validatorUtils";
 import { useStore } from "../../common/stores/Store";
 import { BAD_REQUEST_MESSAGES } from "../../common/constants/apiErrorMessageConstants";
 
@@ -85,7 +86,7 @@ const SignUpForm = () => {
 
   const onSubmit = async (values: ISignUpFormValues) => {
     try {
-      await authStore.signUp({ ...values, phoneNumber: phoneNumberValue })
+      await authStore.signUp({ ...values, phoneNumber: phoneNumberValue });
     } catch (error: any) {
       const { status, data } = error.response;
 
@@ -95,9 +96,7 @@ const SignUpForm = () => {
     }
   };
 
-  const handlePhoneNumberValueChange = (
-    e: any
-  ) => {
+  const handlePhoneNumberValueChange = (e: any) => {
     const { value, selectionStart } = e.target;
     const { data } = e.nativeEvent;
     const formattedValue = formatPhoneNumber(value, selectionStart, data);
@@ -105,18 +104,20 @@ const SignUpForm = () => {
     setPhoneNumberValue(formattedValue);
   };
 
-  const handlePhoneNumberKeyDown =  (e: KeyboardEvent<HTMLImageElement>) => {
+  const handlePhoneNumberKeyDown = (e: KeyboardEvent<HTMLImageElement>) => {
     if (e.key === "Backspace") {
       setPhoneNumberValue(formatPhoneNumberOnKeyDown(phoneNumberValue));
     }
-  }
+  };
 
   return (
     <Card className={classes.rootCard}>
       <Form
         onSubmit={onSubmit}
         subscription={{ submitting: true, invalid: true }}
-        validate={(values) => createValidation(t).validateForm(values)}
+        validate={(values) =>
+          createSignUpValidationShema(t).validateForm(values)
+        }
         render={({ handleSubmit, submitting, invalid }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Grid container direction="column">
@@ -221,7 +222,7 @@ const SignUpForm = () => {
                         inputProps={{ maxLength: "19" }}
                       />
                       {meta.error && meta.touched && (
-                          <span className={classes.errorText}>{meta.error}</span>
+                        <span className={classes.errorText}>{meta.error}</span>
                       )}
                     </>
                   )}
@@ -270,11 +271,11 @@ const SignUpForm = () => {
                 </Field>
               </Grid>
             </Grid>
-            {userAlreadyExists &&
-                <Alert sx={{ marginTop: "15px" }} severity="error">
-                  {t`pages.signUpPage.errors.userAlreadyExists`}
-                </Alert>
-            }
+            {userAlreadyExists && (
+              <Alert sx={{ marginTop: "15px" }} severity="error">
+                {t`pages.signUpPage.errors.userAlreadyExists`}
+              </Alert>
+            )}
             <LoadingButton
               type="submit"
               fullWidth

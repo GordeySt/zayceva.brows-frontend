@@ -4,14 +4,14 @@ import {
   Book,
   Settings,
   ExitToApp,
-  HelpOutline
+  HelpOutline,
 } from "@mui/icons-material";
 import {
   ABOUT_ROUTE,
   LOGIN_ROUTE,
   SERVICES_ROUTE,
   SETTINGS_MENU_ROUTE,
-  TIPS_ROUTE
+  TIPS_ROUTE,
 } from "../../../../common/constants/routesConstants";
 
 export const icons = {
@@ -20,7 +20,7 @@ export const icons = {
   Book,
   Settings,
   ExitToApp,
-  HelpOutline
+  HelpOutline,
 };
 
 interface IMenuItem {
@@ -58,6 +58,6 @@ export const menuItems: IMenuItem[] = [
   {
     labelKey: "aboutMenuItemText",
     icon: "HelpOutline",
-    to: ABOUT_ROUTE
-  }
+    to: ABOUT_ROUTE,
+  },
 ];
