@@ -49,6 +49,7 @@ interface IProps {
 const Scheduler = ({ appointments }: IProps) => {
   const {
     userSettingsStore: { userSettings },
+    authStore: { isAdminRole },
   } = useStore();
   const theme = useTheme();
   const matchesTablets = useMediaQuery(
@@ -144,8 +145,8 @@ const Scheduler = ({ appointments }: IProps) => {
         <Appointments appointmentComponent={CustomAppointment} />
         <AppointmentTooltip
           showCloseButton
-          showOpenButton
-          showDeleteButton
+          showOpenButton={isAdminRole}
+          showDeleteButton={isAdminRole}
           contentComponent={AppointmentTooltipContent}
         />
         <AppointmentForm
@@ -163,7 +164,7 @@ const Scheduler = ({ appointments }: IProps) => {
             />
           )}
         />
-        {!matchesTablets && <DragDropProvider />}
+        {!matchesTablets && isAdminRole && <DragDropProvider />}
       </ReactScheduler>
     </Paper>
   );

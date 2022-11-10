@@ -14,6 +14,7 @@ import {
   LANGUAGE_SETTINGS_ROUTE,
 } from "../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
+import { useStore } from "../../common/stores/Store";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -74,45 +75,61 @@ interface IMenuItem {
   icon: keyof typeof icons;
   textKey: string;
   to: string;
+  isVisible: boolean;
 }
 
-const settingsMenuItems: IMenuItem[] = [
+const createMenuItems = (
+  isLoggedIn: boolean,
+  isAdmin: boolean
+): IMenuItem[] => [
   {
     icon: "Palette",
     textKey: "appearanceSettingsMenuItem",
     to: APPEARANCE_SETTINGS_ROUTE,
+    isVisible: true,
   },
   {
     icon: "Language",
     textKey: "languageSettingsMenuItem",
     to: LANGUAGE_SETTINGS_ROUTE,
+    isVisible: true,
   },
   {
     icon: "VisibilityOff",
     textKey: "blacklistSettingsMenuItem",
     to: BLACK_LIST_SETTINGS_ROUTE,
+    isVisible: isLoggedIn && isAdmin,
   },
 ];
 
 const SettingsMenuPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const {
+    authStore: { isLoggedIn, isAdminRole },
+  } = useStore();
 
   return (
     <div className={classes.root}>
-      {settingsMenuItems.map(({ textKey, icon, to }, i) => {
-        const Icon = icons[icon];
+      {createMenuItems(isLoggedIn, isAdminRole).map(
+        ({ textKey, icon, to, isVisible }, i) => {
+          const Icon = icons[icon];
 
-        return (
-          <Link key={i} to={to} className={classes.link}>
-            <Icon className={classes.linkIcon} />
-            <Typography className={classes.linkText}>
-              {t(`pages.settingsMenu.${textKey}`)}
-            </Typography>
-            <ArrowForwardIos className={classes.linkIconChevronRight} />
-          </Link>
-        );
-      })}
+          return (
+            <>
+              {isVisible && (
+                <Link key={i} to={to} className={classes.link}>
+                  <Icon className={classes.linkIcon} />
+                  <Typography className={classes.linkText}>
+                    {t(`pages.settingsMenu.${textKey}`)}
+                  </Typography>
+                  <ArrowForwardIos className={classes.linkIconChevronRight} />
+                </Link>
+              )}
+            </>
+          );
+        }
+      )}
     </div>
   );
 };

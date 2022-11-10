@@ -9,7 +9,7 @@ import {
   ListItemText,
   IconButton,
 } from "@mui/material";
-import { KeyboardArrowLeft, HelpOutline } from "@mui/icons-material";
+import { KeyboardArrowLeft, HelpOutline, Logout } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";
@@ -17,6 +17,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { ABOUT_ROUTE } from "../../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
+import { useStore } from "../../../common/stores/Store";
 
 const drawerWidth = 240;
 
@@ -159,6 +160,13 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
   const classes = useStyles({ open });
   const location = useLocation();
   const { t } = useTranslation();
+  const {
+    authStore: { isLoggedIn, signOut },
+  } = useStore();
+
+  const handleSignButtonClick = () => {
+    isLoggedIn ? signOut() : history.push(menuItems[0].to);
+  };
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -170,7 +178,24 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
       </DrawerHeader>
       <Divider variant="middle" />
       <List className={classes.menuList}>
-        {menuItems.slice(0, 5).map(({ labelKey, icon, to }, i) => {
+        <ListItem
+          button
+          onClick={handleSignButtonClick}
+          className={
+            classes.menuListItem +
+            (location.pathname === menuItems[0].to ? " " + classes.active : "")
+          }
+        >
+          <ListItemIcon className={classes.menuListItemIcon}>
+            <Logout className={classes.menuIcon} fontSize="medium" />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              isLoggedIn ? "Sign out" : t(`menu.${menuItems[0].labelKey}`)
+            }
+          />
+        </ListItem>
+        {menuItems.slice(1, 5).map(({ labelKey, icon, to }, i) => {
           const Icon = icons[icon];
 
           return (

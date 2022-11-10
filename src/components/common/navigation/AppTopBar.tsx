@@ -8,13 +8,17 @@ import {
   AppBarProps as MuiAppBarProps,
   Box,
 } from "@mui/material";
-import { Menu, ArrowBack, Person } from "@mui/icons-material";
+import { Menu, ArrowBack, Person, Logout } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { useHistory } from "react-router-dom";
 import { useRoute } from "../../../common/utils/routeUtils";
 import { useTranslation } from "react-i18next";
-import { LOGIN_ROUTE } from "../../../common/constants/routesConstants";
+import {
+  DEFAULT_ROUTE,
+  LOGIN_ROUTE,
+} from "../../../common/constants/routesConstants";
+import { useStore } from "../../../common/stores/Store";
 
 const drawerWidth = 240;
 
@@ -94,6 +98,9 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
   const history = useHistory();
   const route = useRoute();
   const { t } = useTranslation();
+  const {
+    authStore: { isLoggedIn, signOut },
+  } = useStore();
 
   return (
     <AppBar className={classes.appBar} position="fixed" open={open}>
@@ -136,9 +143,19 @@ const AppTopBar = ({ open, handleDrawerOpen }: IProps) => {
         </div>
         {route?.showBottomBar && (
           <Box className={classes.appBarMenuItems}>
-            <IconButton onClick={() => history.push(LOGIN_ROUTE)} size="large">
+            <IconButton
+              onClick={() =>
+                history.push(isLoggedIn ? DEFAULT_ROUTE : LOGIN_ROUTE)
+              }
+              size="large"
+            >
               <Person className={classes.accountIcon} />
             </IconButton>
+            {isLoggedIn && (
+              <IconButton onClick={() => signOut()}>
+                <Logout className={classes.accountIcon} />
+              </IconButton>
+            )}
           </Box>
         )}
       </Toolbar>
