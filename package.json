@@ -10,7 +10,7 @@
     "@emotion/styled": "^11.10.4",
     "@lemoncode/fonk": "^1.5.4",
     "@lemoncode/fonk-final-form": "^2.3.4",
-    "@mui/icons-material": "^5.8.4",
+    "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.86",
     "@mui/material": "^5.10.6",
     "@mui/styles": "^5.10.6",
@@ -39,7 +39,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -63,6 +63,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.0"
+    "@types/react-router-dom": "^5.3.0",
+    "react-error-overlay": "^6.0.9"
   }
 }
