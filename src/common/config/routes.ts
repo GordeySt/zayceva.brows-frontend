@@ -17,13 +17,18 @@ import {
   CONFIRMED_EMAIL_ROUTE,
   DEFAULT_ROUTE,
   LANGUAGE_SETTINGS_ROUTE,
-  LOGIN_ROUTE, SERVICES_ROUTE, SERVICES_SCHEDULE_ROUTE,
+  LOGIN_ROUTE,
+  SERVICES_ROUTE,
+  SERVICES_SCHEDULE_ROUTE,
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
   TIPS_ROUTE,
+  NOT_FOUND_ROUTE,
 } from "../constants/routesConstants";
 import ServicesPage from "../../pages/services-page/ServicesPage";
 import SchedulePage from "../../pages/schedule-page/SchedulePage";
+import { Role } from "../models/user";
+import NotFound from "../../components/common/NotFound";
 
 export type Route = {
   path: string | string[];
@@ -32,6 +37,8 @@ export type Route = {
   showGoBackButton?: boolean;
   titleKey: string;
   exact?: boolean;
+  roles?: string[];
+  privateRoute?: boolean;
 };
 
 export const routes: Route[] = [
@@ -46,13 +53,13 @@ export const routes: Route[] = [
     path: LOGIN_ROUTE,
     component: LoginPage,
     showBottomBar: true,
-    titleKey: "pages.signInPage.pageTitle"
+    titleKey: "pages.signInPage.pageTitle",
   },
   {
     path: SIGN_UP_ROUTE,
     component: SignUpPage,
     titleKey: "pages.signUpPage.pageTitle",
-    showGoBackButton: true
+    showGoBackButton: true,
   },
   {
     path: SETTINGS_MENU_ROUTE,
@@ -71,13 +78,15 @@ export const routes: Route[] = [
     path: LANGUAGE_SETTINGS_ROUTE,
     component: LanguageSettingsPage,
     showGoBackButton: true,
-    titleKey: "pages.languageSettingsPage.pageTitle"
+    titleKey: "pages.languageSettingsPage.pageTitle",
   },
   {
     path: BLACK_LIST_SETTINGS_ROUTE,
     component: BlackListPage,
     showGoBackButton: true,
     titleKey: "pages.blacklistPage.pageTitle",
+    privateRoute: true,
+    roles: [Role.Admin],
   },
   {
     path: ABOUT_ROUTE,
@@ -89,30 +98,38 @@ export const routes: Route[] = [
     path: CONFIRM_EMAIL_ROUTE,
     component: ConfirmEmailPage,
     showGoBackButton: true,
-    titleKey: "pages.confirmEmailPage.pageTitle"
+    titleKey: "pages.confirmEmailPage.pageTitle",
   },
   {
     path: CONFIRMED_EMAIL_ROUTE,
     component: ConfirmedEmailPage,
-    titleKey: ""
+    titleKey: "",
   },
   {
     path: TIPS_ROUTE,
     component: TipsPage,
     titleKey: "menu.tipsMenuItemText",
-    showBottomBar: true
+    showBottomBar: true,
   },
   {
     path: SERVICES_ROUTE,
     component: ServicesPage,
-    titleKey: 'menu.servicesMenuItemText',
+    titleKey: "menu.servicesMenuItemText",
     showBottomBar: true,
-    exact: true
+    exact: true,
   },
   {
     path: SERVICES_SCHEDULE_ROUTE,
     component: SchedulePage,
-    titleKey: 'pages.schedulePage.pageTitle',
-    showGoBackButton: true
-  }
+    titleKey: "pages.schedulePage.pageTitle",
+    showGoBackButton: true,
+    privateRoute: true,
+    roles: [Role.Admin, Role.User],
+  },
+  {
+    path: NOT_FOUND_ROUTE,
+    component: NotFound,
+    titleKey: "",
+    showGoBackButton: true,
+  },
 ];
