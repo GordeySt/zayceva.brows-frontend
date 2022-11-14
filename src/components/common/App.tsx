@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../common/stores/Store";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import React from "react";
 import AppLayout from "./AppLayout";
 import { UserSettings } from "../../common/types/UserSettings";
@@ -12,6 +12,8 @@ import { useTranslation } from "react-i18next";
 const App = observer(() => {
   const {
     userSettingsStore: { setUserSettings, storeTheme, userSettings },
+    authStore: { getCurrentUser, user },
+    commonStore: { token },
   } = useStore();
   const { i18n } = useTranslation();
   const [_, setLoading] = useState(false);
@@ -22,10 +24,11 @@ const App = observer(() => {
 
     if (userSettingsFromStorage) {
       setUserSettings(userSettingsFromStorage);
-      i18n.changeLanguage(userSettingsFromStorage.language).then(t => t('key'));
-    }
-    else {
-      i18n.changeLanguage(userSettings.language).then(t => t('key'));
+      i18n
+        .changeLanguage(userSettingsFromStorage.language)
+        .then((t) => t("key"));
+    } else {
+      i18n.changeLanguage(userSettings.language).then((t) => t("key"));
     }
 
     setLoading(true);
@@ -34,6 +37,12 @@ const App = observer(() => {
       setLoading(false);
     }, 300);
   }, [setUserSettings, i18n, userSettings.language]);
+
+  useEffect(() => {
+    if (token) {
+      getCurrentUser();
+    }
+  }, [getCurrentUser, token]);
 
   const muiTheme = createTheme(storeTheme);
 

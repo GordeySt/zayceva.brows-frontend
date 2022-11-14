@@ -1,5 +1,5 @@
 export type AuthUser = {
-  jwt: string;
+  jwt: string | null;
   user: User;
 };
 

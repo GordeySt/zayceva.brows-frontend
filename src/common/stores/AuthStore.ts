@@ -7,8 +7,9 @@ import {
   DEFAULT_ROUTE,
 } from "../constants/routesConstants";
 import { ILoginFormValues } from "../../components/login-page/LoginForm";
-import { AuthUser, Role } from "../models/user";
+import { AuthUser, Role, User } from "../models/user";
 import { store } from "./Store";
+import { usersApi } from "../api/usersApi";
 
 configure({ enforceActions: "always" });
 
@@ -17,6 +18,10 @@ export default class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get User() {
+    return this.user;
   }
 
   get isLoggedIn() {
@@ -39,7 +44,7 @@ export default class AuthStore {
   singIn = async (data: ILoginFormValues) => {
     try {
       const user = await authApi.signIn(data);
-      this.setUser(user);
+      this.setSignInUser(user);
       store.commonStore.setToken(user.jwt);
       history.push(DEFAULT_ROUTE);
     } catch (error) {
@@ -50,11 +55,27 @@ export default class AuthStore {
   signOut = () => {
     store.commonStore.setToken(null);
     window.localStorage.removeItem("jwt");
-    this.setUser(null);
+    this.setSignInUser(null);
     history.push("/");
   };
 
-  setUser = (user: AuthUser | null) => {
+  getCurrentUser = async () => {
+    try {
+      const user = await usersApi.getCurrentUser();
+      this.setCurrentUser(user, store.commonStore.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  setSignInUser = (user: AuthUser | null) => {
     this.user = user;
+  };
+
+  setCurrentUser = (user: User, jwt: string | null) => {
+    this.user = {
+      jwt,
+      user,
+    };
   };
 }

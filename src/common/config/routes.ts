@@ -123,8 +123,6 @@ export const routes: Route[] = [
     component: SchedulePage,
     titleKey: "pages.schedulePage.pageTitle",
     showGoBackButton: true,
-    privateRoute: true,
-    roles: [Role.Admin, Role.User],
   },
   {
     path: NOT_FOUND_ROUTE,

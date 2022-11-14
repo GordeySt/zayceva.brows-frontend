@@ -4,3 +4,7 @@ export const AUTH_API_URLS = {
   resendEmailConfirmationUrl: "/auth/resend-confirmation-email",
   signInUrl: "/auth/sign-in",
 };
+
+export const USERS_API_URLS = {
+  getCurrentUser: "/users/get-current-user",
+};
