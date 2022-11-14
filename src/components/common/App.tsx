@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const App = observer(() => {
   const {
     userSettingsStore: { setUserSettings, storeTheme, userSettings },
-    authStore: { getCurrentUser, user },
+    authStore: { getCurrentUser },
     commonStore: { token },
   } = useStore();
   const { i18n } = useTranslation();
