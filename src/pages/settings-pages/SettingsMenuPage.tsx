@@ -15,6 +15,8 @@ import {
 } from "../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
 import { useStore } from "../../common/stores/Store";
+import { v4 as uuidv4 } from "uuid";
+import { Fragment } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -116,9 +118,9 @@ const SettingsMenuPage = () => {
           const Icon = icons[icon];
 
           return (
-            <>
+            <Fragment key={uuidv4()}>
               {isVisible && (
-                <Link key={i} to={to} className={classes.link}>
+                <Link to={to} className={classes.link}>
                   <Icon className={classes.linkIcon} />
                   <Typography className={classes.linkText}>
                     {t(`pages.settingsMenu.${textKey}`)}
@@ -126,7 +128,7 @@ const SettingsMenuPage = () => {
                   <ArrowForwardIos className={classes.linkIconChevronRight} />
                 </Link>
               )}
-            </>
+            </Fragment>
           );
         }
       )}
