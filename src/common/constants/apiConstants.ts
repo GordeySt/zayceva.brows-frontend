@@ -8,3 +8,7 @@ export const AUTH_API_URLS = {
 export const USERS_API_URLS = {
   getCurrentUser: "/users/get-current-user",
 };
+
+export const APPOINTMENTS_API_URLS = {
+  getAppointments: "/appointments",
+};
