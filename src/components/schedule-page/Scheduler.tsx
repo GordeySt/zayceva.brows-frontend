@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ViewState,
   EditingState,
@@ -24,15 +24,7 @@ import {
   MAX_TABLET_WIDTH,
   MIN_WIDTH,
 } from "../../common/constants/adaptiveConstants";
-import {
-  getEndDayHourDay,
-  getEndDayHourWeek,
-  getStartDayHourDay,
-  getStartDayHourWeek,
-} from "./utils/schedulerTimeUtils";
-import { IAppointments } from "../../common/models/schedule";
 import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorageUtils";
-import { currentMockDate } from "../../pages/schedule-page/utils/schedulerMockData";
 import { useStore } from "../../common/stores/Store";
 import AppointmentFormTextEditor from "./AppointmentFormTextEditor";
 import AppointmentFormLayout from "./AppointmentFormLayout";
@@ -41,15 +33,13 @@ import AppointmentTooltipContent from "./AppointmentTooltipContent";
 import { getConfirmationDialogMessages, getLabels } from "./utils/localization";
 import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
 import CustomAppointment from "./CustomAppointment";
+import { observer } from "mobx-react-lite";
 
-interface IProps {
-  appointments: IAppointments[];
-}
-
-const Scheduler = ({ appointments }: IProps) => {
+const Scheduler = observer(() => {
   const {
     userSettingsStore: { userSettings },
     authStore: { isAdminRole },
+    appointmentsStore: { getAppointments, appointments, loadingAppointments },
   } = useStore();
   const theme = useTheme();
   const matchesTablets = useMediaQuery(
@@ -61,55 +51,65 @@ const Scheduler = ({ appointments }: IProps) => {
     ? APP_TOP_BAR_MOBILE_HEIGHT
     : APP_TOP_BAR_DEFAULT_HEIGHT;
 
-  const [schedulerAppointments, setSchedulerAppointments] =
-    useState(appointments);
-  const [schedulerCurrentDate, setSchedulerCurrentDate] =
-    useState(currentMockDate);
+  const [schedulerCurrentDate, setSchedulerCurrentDate] = useState(
+    new Date(Date.now())
+  );
+
+  useEffect(() => {
+    getAppointments(schedulerCurrentDate);
+  }, [getAppointments, schedulerCurrentDate]);
 
   const onCurrentDateChange = (currentDate: Date) => {
     setSchedulerCurrentDate(currentDate);
+    getAppointments(currentDate);
   };
 
-  const commitChanges = useCallback(
-    ({ added, changed, deleted }: any) => {
-      if (added) {
-        const startingAddedId =
-          schedulerAppointments.length > 0
-            ? schedulerAppointments[schedulerAppointments.length - 1].id + 1
-            : 0;
+  const commitChanges = () => {};
 
-        setSchedulerAppointments([
-          ...schedulerAppointments,
-          { id: startingAddedId, ...added },
-        ]);
-      }
+  // const commitChanges = useCallback(
+  //   ({ added, changed, deleted }: any) => {
+  //     if (added) {
+  //       const startingAddedId =
+  //         appointments.length > 0
+  //           ? appointments[appointments.length - 1].id + 1
+  //           : 0;
 
-      if (changed) {
-        setSchedulerAppointments(
-          schedulerAppointments.map((appointment) =>
-            changed[appointment.id]
-              ? { ...appointment, ...changed[appointment.id] }
-              : appointment
-          )
-        );
-      }
+  //       setSchedulerAppointments([
+  //         ...schedulerAppointments,
+  //         { id: startingAddedId, ...added },
+  //       ]);
+  //     }
 
-      if (deleted !== undefined) {
-        setSchedulerAppointments(
-          schedulerAppointments.filter(
-            (appointment) => appointment.id !== deleted
-          )
-        );
-      }
-    },
-    [setSchedulerAppointments, schedulerAppointments]
-  );
+  //     if (changed) {
+  //       setSchedulerAppointments(
+  //         schedulerAppointments.map((appointment) =>
+  //           changed[appointment.id]
+  //             ? { ...appointment, ...changed[appointment.id] }
+  //             : appointment
+  //         )
+  //       );
+  //     }
+
+  //     if (deleted !== undefined) {
+  //       setSchedulerAppointments(
+  //         schedulerAppointments.filter(
+  //           (appointment) => appointment.id !== deleted
+  //         )
+  //       );
+  //     }
+  //   },
+  //   [setSchedulerAppointments, schedulerAppointments]
+  // );
+
+  if (loadingAppointments) {
+    return <div>loading...</div>;
+  }
 
   return (
     <Paper>
       <ReactScheduler
         height={document.documentElement.clientHeight - topBarHeight}
-        data={schedulerAppointments}
+        data={appointments}
         locale={
           getUserSettingsFromLocalStorage()
             ? getUserSettingsFromLocalStorage().language
@@ -117,25 +117,26 @@ const Scheduler = ({ appointments }: IProps) => {
         }
       >
         <ViewState
-          defaultCurrentDate={schedulerCurrentDate}
+          currentDate={schedulerCurrentDate}
           onCurrentDateChange={onCurrentDateChange}
         />
         <EditingState onCommitChanges={commitChanges} />
         <IntegratedEditing />
         {matchesTablets ? (
           <DayView
-            startDayHour={getStartDayHourDay(
-              appointments,
-              schedulerCurrentDate
-            )}
-            endDayHour={getEndDayHourDay(appointments, schedulerCurrentDate)}
+          // startDayHour={getStartDayHourDay(
+          //   appointments,
+          //   schedulerCurrentDate
+          // )}
+          // endDayHour={getEndDayHourDay(appointments, schedulerCurrentDate)}
           />
         ) : (
           <WeekView
-            startDayHour={getStartDayHourWeek(appointments)}
-            endDayHour={getEndDayHourWeek(appointments)}
+          // startDayHour={getStartDayHourWeek(appointments)}
+          // endDayHour={getEndDayHourWeek(appointments)}
           />
         )}
+
         <Toolbar />
         <DateNavigator />
         <TodayButton />
@@ -168,6 +169,6 @@ const Scheduler = ({ appointments }: IProps) => {
       </ReactScheduler>
     </Paper>
   );
-};
+});
 
 export default Scheduler;
