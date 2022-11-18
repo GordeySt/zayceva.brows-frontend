@@ -4,6 +4,7 @@ import UserSettingsStore from "./UserSettingsStore";
 import ModalStore from "./ModalStore";
 import AuthStore from "./AuthStore";
 import CommonStore from "./CommonStore";
+import AppointmentsStore from "./AppointmentsStore";
 
 interface Store {
   userSettingsStore: UserSettingsStore;
@@ -11,6 +12,7 @@ interface Store {
   modalStore: ModalStore;
   authStore: AuthStore;
   commonStore: CommonStore;
+  appointmentsStore: AppointmentsStore;
 }
 
 export const store: Store = {
@@ -19,6 +21,7 @@ export const store: Store = {
   modalStore: new ModalStore(),
   authStore: new AuthStore(),
   commonStore: new CommonStore(),
+  appointmentsStore: new AppointmentsStore(),
 };
 
 export const StoreContext = createContext(store);
