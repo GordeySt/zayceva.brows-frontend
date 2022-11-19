@@ -1,5 +1,10 @@
+import { addDays, endOfWeek, getWeek, startOfWeek } from "date-fns";
 import { makeAutoObservable, runInAction } from "mobx";
 import { appointmentsApi } from "../api/appointmentsApi";
+import {
+  END_DATE_QUERY_NAME,
+  START_DATE_QUERY_NAME,
+} from "../constants/queriesNameConstants";
 import { Appointment } from "../models/appointment";
 
 export default class AppointmentsStore {
@@ -14,22 +19,31 @@ export default class AppointmentsStore {
     return Array.from(this.appointmentsRegistry.values());
   }
 
-  getAppointments = async (currentDate: Date) => {
-    const date = new Date(currentDate);
-    const first = date.getDate() - date.getDay();
-    const last = first + 6;
+  isAppointmentsLoadedForWeek = (currentDate: Date): boolean => {
+    const currentWeek = getWeek(currentDate);
 
-    const firstday = new Date(date.setDate(first));
-    const lastday = new Date(date.setDate(last));
+    return this.appointments.some((a) => {
+      const currentWeekForExistingAppointment = getWeek(a.startDate);
+
+      return currentWeekForExistingAppointment === currentWeek;
+    });
+  };
+
+  getAppointments = async (currentDate: Date) => {
+    const firstday = startOfWeek(currentDate);
+    const lastday = endOfWeek(currentDate);
+    const lastDayFromNextWeek = addDays(lastday, 7);
 
     const params = new URLSearchParams();
     params.append(
-      "startDate",
+      START_DATE_QUERY_NAME,
       new Date(firstday.setHours(0, 0, 0, 0)).toLocaleDateString("en")
     );
     params.append(
-      "endDate",
-      new Date(lastday.setHours(0, 0, 0, 0)).toLocaleDateString("en")
+      END_DATE_QUERY_NAME,
+      new Date(lastDayFromNextWeek.setHours(0, 0, 0, 0)).toLocaleDateString(
+        "en"
+      )
     );
 
     try {

@@ -34,12 +34,18 @@ import { getConfirmationDialogMessages, getLabels } from "./utils/localization";
 import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
 import CustomAppointment from "./CustomAppointment";
 import { observer } from "mobx-react-lite";
+import CustomSpaceLoader from "../common/CustomSpaceLoader";
 
 const Scheduler = observer(() => {
   const {
     userSettingsStore: { userSettings },
     authStore: { isAdminRole },
-    appointmentsStore: { getAppointments, appointments, loadingAppointments },
+    appointmentsStore: {
+      getAppointments,
+      appointments,
+      loadingAppointments,
+      isAppointmentsLoadedForWeek,
+    },
   } = useStore();
   const theme = useTheme();
   const matchesTablets = useMediaQuery(
@@ -56,12 +62,15 @@ const Scheduler = observer(() => {
   );
 
   useEffect(() => {
-    getAppointments(schedulerCurrentDate);
-  }, [getAppointments, schedulerCurrentDate]);
+    getAppointments(new Date(Date.now()));
+  }, [getAppointments]);
 
   const onCurrentDateChange = (currentDate: Date) => {
     setSchedulerCurrentDate(currentDate);
-    getAppointments(currentDate);
+
+    if (!isAppointmentsLoadedForWeek(currentDate)) {
+      getAppointments(currentDate);
+    }
   };
 
   const commitChanges = () => {};
@@ -102,7 +111,18 @@ const Scheduler = observer(() => {
   // );
 
   if (loadingAppointments) {
-    return <div>loading...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: `calc(100vh - ${topBarHeight}px)`,
+        }}
+      >
+        <CustomSpaceLoader />
+      </div>
+    );
   }
 
   return (
@@ -123,18 +143,9 @@ const Scheduler = observer(() => {
         <EditingState onCommitChanges={commitChanges} />
         <IntegratedEditing />
         {matchesTablets ? (
-          <DayView
-          // startDayHour={getStartDayHourDay(
-          //   appointments,
-          //   schedulerCurrentDate
-          // )}
-          // endDayHour={getEndDayHourDay(appointments, schedulerCurrentDate)}
-          />
+          <DayView startDayHour={8.5} endDayHour={21} />
         ) : (
-          <WeekView
-          // startDayHour={getStartDayHourWeek(appointments)}
-          // endDayHour={getEndDayHourWeek(appointments)}
-          />
+          <WeekView startDayHour={8.5} endDayHour={21} />
         )}
 
         <Toolbar />
