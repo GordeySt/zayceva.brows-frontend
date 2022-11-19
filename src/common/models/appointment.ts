@@ -1,8 +1,9 @@
 export type Appointment = {
-  id: string;
-  name: string;
+  id?: string;
+  title: string;
   startDate: Date;
   endDate: Date;
-  isBooked: boolean;
-  userId: string;
+  isBooked?: boolean;
+  userId?: string;
+  price: number;
 };
