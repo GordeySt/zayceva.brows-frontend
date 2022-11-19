@@ -8,11 +8,12 @@ import { UserSettings } from "../../common/types/UserSettings";
 import Router from "./Router";
 import { getUserSettingsFromLocalStorage } from "../../common/utils/localStorageUtils";
 import { useTranslation } from "react-i18next";
+import BouncingDotsLoader from "./BouncingDotsLoader";
 
 const App = observer(() => {
   const {
     userSettingsStore: { setUserSettings, storeTheme, userSettings },
-    authStore: { getCurrentUser },
+    authStore: { getCurrentUser, loadingUser },
     commonStore: { token },
   } = useStore();
   const { i18n } = useTranslation();
@@ -45,6 +46,21 @@ const App = observer(() => {
   }, [getCurrentUser, token]);
 
   const muiTheme = createTheme(storeTheme);
+
+  if (loadingUser) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <BouncingDotsLoader />
+      </div>
+    );
+  }
 
   return (
     <ThemeProvider theme={muiTheme}>

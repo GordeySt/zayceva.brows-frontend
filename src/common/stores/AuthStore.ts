@@ -15,6 +15,7 @@ configure({ enforceActions: "always" });
 
 export default class AuthStore {
   user: AuthUser | null = null;
+  loadingUser: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -60,12 +61,20 @@ export default class AuthStore {
   };
 
   getCurrentUser = async () => {
+    this.setLoadingUser(true);
+
     try {
       const user = await usersApi.getCurrentUser();
       this.setCurrentUser(user, store.commonStore.token);
     } catch (error) {
       console.log(error);
+    } finally {
+      this.setLoadingUser(false);
     }
+  };
+
+  setLoadingUser = (value: boolean) => {
+    this.loadingUser = value;
   };
 
   setSignInUser = (user: AuthUser | null) => {
