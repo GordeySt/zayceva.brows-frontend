@@ -6,10 +6,13 @@ import {
   START_DATE_QUERY_NAME,
 } from "../constants/queriesNameConstants";
 import { Appointment } from "../models/appointment";
+import { v4 as uuid } from "uuid";
+import { createService } from "../../pages/services-page/utils/mockServices";
 
 export default class AppointmentsStore {
   appointmentsRegistry = new Map();
   loadingAppointments = false;
+  loadingDeleteAppointment = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -53,7 +56,7 @@ export default class AppointmentsStore {
         appointments.forEach((appointment) => {
           appointment.startDate = new Date(appointment.startDate);
           appointment.endDate = new Date(appointment.endDate);
-          this.appointmentsRegistry.set(appointment.id, appointment);
+          this.setNewAppointmentToRegistry(appointment.id!, appointment);
         });
       });
     } catch (error) {
@@ -61,6 +64,42 @@ export default class AppointmentsStore {
     } finally {
       this.setLoadingAppointments(false);
     }
+  };
+
+  createAppointment = async (appointment: Appointment, t: any) => {
+    try {
+      appointment.price = Object.values(createService(t))
+        .map((t) => t.find((t) => t.title === appointment.title))
+        .find((t) => t?.title === appointment.title)?.price!;
+
+      await appointmentsApi.createAppointment(appointment);
+      this.setNewAppointmentToRegistry(uuid(), appointment);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  deleteAppointment = async (id: string) => {
+    this.setDeleteLoadingAppointments(true);
+
+    try {
+      await appointmentsApi.deleteAppointment(id);
+      runInAction(() => {
+        this.appointmentsRegistry.delete(id);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setDeleteLoadingAppointments(false);
+    }
+  };
+
+  setNewAppointmentToRegistry = (id: string, appointment: Appointment) => {
+    this.appointmentsRegistry.set(id, appointment);
+  };
+
+  setDeleteLoadingAppointments = (value: boolean) => {
+    this.loadingDeleteAppointment = value;
   };
 
   setLoadingAppointments = (value: boolean) => {
