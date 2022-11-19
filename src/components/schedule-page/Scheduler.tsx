@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ViewState,
   EditingState,
@@ -35,8 +35,12 @@ import SchedulerDateTimePicker from "./SchedulerDateTimePicker";
 import CustomAppointment from "./CustomAppointment";
 import { observer } from "mobx-react-lite";
 import CustomSpaceLoader from "../common/CustomSpaceLoader";
+import { Appointment } from "../../common/models/appointment";
+import { useTranslation } from "react-i18next";
+import AppointmentConfirmationButton from "./AppointmentConfirmationButton";
 
 const Scheduler = observer(() => {
+  const { t } = useTranslation();
   const {
     userSettingsStore: { userSettings },
     authStore: { isAdminRole },
@@ -44,6 +48,8 @@ const Scheduler = observer(() => {
       getAppointments,
       appointments,
       loadingAppointments,
+      createAppointment,
+      deleteAppointment,
       isAppointmentsLoadedForWeek,
     },
   } = useStore();
@@ -73,42 +79,28 @@ const Scheduler = observer(() => {
     }
   };
 
-  const commitChanges = () => {};
+  const commitChanges = useCallback(
+    ({ added, changed, deleted }: any) => {
+      if (added) {
+        createAppointment(added as Appointment, t);
+      }
 
-  // const commitChanges = useCallback(
-  //   ({ added, changed, deleted }: any) => {
-  //     if (added) {
-  //       const startingAddedId =
-  //         appointments.length > 0
-  //           ? appointments[appointments.length - 1].id + 1
-  //           : 0;
+      // if (changed) {
+      //   setSchedulerAppointments(
+      //     schedulerAppointments.map((appointment) =>
+      //       changed[appointment.id]
+      //         ? { ...appointment, ...changed[appointment.id] }
+      //         : appointment
+      //     )
+      //   );
+      // }
 
-  //       setSchedulerAppointments([
-  //         ...schedulerAppointments,
-  //         { id: startingAddedId, ...added },
-  //       ]);
-  //     }
-
-  //     if (changed) {
-  //       setSchedulerAppointments(
-  //         schedulerAppointments.map((appointment) =>
-  //           changed[appointment.id]
-  //             ? { ...appointment, ...changed[appointment.id] }
-  //             : appointment
-  //         )
-  //       );
-  //     }
-
-  //     if (deleted !== undefined) {
-  //       setSchedulerAppointments(
-  //         schedulerAppointments.filter(
-  //           (appointment) => appointment.id !== deleted
-  //         )
-  //       );
-  //     }
-  //   },
-  //   [setSchedulerAppointments, schedulerAppointments]
-  // );
+      if (deleted) {
+        deleteAppointment(deleted);
+      }
+    },
+    [createAppointment, deleteAppointment, t]
+  );
 
   if (loadingAppointments) {
     return (
@@ -153,6 +145,7 @@ const Scheduler = observer(() => {
         <TodayButton />
         <ConfirmationDialog
           messages={getConfirmationDialogMessages(userSettings.language)}
+          buttonComponent={AppointmentConfirmationButton}
         />
         <Appointments appointmentComponent={CustomAppointment} />
         <AppointmentTooltip
