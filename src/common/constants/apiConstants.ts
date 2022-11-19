@@ -11,4 +11,6 @@ export const USERS_API_URLS = {
 
 export const APPOINTMENTS_API_URLS = {
   getAppointments: "/appointments",
+  createAppointment: "/appointments",
+  deleteAppointment: "/appointments/id",
 };

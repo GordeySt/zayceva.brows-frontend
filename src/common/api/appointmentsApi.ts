@@ -1,7 +1,7 @@
 import axios from "axios";
 import { APPOINTMENTS_API_URLS } from "../constants/apiConstants";
 import { Appointment } from "../models/appointment";
-import { responseBody } from "./baseApi";
+import { requests, responseBody } from "./baseApi";
 
 export const appointmentsApi = {
   getAppointments: (params: URLSearchParams): Promise<Appointment[]> =>
@@ -10,4 +10,8 @@ export const appointmentsApi = {
         params,
       })
       .then(responseBody),
+  createAppointment: (appointment: Appointment) =>
+    requests.post(APPOINTMENTS_API_URLS.createAppointment, appointment),
+  deleteAppointment: (id: string) =>
+    requests.delete(APPOINTMENTS_API_URLS.deleteAppointment + `/${id}`),
 };
