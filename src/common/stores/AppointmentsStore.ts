@@ -6,7 +6,6 @@ import {
   START_DATE_QUERY_NAME,
 } from "../constants/queriesNameConstants";
 import { Appointment } from "../models/appointment";
-import { v4 as uuid } from "uuid";
 import { createService } from "../../pages/services-page/utils/mockServices";
 
 export default class AppointmentsStore {
@@ -36,8 +35,8 @@ export default class AppointmentsStore {
     const firstday = startOfWeek(currentDate);
     const lastday = endOfWeek(currentDate);
     const lastDayFromNextWeek = addDays(lastday, 7);
-
     const params = new URLSearchParams();
+
     params.append(
       START_DATE_QUERY_NAME,
       new Date(firstday.setHours(0, 0, 0, 0)).toLocaleDateString("en")
@@ -56,7 +55,8 @@ export default class AppointmentsStore {
         appointments.forEach((appointment) => {
           appointment.startDate = new Date(appointment.startDate);
           appointment.endDate = new Date(appointment.endDate);
-          this.setNewAppointmentToRegistry(appointment.id!, appointment);
+
+          this.setAppointmentToRegistry(appointment);
         });
       });
     } catch (error) {
@@ -73,7 +73,7 @@ export default class AppointmentsStore {
         .find((t) => t?.title === appointment.title)?.price!;
 
       await appointmentsApi.createAppointment(appointment);
-      this.setNewAppointmentToRegistry(uuid(), appointment);
+      this.setAppointmentToRegistry(appointment);
     } catch (error) {
       console.log(error);
     }
@@ -94,8 +94,32 @@ export default class AppointmentsStore {
     }
   };
 
-  setNewAppointmentToRegistry = (id: string, appointment: Appointment) => {
-    this.appointmentsRegistry.set(id, appointment);
+  editAppointment = async (appointment: any) => {
+    this.setDeleteLoadingAppointments(true);
+
+    const appointmentId = Object.keys(appointment)[0];
+    console.log(appointmentId);
+
+    let appointmentToEdit = this.appointmentsRegistry.get(appointmentId);
+    appointmentToEdit = { ...appointmentToEdit, ...appointment[appointmentId] };
+
+    console.log(appointmentToEdit);
+
+    try {
+      await appointmentsApi.editAppointment(appointmentToEdit as Appointment);
+      runInAction(() => {
+        this.appointmentsRegistry.delete(appointmentId);
+        this.setAppointmentToRegistry(appointmentToEdit);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setDeleteLoadingAppointments(false);
+    }
+  };
+
+  setAppointmentToRegistry = (appointment: Appointment) => {
+    this.appointmentsRegistry.set(appointment.id, appointment);
   };
 
   setDeleteLoadingAppointments = (value: boolean) => {

@@ -14,4 +14,6 @@ export const appointmentsApi = {
     requests.post(APPOINTMENTS_API_URLS.createAppointment, appointment),
   deleteAppointment: (id: string) =>
     requests.delete(APPOINTMENTS_API_URLS.deleteAppointment + `/${id}`),
+  editAppointment: (appointment: Appointment) =>
+    requests.put(APPOINTMENTS_API_URLS.editAppointment, appointment),
 };

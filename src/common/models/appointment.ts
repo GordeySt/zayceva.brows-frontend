@@ -5,5 +5,5 @@ export type Appointment = {
   endDate: Date;
   isBooked?: boolean;
   userId?: string;
-  price: number;
+  price?: number;
 };

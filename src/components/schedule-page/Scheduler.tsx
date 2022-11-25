@@ -16,6 +16,7 @@ import {
   AppointmentForm,
   ConfirmationDialog,
   DragDropProvider,
+  CurrentTimeIndicator,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { Paper, useMediaQuery, useTheme } from "@mui/material";
 import {
@@ -38,6 +39,7 @@ import CustomSpaceLoader from "../common/CustomSpaceLoader";
 import { Appointment } from "../../common/models/appointment";
 import { useTranslation } from "react-i18next";
 import AppointmentConfirmationButton from "./AppointmentConfirmationButton";
+import { v4 as uuid } from "uuid";
 
 const Scheduler = observer(() => {
   const { t } = useTranslation();
@@ -50,6 +52,7 @@ const Scheduler = observer(() => {
       loadingAppointments,
       createAppointment,
       deleteAppointment,
+      editAppointment,
       isAppointmentsLoadedForWeek,
     },
   } = useStore();
@@ -82,24 +85,19 @@ const Scheduler = observer(() => {
   const commitChanges = useCallback(
     ({ added, changed, deleted }: any) => {
       if (added) {
-        createAppointment(added as Appointment, t);
+        const data = { id: uuid(), ...added };
+        createAppointment(data as Appointment, t);
       }
 
-      // if (changed) {
-      //   setSchedulerAppointments(
-      //     schedulerAppointments.map((appointment) =>
-      //       changed[appointment.id]
-      //         ? { ...appointment, ...changed[appointment.id] }
-      //         : appointment
-      //     )
-      //   );
-      // }
+      if (changed) {
+        editAppointment(changed);
+      }
 
       if (deleted) {
         deleteAppointment(deleted);
       }
     },
-    [createAppointment, deleteAppointment, t]
+    [createAppointment, deleteAppointment, editAppointment, t]
   );
 
   if (loadingAppointments) {
@@ -170,6 +168,7 @@ const Scheduler = observer(() => {
           )}
         />
         {!matchesTablets && isAdminRole && <DragDropProvider />}
+        <CurrentTimeIndicator shadePreviousCells shadePreviousAppointments />
       </ReactScheduler>
     </Paper>
   );
