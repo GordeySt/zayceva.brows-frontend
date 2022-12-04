@@ -2,6 +2,27 @@ import { Validators } from "@lemoncode/fonk";
 import { createFinalFormValidation } from "@lemoncode/fonk-final-form";
 import { REQUIRED_PASSWORD_LENGTH } from "../constants/passwordConstants";
 
+export const createEditUserValidationShema = (t: any) => {
+  const validationSchema = {
+    field: {
+      firstName: [
+        {
+          validator: Validators.required.validator,
+          message: t("pages.signUpPage.errors.firstNameRequired"),
+        },
+      ],
+      lastName: [
+        {
+          validator: Validators.required.validator,
+          message: t("pages.signUpPage.errors.lastNameRequired"),
+        },
+      ],
+    },
+  };
+
+  return createFinalFormValidation(validationSchema);
+};
+
 export const createSignUpValidationShema = (t: any) => {
   const validationSchema = {
     field: {

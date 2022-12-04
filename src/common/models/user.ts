@@ -6,9 +6,15 @@ export type AuthUser = {
 export type User = {
   id: string;
   email: string;
-  fisrtName: string;
+  firstName: string;
   lastName: string;
   role: string;
+  phoneNumber: string;
+};
+
+export type UserToEdit = {
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
 };
 

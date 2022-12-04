@@ -102,6 +102,9 @@
     },
     "schedulePage": {
       "pageTitle": "Расписание"
+    },
+    "profilePage": {
+      "pageTitle": "Профиль"
     }
   },
   "common": {

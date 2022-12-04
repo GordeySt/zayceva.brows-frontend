@@ -38,7 +38,6 @@ import { observer } from "mobx-react-lite";
 import CustomSpaceLoader from "../common/CustomSpaceLoader";
 import { Appointment } from "../../common/models/appointment";
 import { useTranslation } from "react-i18next";
-import AppointmentConfirmationButton from "./AppointmentConfirmationButton";
 import { v4 as uuid } from "uuid";
 
 const Scheduler = observer(() => {
@@ -143,7 +142,6 @@ const Scheduler = observer(() => {
         <TodayButton />
         <ConfirmationDialog
           messages={getConfirmationDialogMessages(userSettings.language)}
-          buttonComponent={AppointmentConfirmationButton}
         />
         <Appointments appointmentComponent={CustomAppointment} />
         <AppointmentTooltip

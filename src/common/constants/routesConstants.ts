@@ -10,5 +10,6 @@ export const CONFIRMED_EMAIL_ROUTE = "/confirmed-email";
 export const TIPS_ROUTE = "/tips";
 export const SERVICES_ROUTE = "/services";
 export const SERVICES_SCHEDULE_ROUTE = "/services/schedule";
+export const PROFILE_ROUTE = "/profile";
 export const NOT_FOUND_ROUTE = "/notfound";
 export const DEFAULT_ROUTE = "/";

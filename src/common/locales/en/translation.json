@@ -102,6 +102,9 @@
     },
     "schedulePage": {
       "pageTitle": "Schedule"
+    },
+    "profilePage": {
+      "pageTitle": "Profile"
     }
   },
   "common": {

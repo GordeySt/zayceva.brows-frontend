@@ -10,11 +10,16 @@ import { createService } from "../../pages/services-page/utils/mockServices";
 
 export default class AppointmentsStore {
   appointmentsRegistry = new Map();
+  currentUserBookedAppointmentsRegistry = new Map();
   loadingAppointments = false;
-  loadingDeleteAppointment = false;
+  loadingBookAppointment = false;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get currentUserBookedAppointments(): Appointment[] {
+    return Array.from(this.currentUserBookedAppointmentsRegistry.values());
   }
 
   get appointments(): Appointment[] {
@@ -80,8 +85,6 @@ export default class AppointmentsStore {
   };
 
   deleteAppointment = async (id: string) => {
-    this.setDeleteLoadingAppointments(true);
-
     try {
       await appointmentsApi.deleteAppointment(id);
       runInAction(() => {
@@ -90,20 +93,15 @@ export default class AppointmentsStore {
     } catch (error) {
       console.log(error);
     } finally {
-      this.setDeleteLoadingAppointments(false);
     }
   };
 
   editAppointment = async (appointment: any) => {
-    this.setDeleteLoadingAppointments(true);
-
     const appointmentId = Object.keys(appointment)[0];
     console.log(appointmentId);
 
     let appointmentToEdit = this.appointmentsRegistry.get(appointmentId);
     appointmentToEdit = { ...appointmentToEdit, ...appointment[appointmentId] };
-
-    console.log(appointmentToEdit);
 
     try {
       await appointmentsApi.editAppointment(appointmentToEdit as Appointment);
@@ -114,16 +112,64 @@ export default class AppointmentsStore {
     } catch (error) {
       console.log(error);
     } finally {
-      this.setDeleteLoadingAppointments(false);
     }
+  };
+
+  bookAppointment = async (id: string) => {
+    this.setBookLoadingAppointments(true);
+
+    try {
+      await appointmentsApi.bookAppointment(id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setBookLoadingAppointments(false);
+    }
+  };
+
+  unbookAppointment = async (id: string) => {
+    this.setBookLoadingAppointments(true);
+
+    try {
+      await appointmentsApi.unbookAppointment(id);
+      runInAction(() => {
+        this.currentUserBookedAppointmentsRegistry.delete(id);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setBookLoadingAppointments(false);
+    }
+  };
+
+  getCurrentUserBookedAppointments = async () => {
+    try {
+      const appointments =
+        await appointmentsApi.getCurrentUserBookedAppointments();
+
+      runInAction(() => {
+        appointments.forEach((appointment) => {
+          appointment.startDate = new Date(appointment.startDate);
+          appointment.endDate = new Date(appointment.endDate);
+
+          this.setCurrentUserBookedAppointmentToRegistry(appointment);
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  setCurrentUserBookedAppointmentToRegistry = (appointment: Appointment) => {
+    this.currentUserBookedAppointmentsRegistry.set(appointment.id, appointment);
   };
 
   setAppointmentToRegistry = (appointment: Appointment) => {
     this.appointmentsRegistry.set(appointment.id, appointment);
   };
 
-  setDeleteLoadingAppointments = (value: boolean) => {
-    this.loadingDeleteAppointment = value;
+  setBookLoadingAppointments = (value: boolean) => {
+    this.loadingBookAppointment = value;
   };
 
   setLoadingAppointments = (value: boolean) => {

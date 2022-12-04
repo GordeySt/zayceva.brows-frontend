@@ -7,7 +7,7 @@ import {
   DEFAULT_ROUTE,
 } from "../constants/routesConstants";
 import { ILoginFormValues } from "../../components/login-page/LoginForm";
-import { AuthUser, Role, User } from "../models/user";
+import { AuthUser, Role, User, UserToEdit } from "../models/user";
 import { store } from "./Store";
 import { usersApi } from "../api/usersApi";
 
@@ -70,6 +70,14 @@ export default class AuthStore {
       console.log(error);
     } finally {
       this.setLoadingUser(false);
+    }
+  };
+
+  editUser = async (user: UserToEdit) => {
+    try {
+      await usersApi.editCurrentUser(user);
+    } catch (error) {
+      console.log(error);
     }
   };
 

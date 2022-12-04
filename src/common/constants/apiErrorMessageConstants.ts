@@ -1,9 +1,9 @@
 export const BAD_REQUEST_MESSAGES = {
-  userAlreadyExists: "ExistedUser",
+  userAlreadyExists: "ExistedItem",
 };
 
 export const NOT_FOUND_MESSAGES = {
-  notFoundUser: "NotFoundUser",
+  notFoundUser: "NotFoundItem",
 };
 
 export const UNAUTHORIZED_MESSAGES = {

@@ -23,15 +23,16 @@ import {
   SETTINGS_MENU_ROUTE,
   SIGN_UP_ROUTE,
   TIPS_ROUTE,
-  NOT_FOUND_ROUTE,
+  PROFILE_ROUTE,
 } from "../constants/routesConstants";
 import ServicesPage from "../../pages/services-page/ServicesPage";
 import SchedulePage from "../../pages/schedule-page/SchedulePage";
 import { Role } from "../models/user";
 import NotFound from "../../components/common/NotFound";
+import ProfilePage from "../../pages/profile-page/ProfilePage";
 
 export type Route = {
-  path: string | string[];
+  path?: string | string[];
   component: () => JSX.Element;
   showBottomBar?: boolean;
   showGoBackButton?: boolean;
@@ -125,7 +126,11 @@ export const routes: Route[] = [
     showGoBackButton: true,
   },
   {
-    path: NOT_FOUND_ROUTE,
+    path: PROFILE_ROUTE,
+    component: ProfilePage,
+    titleKey: "pages.profilePage.pageTitle",
+  },
+  {
     component: NotFound,
     titleKey: "",
     showGoBackButton: true,

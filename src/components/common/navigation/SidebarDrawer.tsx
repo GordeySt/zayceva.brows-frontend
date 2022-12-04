@@ -14,7 +14,10 @@ import { makeStyles } from "@mui/styles";
 import { icons, menuItems } from "./utils/menuItems";
 import { alpha } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
-import { ABOUT_ROUTE } from "../../../common/constants/routesConstants";
+import {
+  ABOUT_ROUTE,
+  LOGIN_ROUTE,
+} from "../../../common/constants/routesConstants";
 import { useTranslation } from "react-i18next";
 import { MAX_TABLET_WIDTH } from "../../../common/constants/adaptiveConstants";
 import { useStore } from "../../../common/stores/Store";
@@ -168,6 +171,14 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
     isLoggedIn ? signOut() : history.push(menuItems[0].to);
   };
 
+  const handleMainMenuItemsClick = (to: string, shouldBeLoggedIn?: boolean) => {
+    shouldBeLoggedIn && isLoggedIn
+      ? history.push(to)
+      : history.push(LOGIN_ROUTE);
+
+    !shouldBeLoggedIn && history.push(to);
+  };
+
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader style={{ minHeight: "55px" }}>
@@ -195,26 +206,28 @@ const SidebarDrawer = ({ open, handleDrawerClose }: IProps) => {
             }
           />
         </ListItem>
-        {menuItems.slice(1, 5).map(({ labelKey, icon, to }, i) => {
-          const Icon = icons[icon];
+        {menuItems
+          .slice(1, 5)
+          .map(({ labelKey, icon, to, shouldBeLoggedIn }, i) => {
+            const Icon = icons[icon];
 
-          return (
-            <ListItem
-              key={i}
-              button
-              onClick={() => history.push(to)}
-              className={
-                classes.menuListItem +
-                (location.pathname === to ? " " + classes.active : "")
-              }
-            >
-              <ListItemIcon className={classes.menuListItemIcon}>
-                <Icon className={classes.menuIcon} fontSize="medium" />
-              </ListItemIcon>
-              <ListItemText primary={t(`menu.${labelKey}`)} />
-            </ListItem>
-          );
-        })}
+            return (
+              <ListItem
+                key={i}
+                button
+                onClick={() => handleMainMenuItemsClick(to, shouldBeLoggedIn)}
+                className={
+                  classes.menuListItem +
+                  (location.pathname === to ? " " + classes.active : "")
+                }
+              >
+                <ListItemIcon className={classes.menuListItemIcon}>
+                  <Icon className={classes.menuIcon} fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText primary={t(`menu.${labelKey}`)} />
+              </ListItem>
+            );
+          })}
       </List>
       <Divider className={classes.divider} />
       <List style={{ position: "absolute", bottom: 0, width: "100%" }}>

@@ -9,6 +9,7 @@ import {
 import {
   ABOUT_ROUTE,
   LOGIN_ROUTE,
+  PROFILE_ROUTE,
   SERVICES_ROUTE,
   SETTINGS_MENU_ROUTE,
   TIPS_ROUTE,
@@ -27,6 +28,7 @@ interface IMenuItem {
   labelKey: string;
   icon: keyof typeof icons;
   to: string;
+  shouldBeLoggedIn?: boolean;
 }
 
 export const menuItems: IMenuItem[] = [
@@ -38,7 +40,8 @@ export const menuItems: IMenuItem[] = [
   {
     labelKey: "profileMenuItemText",
     icon: "PermIdentity",
-    to: "/",
+    to: PROFILE_ROUTE,
+    shouldBeLoggedIn: true,
   },
   {
     labelKey: "servicesMenuItemText",
